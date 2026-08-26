@@ -1521,26 +1521,37 @@ function modalNext() {
       return;
     }
 
-    // POST to Google Sheets
-    const formData = new URLSearchParams();
+    // POST to Google Sheets (Bulletproof hidden form method)
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GOOGLE_SCRIPT_URL;
+    form.target = 'hidden_iframe';
+
     for (const key in data) {
-      formData.append(key, data[key]);
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = data[key];
+      form.appendChild(input);
+    }
+    
+    if (!document.getElementById('hidden_iframe')) {
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.id = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
     }
 
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: formData.toString()
-    }).then(() => {
+    document.body.appendChild(form);
+    form.submit();
+    
+    // Proceed immediately (assuming success) since form post won't return a readable response across domains anyway
+    setTimeout(() => {
       showSuccessStep(data.planInterest);
       btnNext.disabled = false;
-    }).catch(err => {
-      console.error(err);
-      alert('Error saving data, but proceeding to checkout.');
-      showSuccessStep(data.planInterest);
-      btnNext.disabled = false;
-    });
+      document.body.removeChild(form);
+    }, 800);
   }
 }
 
