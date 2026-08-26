@@ -19,41 +19,9 @@
 
 > ⚠️ **We cannot start your itinerary until we receive your trip details.**
 
-Please email the following information to **hello@trueroute.world**
+Please click the link below to fill out your intake form. It takes about 5 minutes, and helps us tailor the perfect itinerary for your family.
 
-**Subject line:** `TrueRoute Order — [Your Name] — [Destination]`
-*(e.g. TrueRoute Order — Sarah — Rome & Tuscany)*
-
-### Information to Include:
-
-**Trip Basics**
-- Travel start date:
-- Travel end date:
-- Destination(s) in order of visit (e.g. Rome → Florence → Tuscany):
-- Your package: *(Weekend / Full Week / Extended / Custom)*
-
-**Your Travel Group** *(most important — shapes everything)*
-- List every traveler's age and any mobility notes:
-  - Traveler 1: Age ___ | Notes (e.g. bad knees, stroller, none):
-  - Traveler 2: Age ___ | Notes:
-  - Traveler 3: Age ___ | Notes:
-  - Traveler 4: Age ___ | Notes:
-  - Traveler 5: Age ___ | Notes:
-  - *(add more if needed)*
-
-**Preferences**
-- Interests (tick all that apply): History & museums / Food & cuisine / Nature / Art & culture / Shopping / Beach / Adventure
-- Daily pace: Relaxed (2–3 activities/day) / Balanced / Full days (see as much as possible)
-
-**Budget & Restrictions**
-- Daily budget per person (excluding accommodation): $___
-- Accommodation style: Hotel / Airbnb / Mix
-- Dietary restrictions or allergies:
-- Must-do activities:
-- Hard avoids:
-
-**Anything else we should know?**
-*(special occasions, fears, previous trips, etc.)*
+👉 **[Link to Intake Form - To Be Added]**
 
 ---
 
