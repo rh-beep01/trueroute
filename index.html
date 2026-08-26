@@ -337,6 +337,7 @@
     }
     .pass-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(15,23,42,0.10); }
   </style>
+  <script src="https://gumroad.com/js/gumroad.js"></script>
 </head>
 <body>
 
@@ -370,7 +371,7 @@
     </nav>
 
     <div class="flex items-center gap-3">
-      <button onclick="triggerConfettiAndModal()" class="btn-primary text-sm hidden sm:inline-block">Build Our Family Itinerary</button>
+      <button onclick="window.location.href='#pricing'" class="btn-primary text-sm hidden sm:inline-block">Build Our Family Itinerary</button>
       <button id="menu-toggle" class="lg:hidden p-2 rounded-lg border border-canvas-border bg-white" style="color:#0F172A;" aria-label="Open menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
@@ -387,7 +388,7 @@
     <a href="#pricing"     onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Pricing</a>
     <a href="#sample"      onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Sample Itinerary</a>
     <a href="#faq"         onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">FAQ</a>
-    <button onclick="triggerConfettiAndModal(); closeMobileNav();" class="btn-primary w-full text-center py-3 mt-2">Build Our Family Itinerary</button>
+    <button onclick="window.location.href='#pricing'; closeMobileNav();" class="btn-primary w-full text-center py-3 mt-2">Build Our Family Itinerary</button>
   </nav>
 </header>
 
@@ -431,7 +432,7 @@
       </p>
 
       <div class="flex flex-wrap gap-3 mb-10">
-        <button onclick="triggerConfettiAndModal()" id="hero-cta-primary" class="btn-primary text-base py-4 px-8">
+        <button onclick="window.location.href='#pricing'" id="hero-cta-primary" class="btn-primary text-base py-4 px-8">
           Build Our Family Itinerary — From $49
         </button>
         <a href="#sample" id="hero-cta-secondary" class="btn-secondary text-base py-4 px-8">
@@ -846,7 +847,7 @@
     </div>
 
     <div class="text-center mt-10 observe-me">
-      <button onclick="triggerConfettiAndModal()" class="btn-primary text-base py-4 px-10">Build Our Family Itinerary →</button>
+      <button onclick="window.location.href='#pricing'" class="btn-primary text-base py-4 px-10">Build Our Family Itinerary →</button>
       <p class="text-sm mt-3" style="color:#94A3B8;">Full plan includes Google Maps links, transit guides, and age-group packing lists.</p>
     </div>
   </div>
@@ -888,7 +889,7 @@
           <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Google Maps Integration</li>
           <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Age-Group Packing Lists</li>
         </ul>
-        <a href="https://trueroute.gumroad.com/l/family-itinerary" target="_blank" rel="noopener" id="buy-weekend" class="btn-secondary w-full text-center block py-3.5">Get Started — $49</a>
+        <a href="https://trueroute.gumroad.com/l/family-itinerary" data-gumroad-overlay-checkout="true" target="_blank" rel="noopener" id="buy-weekend" class="btn-secondary w-full text-center block py-3.5">Get Started — $49</a>
       </div>
 
       <!-- Full Week - POPULAR -->
@@ -912,7 +913,7 @@
           <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Rainy-Day Plans (All 7 Days)</li>
           <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Age-Group Packing Lists</li>
         </ul>
-        <a href="https://trueroute.gumroad.com/l/family-itinerary" target="_blank" rel="noopener" id="buy-week" class="btn-primary w-full text-center block py-3.5">Get Started — $99</a>
+        <a href="https://trueroute.gumroad.com/l/family-itinerary" data-gumroad-overlay-checkout="true" target="_blank" rel="noopener" id="buy-week" class="btn-primary w-full text-center block py-3.5">Get Started — $99</a>
       </div>
 
       <!-- Extended Trip -->
@@ -935,7 +936,7 @@
           <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority Support</li>
           <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 Free Revision Included</li>
         </ul>
-        <a href="https://trueroute.gumroad.com/l/family-itinerary" target="_blank" rel="noopener" id="buy-complete" class="btn-navy w-full text-center block py-3.5">Get Started — $149</a>
+        <a href="https://trueroute.gumroad.com/l/family-itinerary" data-gumroad-overlay-checkout="true" target="_blank" rel="noopener" id="buy-complete" class="btn-navy w-full text-center block py-3.5">Get Started — $149</a>
       </div>
 
       <!-- Custom -->
@@ -1109,7 +1110,7 @@
     </h2>
     <p class="handwritten text-2xl mb-8" style="color:#DFB15B; display:inline-block;">"Every generation. Every memory. Zero stress."</p>
     <div class="flex flex-wrap gap-4 justify-center mt-6">
-      <button onclick="triggerConfettiAndModal()" class="btn-primary text-base py-4 px-10">
+      <button onclick="window.location.href='#pricing'" class="btn-primary text-base py-4 px-10">
         Build Our Family Itinerary — From $49
       </button>
       <a href="#pricing" class="text-base py-4 px-8 rounded-xl font-bold transition-all" style="border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);font-family:'Plus Jakarta Sans',sans-serif;">
@@ -1179,179 +1180,9 @@
 
 
 <!-- ══════════════════════════════════════════════
-     INTAKE MODAL
-══════════════════════════════════════════════ -->
-<div id="intake-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal-card mx-4">
-    <!-- Header -->
-    <div class="p-6 border-b" style="border-color:#F1EFE7;">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h2 id="modal-title" class="font-display font-bold text-lg" style="color:#0F172A;">Build Your Family Itinerary</h2>
-          <p class="text-sm mt-0.5" id="modal-subtitle" style="color:#94A3B8;">Step 1 of 4 — Where are you headed?</p>
-        </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style="background:#F1F5F9;color:#64748B;" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="flex gap-2">
-        <div class="step-dot active" id="dot-1"></div>
-        <div class="step-dot" id="dot-2"></div>
-        <div class="step-dot" id="dot-3"></div>
-        <div class="step-dot" id="dot-4"></div>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="p-6">
-
-      <!-- Step 1 -->
-      <div id="modal-step-1" class="modal-step">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Where are you heading?</h3>
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Primary Destination</label>
-            <select id="dest-primary" class="form-input">
-              <option value="">Select a destination…</option>
-              <option>🇮🇹 Italy — Rome</option><option>🇮🇹 Italy — Florence</option>
-              <option>🇮🇹 Italy — Venice</option><option>🇮🇹 Italy — Amalfi Coast</option>
-              <option>🇬🇧 United Kingdom — London</option><option>🇬🇧 United Kingdom — Edinburgh</option>
-              <option>🇵🇹 Portugal — Lisbon</option><option>🇵🇹 Portugal — Porto</option>
-              <option>🇪🇸 Spain — Barcelona</option><option>🇪🇸 Spain — Seville</option>
-              <option>🇬🇷 Greece — Athens</option><option>🇬🇷 Greece — Santorini</option>
-              <option>Other (specify below)</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Second City? (optional)</label>
-            <input id="dest-secondary" type="text" class="form-input" placeholder="e.g. Florence, if doing Rome + Florence" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Which Plan?</label>
-            <select id="plan-interest" class="form-input">
-              <option value="">Select a plan…</option>
-              <option>Weekend Getaway — $49 (3 days, 1 city)</option>
-              <option>Full Week Plan — $99 (7 days, up to 2 cities)</option>
-              <option>Complete Family Package — $149 (10 days, multi-city)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div id="modal-step-2" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">When are you travelling?</h3>
-        <div class="space-y-3">
-          <div class="grid grid-cols-2 gap-3">
-            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Departure Date</label><input id="date-start" type="date" class="form-input" /></div>
-            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Return Date</label><input id="date-end" type="date" class="form-input" /></div>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Pace Preference</label>
-            <select id="pace" class="form-input">
-              <option value="">Select pace…</option>
-              <option>Relaxed — max 4,000 steps/day, long lunches</option>
-              <option>Moderate — 5,000–6,500 steps/day, balanced</option>
-              <option>Active — up to 8,000 steps, energetic parents</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Accommodation Area (if known)</label>
-            <input id="accommodation" type="text" class="form-input" placeholder="e.g. Centro Storico, Trastevere…" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div id="modal-step-3" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Tell us about your travelling party</h3>
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Children (comma-separated)</label>
-            <input id="ages-kids" type="text" class="form-input" placeholder="e.g. 2, 4, 9" />
-            <p class="text-xs mt-1" style="color:#CBD5E1;">Include all under-18 travellers</p>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Adults &amp; Seniors</label>
-            <input id="ages-adults" type="text" class="form-input" placeholder="e.g. 35, 37, 68, 71" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Total Travellers</label>
-            <select id="traveller-count" class="form-input">
-              <option>2–3 people</option><option>4–5 people</option>
-              <option>6–8 people</option><option>9+ people (large family)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-      <div id="modal-step-4" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Any accessibility or dietary requirements?</h3>
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs font-semibold mb-2 block" style="color:#64748B;">Mobility Requirements</label>
-            <div class="space-y-2">
-              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-walker" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Cane or walker in use</span></label>
-              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-wheelchair" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Wheelchair required</span></label>
-              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-stairs" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Must avoid stairs entirely</span></label>
-              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-stroller" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Stroller / pram for toddler</span></label>
-            </div>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Dietary Restrictions (optional)</label>
-            <input id="dietary" type="text" class="form-input" placeholder="e.g. vegetarian, nut allergy, halal…" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Anything else we should know?</label>
-            <textarea id="notes" class="form-input resize-none" rows="3" placeholder="e.g. Grandad has a hip replacement, kids dislike museums, we love food markets…"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 5: Success -->
-      <div id="modal-step-5" class="modal-step hidden text-center py-6">
-        <div class="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-5" style="background:#E8F2EC;">✅</div>
-        <h3 class="font-display font-bold text-xl mb-2" style="color:#0F172A;">You're all set!</h3>
-        <p class="handwritten text-xl mb-4" style="color:#E05A47;">"Your adventure begins now."</p>
-        <p class="text-sm mb-6 leading-relaxed" style="color:#64748B;">We've received your details. Head to checkout — your custom itinerary will be underway within 24 hours of payment.</p>
-        <a href="https://trueroute.gumroad.com/l/family-itinerary" target="_blank" rel="noopener" class="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
-        <button onclick="closeModal()" class="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
-      </div>
-    </div>
-
-    <!-- Footer nav -->
-    <div class="p-5 border-t flex justify-between items-center" id="modal-nav" style="border-color:#F1EFE7;background:#FAFAF7;">
-      <button onclick="modalBack()" id="btn-back" class="btn-secondary text-sm py-2.5 px-6 hidden">← Back</button>
-      <div class="flex-1"></div>
-      <button onclick="modalNext()" id="btn-next" class="btn-primary text-sm py-2.5 px-8">Continue →</button>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════
      JAVASCRIPT
 ══════════════════════════════════════════════ -->
 <script>
-// ── Confetti + Modal ──────────────────────────────────────────────
-function triggerConfettiAndModal() {
-  confetti({
-    particleCount: 120,
-    spread: 70,
-    origin: { y: 0.5 },
-    colors: ['#E05A47', '#DFB15B', '#2E6F40', '#0F172A', '#F1EFE7'],
-    scalar: 1.1,
-    zIndex: 3000,
-  });
-  setTimeout(() => {
-    confetti({ particleCount: 50, spread: 110, origin: { y: 0.4, x: 0.15 }, colors: ['#E05A47','#DFB15B'], zIndex: 3000 });
-    confetti({ particleCount: 50, spread: 110, origin: { y: 0.4, x: 0.85 }, colors: ['#2E6F40','#DFB15B'], zIndex: 3000 });
-  }, 250);
-  setTimeout(openModal, 500);
-}
-
-
 // ── Header scroll ──────────────────────────────────────────────
 const header = document.getElementById('main-header');
 window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
@@ -1417,76 +1248,6 @@ document.querySelectorAll('.faq-trigger').forEach(btn => {
     }
   });
 });
-
-
-// ── Modal logic ────────────────────────────────────────────────
-let currentStep = 1;
-const totalSteps = 4;
-
-function openModal() {
-  currentStep = 1;
-  renderStep();
-  document.getElementById('intake-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('intake-modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('intake-modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('intake-modal')) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-function renderStep() {
-  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
-  const stepEl = document.getElementById('modal-step-' + currentStep);
-  if (stepEl) stepEl.classList.remove('hidden');
-
-  const subtitles = [
-    'Step 1 of 4 — Where are you headed?',
-    'Step 2 of 4 — When are you travelling?',
-    'Step 3 of 4 — Tell us about your party',
-    'Step 4 of 4 — Accessibility &amp; requirements',
-  ];
-  const subtitleEl = document.getElementById('modal-subtitle');
-  if (currentStep <= totalSteps) subtitleEl.innerHTML = subtitles[currentStep - 1];
-
-  for (let i = 1; i <= totalSteps; i++) {
-    const dot = document.getElementById('dot-' + i);
-    dot.classList.remove('active', 'done');
-    if (i < currentStep)      dot.classList.add('done');
-    else if (i === currentStep) dot.classList.add('active');
-  }
-
-  const btnBack  = document.getElementById('btn-back');
-  const btnNext  = document.getElementById('btn-next');
-  const modalNav = document.getElementById('modal-nav');
-  if (currentStep === totalSteps + 1) { modalNav.classList.add('hidden'); }
-  else {
-    modalNav.classList.remove('hidden');
-    btnBack.classList.toggle('hidden', currentStep === 1);
-    btnNext.textContent = currentStep === totalSteps ? 'Submit →' : 'Continue →';
-  }
-}
-
-function modalNext() {
-  if (currentStep < totalSteps) { currentStep++; renderStep(); }
-  else if (currentStep === totalSteps) {
-    currentStep = totalSteps + 1;
-    document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
-    document.getElementById('modal-step-5').classList.remove('hidden');
-    document.getElementById('modal-nav').classList.add('hidden');
-    document.getElementById('modal-subtitle').textContent = 'You\'re all set!';
-    confetti({
-      particleCount: 160, spread: 90,
-      origin: { y: 0.3 },
-      colors: ['#E05A47','#DFB15B','#2E6F40','#FFFFFF'],
-      zIndex: 3000,
-    });
-  }
-}
-function modalBack() { if (currentStep > 1) { currentStep--; renderStep(); } }
 
 
 // ── Smooth scroll ──────────────────────────────────────────────
