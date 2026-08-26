@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueRoute — Multi-Generational Family Travel, Perfected.</title>
+  <meta name="description" content="Custom vacation itineraries engineered for toddlers, parents, and grandparents. Nap windows protected, step-free routes confirmed, family-friendly dining guaranteed. From $49." />
+
+  <!-- Fonts: Plus Jakarta Sans + Kalam -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- canvas-confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:      { DEFAULT: '#0F172A', dark: '#1E293B', tint: '#F1F5F9' },
+            terra:     { DEFAULT: '#E05A47', dark: '#C84B39', tint: '#FDF2F0' },
+            sage:      { DEFAULT: '#2E6F40', tint: '#E8F2EC' },
+            sand:      { DEFAULT: '#DFB15B', tint: '#FDF8ED' },
+            canvas:    { DEFAULT: '#FAFAF7', border: '#F1EFE7' },
+          },
+          fontFamily: {
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body:    ['"Plus Jakarta Sans"', 'sans-serif'],
+            hand:    ['Kalam', 'cursive'],
+          },
+          boxShadow: {
+            sm:   '0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04)',
+            md:   '0 4px 16px rgba(15,23,42,0.10), 0 2px 4px rgba(15,23,42,0.06)',
+            lg:   '0 10px 32px rgba(15,23,42,0.12)',
+            glow: '0 0 0 3px rgba(224,90,71,0.25)',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #FAFAF7;
+      color: #0F172A;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ───────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F1EFE7; }
+    ::-webkit-scrollbar-thumb { background: #E05A47; border-radius: 3px; }
+
+    /* ── Keyframes ───────────────────────── */
+    @keyframes fadeInUp    { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:none; } }
+    @keyframes fadeInRight { from { opacity:0; transform:translateX(32px); } to { opacity:1; transform:none; } }
+    @keyframes floatA  { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-10px);} }
+    @keyframes floatB  { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-8px);} }
+    @keyframes floatC  { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-13px);} }
+    @keyframes floatD  { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-6px);} }
+    @keyframes floatE  { 0%,100%{transform:translateY(0);}  50%{transform:translateY(-11px);} }
+    @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+    @keyframes bounce  { 0%,100%{transform:translateY(0) translateX(-50%);} 50%{transform:translateY(9px) translateX(-50%);} }
+    @keyframes shimmer { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
+    @keyframes waveBg  { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
+    @keyframes popIn   { 0%{transform:scale(0.8); opacity:0;} 80%{transform:scale(1.03);} 100%{transform:scale(1); opacity:1;} }
+
+    /* ── Hero ────────────────────────────── */
+    .hero-bg {
+      background: linear-gradient(145deg, #FAFAF7 0%, #FDF8ED 40%, #F1F5F9 75%, #FAFAF7 100%);
+      background-size: 400% 400%;
+      animation: waveBg 14s ease infinite;
+    }
+
+    /* ── Shimmer text ────────────────────── */
+    .shimmer-text {
+      background: linear-gradient(90deg, #E05A47, #DFB15B, #2E6F40, #E05A47);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 5s linear infinite;
+    }
+
+    /* ── Header ──────────────────────────── */
+    #main-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    #main-header.scrolled {
+      background: rgba(250,250,247,0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 #F1EFE7, 0 4px 20px rgba(15,23,42,0.07);
+    }
+
+    .nav-link { position: relative; font-weight: 600; color: #1E293B; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:2px; background:#E05A47; border-radius:99px; transform:scaleX(0); transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    .nav-link:hover::after { transform:scaleX(1); }
+    .nav-link:hover { color: #E05A47; }
+
+    /* ── Floating pill tags ──────────────── */
+    .hero-pill {
+      position: absolute;
+      background: #FFFFFF;
+      border-radius: 99px;
+      padding: 8px 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.01em;
+      color: #1E293B;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 2px 12px rgba(15,23,42,0.09);
+      cursor: default;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 20;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .hero-pill:hover { box-shadow: 0 6px 24px rgba(15,23,42,0.14); transform: translateY(-3px) !important; }
+    .hero-pill-1 { animation: floatA 4.5s ease-in-out infinite; top: 16%; right: 4%; }
+    .hero-pill-2 { animation: floatB 4s ease-in-out infinite 0.6s; top: 30%; right: 9%; }
+    .hero-pill-3 { animation: floatC 5.2s ease-in-out infinite 1.1s; top: 57%; right: 3%; }
+    .hero-pill-4 { animation: floatD 4.8s ease-in-out infinite 0.3s; top: 73%; right: 13%; }
+    .hero-pill-5 { animation: floatE 3.9s ease-in-out infinite 0.9s; top: 22%; left: 3%; }
+
+    /* ── Bounce scroll indicator ─────────── */
+    .bounce-anim { animation: bounce 1.8s ease-in-out infinite; position: absolute; bottom: 24px; left: 50%; }
+
+    /* ── Cards ───────────────────────────── */
+    .card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(15,23,42,0.10); }
+
+    /* ── Tilt card ───────────────────────── */
+    .tilt-card { transform-style: preserve-3d; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+
+    /* ── Pricing cards ───────────────────── */
+    .pricing-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 4px rgba(15,23,42,0.06);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    }
+    .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(15,23,42,0.12); }
+    .pricing-popular {
+      border: 2px solid #E05A47;
+      box-shadow: 0 0 0 4px rgba(224,90,71,0.10), 0 8px 32px rgba(224,90,71,0.15);
+    }
+    .pricing-popular:hover { box-shadow: 0 0 0 4px rgba(224,90,71,0.15), 0 20px 56px rgba(224,90,71,0.20); }
+
+    /* ── Compare cards ───────────────────── */
+    .compare-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .compare-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(15,23,42,0.10); }
+
+    /* ── FAQ ─────────────────────────────── */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer.open { max-height: 420px; }
+    .faq-icon { transition: transform 0.3s ease; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-item {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.05);
+    }
+
+    /* ── Marquee ─────────────────────────── */
+    .marquee-track { animation: marquee 22s linear infinite; display:flex; width:max-content; gap:1.25rem; align-items:center; }
+    .marquee-wrap { overflow: hidden; }
+    .dest-tag {
+      background: #FFFFFF;
+      border: 1px solid #F1EFE7;
+      color: #1E293B;
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-block;
+      box-shadow: 0 1px 4px rgba(15,23,42,0.06);
+    }
+
+    /* ── Buttons ─────────────────────────── */
+    .btn-primary {
+      background: #E05A47;
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 14px 30px;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(224,90,71,0.28);
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: #C84B39; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,75,57,0.35); }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid #0F172A;
+      color: #0F172A;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 13px 28px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .btn-secondary:hover { background: #0F172A; color: #FFFFFF; transform: translateY(-2px); }
+
+    .btn-navy {
+      background: #0F172A;
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 14px 28px;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(15,23,42,0.20);
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+    }
+    .btn-navy:hover { background: #1E293B; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,23,42,0.28); }
+
+    /* ── Section divider ─────────────────── */
+    .section-divider { height: 1px; background: #F1EFE7; margin: 0 auto; max-width: 960px; }
+
+    /* ── Handwritten annotation ──────────── */
+    .handwritten { font-family: 'Kalam', cursive; }
+
+    /* ── Observe animate ─────────────────── */
+    .observe-me { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .observe-me.visible { opacity: 1; transform: none; }
+
+    /* ── Modal ───────────────────────────── */
+    #intake-modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(15,23,42,0.45); backdrop-filter:blur(8px); align-items:center; justify-content:center; }
+    #intake-modal.open { display:flex; }
+    .modal-card { max-width:560px; width:94%; animation: popIn 0.4s ease; background: #FFFFFF; border-radius: 24px; box-shadow: 0 24px 80px rgba(15,23,42,0.22); overflow: hidden; }
+
+    .step-dot { width:9px; height:9px; border-radius:50%; background:#E2E8F0; transition:all 0.3s; }
+    .step-dot.active { background:#E05A47; box-shadow:0 0 0 3px rgba(224,90,71,0.2); }
+    .step-dot.done   { background:#2E6F40; }
+
+    .form-input {
+      background: #FAFAF7;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: #0F172A;
+      width: 100%;
+      font-size: 0.92rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      outline: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .form-input:focus { border-color: #E05A47; box-shadow: 0 0 0 3px rgba(224,90,71,0.12); }
+    .form-input::placeholder { color: #94A3B8; }
+    .form-input option { background: white; color: #0F172A; }
+
+    /* ── Stat cards ──────────────────────── */
+    .stat-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 4px rgba(15,23,42,0.06);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(15,23,42,0.10); }
+
+    /* ── Globe canvas ────────────────────── */
+    #globe-canvas { position: absolute; inset: 0; pointer-events: auto; cursor: grab; }
+    #globe-canvas:active { cursor: grabbing; }
+
+    /* ── Responsive ──────────────────────── */
+    @media (max-width: 768px) {
+      .hero-pill { display: none; }
+    }
+
+    /* ── Time pill ───────────────────────── */
+    .time-pill {
+      display: inline-block;
+      border-radius: 99px;
+      padding: 3px 10px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Pass card ───────────────────────── */
+    .pass-card {
+      background: #FFFFFF;
+      border-radius: 18px;
+      border: 1px solid #F1EFE7;
+      box-shadow: 0 1px 4px rgba(15,23,42,0.06);
+      padding: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .pass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: #2E6F40;
+      border-radius: 4px 0 0 4px;
+    }
+    .pass-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(15,23,42,0.10); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     STICKY HEADER
+══════════════════════════════════════════════ -->
+<header id="main-header" class="py-4 px-6">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#0F172A;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DFB15B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 21 15.44"/>
+        </svg>
+      </div>
+      <div>
+        <span class="font-display font-bold text-lg leading-none" style="color:#0F172A;">TrueRoute</span>
+        <span class="block text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style="color:#2E6F40;">Ages 3 to 75</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-7">
+      <a href="#why-us"       class="nav-link text-sm">Why Us</a>
+      <a href="#four-pass"    class="nav-link text-sm">Verification</a>
+      <a href="#fork-merge"   class="nav-link text-sm">Fork &amp; Merge</a>
+      <a href="#pricing"      class="nav-link text-sm">Pricing</a>
+      <a href="#sample"       class="nav-link text-sm">Sample</a>
+      <a href="#faq"          class="nav-link text-sm">FAQ</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <button onclick="triggerConfettiAndModal()" class="btn-primary text-sm hidden sm:inline-block">Build Our Family Itinerary</button>
+      <button id="menu-toggle" class="lg:hidden p-2 rounded-lg border border-canvas-border bg-white" style="color:#0F172A;" aria-label="Open menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav id="mobile-nav" class="hidden lg:hidden mt-3 mx-4 bg-white rounded-2xl border border-canvas-border shadow-md p-5 space-y-3">
+    <a href="#why-us"      onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Why Us</a>
+    <a href="#four-pass"   onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Verification</a>
+    <a href="#fork-merge"  onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Fork &amp; Merge</a>
+    <a href="#pricing"     onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Pricing</a>
+    <a href="#sample"      onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">Sample Itinerary</a>
+    <a href="#faq"         onclick="closeMobileNav()" class="block text-sm font-semibold py-1" style="color:#1E293B;">FAQ</a>
+    <button onclick="triggerConfettiAndModal(); closeMobileNav();" class="btn-primary w-full text-center py-3 mt-2">Build Our Family Itinerary</button>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-center overflow-hidden hero-bg pt-20">
+
+  <!-- Subtle background accents -->
+  <div class="absolute top-24 left-8 w-64 h-64 rounded-full opacity-20 pointer-events-none" style="background:radial-gradient(circle,#DFB15B,transparent);"></div>
+  <div class="absolute bottom-24 left-1/3 w-48 h-48 rounded-full opacity-15 pointer-events-none" style="background:radial-gradient(circle,#E05A47,transparent);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 lg:py-32 grid lg:grid-cols-12 gap-14 items-center">
+
+    <!-- LEFT: Text -->
+    <div class="lg:col-span-5" style="animation: fadeInUp 0.7s ease forwards;">
+
+      <!-- Trust badge -->
+      <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-8 border" style="border-color:#F1EFE7; box-shadow:0 2px 10px rgba(15,23,42,0.07);">
+        <span style="color:#DFB15B;" class="text-sm">★★★★★</span>
+        <span class="text-xs font-semibold" style="color:#1E293B;">Top Rated · Italy, UK &amp; Portugal</span>
+        <span class="w-2 h-2 rounded-full animate-pulse" style="background:#2E6F40;"></span>
+      </div>
+
+      <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-[3.6rem] xl:text-7xl leading-[1.06] mb-5" style="color:#0F172A;">
+        Multi-Generational<br />Family Travel,<br />
+        <span class="shimmer-text">Perfected.</span>
+      </h1>
+
+      <!-- Sub-headline in Kalam -->
+      <p class="handwritten text-xl mb-4" style="color:#E05A47; display:inline-block;">
+        "Custom itineraries engineered for toddlers, parents &amp; grandparents."
+      </p>
+
+      <p class="text-base leading-relaxed mb-10 max-w-lg" style="color:#475569;">
+        No hallucinations. No broken walking routes. Every schedule protects
+        <strong style="color:#2E6F40; font-weight:700;">toddler nap windows</strong>, features
+        <strong style="color:#2E6F40; font-weight:700;">step-free routes for seniors</strong>,
+        and guarantees confirmed family-friendly dining.
+      </p>
+
+      <div class="flex flex-wrap gap-3 mb-10">
+        <button onclick="triggerConfettiAndModal()" id="hero-cta-primary" class="btn-primary text-base py-4 px-8">
+          Build Our Family Itinerary — From $49
+        </button>
+        <a href="#sample" id="hero-cta-secondary" class="btn-secondary text-base py-4 px-8">
+          Explore Sample Itinerary
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-6 text-sm" style="color:#64748B;">
+        <div class="flex items-center gap-2 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          100% Human-Verified
+        </div>
+        <div class="flex items-center gap-2 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Delivered in 3–5 Days
+        </div>
+        <div class="flex items-center gap-2 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          7-Day Satisfaction Guarantee
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Floating day card (desktop) -->
+    <div class="hidden lg:flex flex-col items-end w-full mt-10 lg:mt-0 lg:col-span-7 gap-6" style="animation: fadeInRight 0.7s ease 0.25s both; z-index:10;">
+      
+      <!-- Featured Image (Collage) in 16:9 box -->
+      <div class="w-full lg:w-[720px] lg:h-[405px] overflow-hidden rounded-2xl border-4 shadow-xl border-white bg-gray-100 relative">
+        <img src="hero_family_travel_1786805857762.jpg" alt="Family Vacation Collage" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+
+      <!-- Separated Sample Card -->
+      <div class="w-full max-w-sm" style="animation: floatA 4.5s ease-in-out infinite;">
+        <div class="bg-white rounded-2xl p-6 border" style="border-color:#F1EFE7; box-shadow:0 8px 32px rgba(15,23,42,0.10);">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#0F172A;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DFB15B" stroke-width="2" stroke-linecap="round">
+                <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-display font-bold text-sm leading-tight" style="color:#0F172A;">Sample Day — Rome, Italy</p>
+              <p class="text-[0.65rem] font-semibold mt-0.5" style="color:#2E6F40;">4-Pass Verified ✓</p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-start gap-2.5">
+              <span class="time-pill text-[0.65rem] px-2 py-0.5" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">8:00</span>
+              <div><p class="font-semibold text-xs" style="color:#0F172A;">Shared Breakfast — Campo de' Fiori</p><p class="text-[0.65rem] mt-0.5 leading-tight" style="color:#94A3B8;">Flat route · accessible · confirmed open ✓</p></div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="time-pill text-[0.65rem] px-2 py-0.5" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">10:00</span>
+              <div><p class="font-semibold text-xs" style="color:#0F172A;">Colosseum — Fast-Track</p><p class="text-[0.65rem] mt-0.5 leading-tight" style="color:#94A3B8;">Step-free entry · 4,800 steps · senior path</p></div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="time-pill text-[0.65rem] px-2 py-0.5" style="background:#E8F2EC;color:#2E6F40;border:1px solid #dce8e0;">12:30</span>
+              <div><p class="font-semibold text-xs" style="color:#2E6F40;">🌙 Protected Nap Window</p><p class="text-[0.65rem] mt-0.5 leading-tight" style="color:#94A3B8;">Hotel rest · grandparents siesta</p></div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="time-pill text-[0.65rem] px-2 py-0.5" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">15:00</span>
+              <div><p class="font-semibold text-xs" style="color:#0F172A;">Trevi Fountain &amp; Gelato Walk</p><p class="text-[0.65rem] mt-0.5 leading-tight" style="color:#94A3B8;">Low-crowd window · bench rest every 400m</p></div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="time-pill text-[0.65rem] px-2 py-0.5" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">19:00</span>
+              <div><p class="font-semibold text-xs" style="color:#0F172A;">Group Dinner — Trattoria Moderna</p><p class="text-[0.65rem] mt-0.5 leading-tight" style="color:#94A3B8;">High chairs · backup listed ✓</p></div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t text-[0.65rem]" style="border-color:#F1EFE7; color:#94A3B8;">
+            ☂️ Rainy-Day Backup: Vatican Museums Tour
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="bounce-anim z-10">
+    <div class="bg-white rounded-full p-3 border" style="border-color:#F1EFE7; box-shadow:0 2px 8px rgba(15,23,42,0.08);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     DESTINATIONS MARQUEE
+══════════════════════════════════════════════ -->
+<div class="border-y py-4 overflow-hidden" style="border-color:#F1EFE7; background:#FFFFFF;">
+  <!-- Flag img tags use Twemoji CDN — guaranteed cross-platform (fixes Windows emoji flag bug) -->
+  <style>.dest-tag img { height:1.1em; width:auto; vertical-align:-0.15em; display:inline; }</style>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ee-1f1f9.svg" alt="IT"> Italy</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1e7.svg" alt="GB"> United Kingdom</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1f5-1f1f9.svg" alt="PT"> Portugal</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ea-1f1f8.svg" alt="ES"> Spain</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1f7.svg" alt="GR"> Greece</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1eb-1f1f7.svg" alt="FR"> France</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1e8-1f1ed.svg" alt="CH"> Switzerland</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1e6-1f1f9.svg" alt="AT"> Austria</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ee-1f1f9.svg" alt="IT"> Italy</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1e7.svg" alt="GB"> United Kingdom</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1f5-1f1f9.svg" alt="PT"> Portugal</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ea-1f1f8.svg" alt="ES"> Spain</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1f7.svg" alt="GR"> Greece</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1eb-1f1f7.svg" alt="FR"> France</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1e8-1f1ed.svg" alt="CH"> Switzerland</span>
+      <span class="dest-tag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1e6-1f1f9.svg" alt="AT"> Austria</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     WHY US / COMPARISON
+══════════════════════════════════════════════ -->
+<section id="why-us" class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#FDF8ED;color:#8a6800;border:1px solid #efe0b0;">The Honest Difference</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">
+        Why Standard AI <span style="color:#E05A47;">Can't Plan</span> Your Family Trip
+      </h2>
+      <p class="handwritten text-xl mb-3" style="color:#2E6F40; display:inline-block;">"ChatGPT doesn't know about naptime — we do."</p>
+      <p class="text-base max-w-2xl mx-auto mt-2" style="color:#64748B;">Generic AI plans 12,000 steps, recommends closed restaurants, and ignores grandpa's hip. We don't.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 observe-me">
+
+      <!-- Generic AI — BAD -->
+      <div class="compare-card p-8 border border-red-100" style="box-shadow:0 4px 20px rgba(224,90,71,0.08);">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#FDF2F0;">😤</div>
+          <div>
+            <h3 class="font-display font-bold text-lg" style="color:#0F172A;">Generic AI Trip Plan</h3>
+            <p class="text-sm font-medium" style="color:#E05A47;">ChatGPT / Copy-Paste Itinerary</p>
+          </div>
+        </div>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">12,000+ Steps Per Day</p><p class="text-xs mt-0.5" style="color:#94A3B8;">No mobility filter — grandparents can't keep up, toddlers melt down</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">Recommends Closed Restaurants</p><p class="text-xs mt-0.5" style="color:#94A3B8;">AI hallucinations — venues permanently closed or with different hours</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">No Nap Windows Considered</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Schedules ignore toddler sleep — ruins entire afternoons</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">No Senior Mobility Planning</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Cobblestones, stairs, long walks — zero alternative routes provided</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">No Rainy-Day Backup</p><p class="text-xs mt-0.5" style="color:#94A3B8;">One bad weather day collapses your entire trip</p></div></li>
+        </ul>
+      </div>
+
+      <!-- TrueRoute — GOOD -->
+      <div class="compare-card p-8 relative overflow-hidden" style="border:1.5px solid #2E6F40; box-shadow:0 4px 24px rgba(46,111,64,0.12);">
+        <div class="absolute top-0 right-0 text-white text-xs font-bold px-4 py-2 rounded-bl-2xl" style="background:#2E6F40;">✓ VERIFIED PLAN</div>
+        <div class="flex items-center gap-3 mb-6 mt-1">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E8F2EC;">✅</div>
+          <div>
+            <h3 class="font-display font-bold text-lg" style="color:#0F172A;">TrueRoute Verified Plan</h3>
+            <p class="text-sm font-medium" style="color:#2E6F40;">4-Pass Human Verification</p>
+          </div>
+        </div>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">≤ 6,500 Senior-Friendly Steps</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Step count verified — bench rest points mapped every 400m</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">All Restaurants Confirmed Open</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Hours cross-checked + backup venue always provided</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">Nap Window Protected: 12:30–2:30 PM</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Activities never scheduled during toddler rest window</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">Step-Free Senior Routes Mapped</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Wheelchair/cane accessible alternatives for every attraction</p></div></li>
+          <li class="flex items-start gap-3"><svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div><p class="font-semibold text-sm" style="color:#0F172A;">Full Rainy-Day Activity Set</p><p class="text-xs mt-0.5" style="color:#94A3B8;">Indoor alternatives pre-planned for every day of your trip</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 observe-me">
+      <div class="stat-card">
+        <p class="font-display font-bold text-4xl" style="color:#E05A47;">97%</p>
+        <p class="text-sm mt-1 font-medium" style="color:#64748B;">Customer Satisfaction</p>
+      </div>
+      <div class="stat-card">
+        <p class="font-display font-bold text-4xl" style="color:#2E6F40;">4-Pass</p>
+        <p class="text-sm mt-1 font-medium" style="color:#64748B;">Verification System</p>
+      </div>
+      <div class="stat-card">
+        <p class="font-display font-bold text-4xl" style="color:#DFB15B;">500+</p>
+        <p class="text-sm mt-1 font-medium" style="color:#64748B;">Families Served</p>
+      </div>
+      <div class="stat-card">
+        <p class="font-display font-bold text-4xl" style="color:#0F172A;">3–5</p>
+        <p class="text-sm mt-1 font-medium" style="color:#64748B;">Day Delivery</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     4-PASS VERIFICATION SECTION (NEW)
+══════════════════════════════════════════════ -->
+<section id="four-pass" class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#E8F2EC;color:#2E6F40;border:1px solid #bdd9c8;">Our Quality Standard</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">The 4-Pass Verification System</h2>
+      <p class="text-base max-w-2xl mx-auto" style="color:#64748B;">Every itinerary passes four independent human review stages before it reaches your inbox. No shortcuts.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 observe-me">
+
+      <!-- Pass 1: Mobility Audit -->
+      <div class="pass-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#0F172A;">1</div>
+          <span class="text-xs font-bold tracking-widest uppercase" style="color:#2E6F40;">Mobility Audit</span>
+        </div>
+        <div class="text-2xl mb-3">🦽</div>
+        <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Mobility Audit</h3>
+        <p class="text-sm leading-relaxed" style="color:#64748B;">Step counts capped under 6,500 per day. Bench locations and step-free paths mapped at every attraction and route segment.</p>
+      </div>
+
+      <!-- Pass 2: Venue Check -->
+      <div class="pass-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#0F172A;">2</div>
+          <span class="text-xs font-bold tracking-widest uppercase" style="color:#2E6F40;">Venue Check</span>
+        </div>
+        <div class="text-2xl mb-3">🍽️</div>
+        <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Real-Time Venue Check</h3>
+        <p class="text-sm leading-relaxed" style="color:#64748B;">Opening hours, seasonal closures, and reservation requirements cross-referenced. A confirmed backup venue is always provided.</p>
+      </div>
+
+      <!-- Pass 3: Pacing -->
+      <div class="pass-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#0F172A;">3</div>
+          <span class="text-xs font-bold tracking-widest uppercase" style="color:#2E6F40;">Pacing</span>
+        </div>
+        <div class="text-2xl mb-3">🌙</div>
+        <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Pacing Guardrails</h3>
+        <p class="text-sm leading-relaxed" style="color:#64748B;">Guaranteed 2-hour daily rest and nap blocks are built in for toddlers and grandparents. No activities scheduled during protected windows.</p>
+      </div>
+
+      <!-- Pass 4: Contingency -->
+      <div class="pass-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#0F172A;">4</div>
+          <span class="text-xs font-bold tracking-widest uppercase" style="color:#2E6F40;">Contingency</span>
+        </div>
+        <div class="text-2xl mb-3">☂️</div>
+        <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Contingency Planning</h3>
+        <p class="text-sm leading-relaxed" style="color:#64748B;">Rainy-day backup options and nearby healthcare and restroom points pre-mapped for every day of the trip.</p>
+      </div>
+    </div>
+
+    <!-- Result callout -->
+    <div class="mt-14 bg-white rounded-2xl grid sm:grid-cols-2 overflow-hidden max-w-4xl mx-auto observe-me" style="border:1px solid #F1EFE7; box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+      <img src="Gemini_Generated_Image_z0s17fz0s17fz0s1.jpg" alt="Paris Family Verification" class="w-full h-64 sm:h-full object-cover" />
+      <div class="p-8 sm:p-10 flex flex-col justify-center items-start">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 mb-4" style="background:#E8F2EC;">🛡️</div>
+        <p class="font-semibold text-[1.05rem] leading-relaxed" style="color:#0F172A;">Result: <span style="color:#2E6F40;">Every generation is energized, rested, and ready for the next day.</span> No arguments about pace. No surprises at the door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     FORK & MERGE
+══════════════════════════════════════════════ -->
+<section id="fork-merge" class="py-24 px-6 relative overflow-hidden" style="background:#FAFAF7;">
+  <div class="absolute top-12 right-12 w-72 h-72 rounded-full pointer-events-none opacity-10" style="background:radial-gradient(#DFB15B,transparent);"></div>
+  <div class="absolute bottom-12 left-12 w-56 h-56 rounded-full pointer-events-none opacity-10" style="background:radial-gradient(#E05A47,transparent);"></div>
+
+  <div class="relative max-w-6xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#FDF8ED;color:#8a6800;border:1px solid #efe0b0;">Our Signature Method</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">
+        The <span style="color:#E05A47;">Fork &amp; Merge</span><br/>Daily Structure
+      </h2>
+      <p class="text-base max-w-2xl mx-auto" style="color:#64748B;">Every day is designed so everyone gets what they need — then comes back together for the moments that matter.</p>
+    </div>
+
+    <div class="observe-me">
+      <div class="grid md:grid-cols-3 gap-6 mb-6">
+
+        <!-- Morning -->
+        <div class="card p-6 text-center" style="border-top:3px solid #2E6F40;">
+          <div class="w-13 h-13 rounded-2xl mx-auto mb-4 flex items-center justify-center text-3xl" style="background:#E8F2EC;">🌅</div>
+          <div class="inline-block text-xs font-bold px-3 py-1.5 rounded-full mb-3" style="background:#E8F2EC;color:#2E6F40;">7AM – 12PM</div>
+          <img src="Gemini_Generated_Image_m5rdkim5rdkim5rd.jpg" alt="Florence Morning" class="w-full h-40 object-cover rounded-xl mb-5 shadow-sm" />
+          <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Shared Family Morning</h3>
+          <p class="text-sm leading-relaxed" style="color:#64748B;">Breakfast together, one iconic attraction, low-step route with frequent rest stops. Everyone moves at a pace that works.</p>
+          <div class="mt-4 space-y-2">
+            <div class="text-xs font-semibold rounded-lg px-3 py-2" style="background:#E8F2EC;color:#2E6F40;">✓ Step-free paths confirmed</div>
+            <div class="text-xs font-semibold rounded-lg px-3 py-2" style="background:#E8F2EC;color:#2E6F40;">✓ Accessible restrooms mapped</div>
+          </div>
+        </div>
+
+        <!-- Afternoon FORK -->
+        <div>
+          <div class="text-center mb-3">
+            <span class="inline-flex items-center gap-2 bg-white rounded-full px-5 py-2 text-xs font-bold border" style="color:#E05A47;border-color:#F1EFE7;box-shadow:0 2px 8px rgba(15,23,42,0.07);">
+              ↔ FORK — Afternoon Split
+            </span>
+          </div>
+          <div class="space-y-3">
+            <div class="bg-white rounded-xl p-4 border-l-4" style="border-left-color:#DFB15B;border:1px solid #F1EFE7;border-left:3px solid #DFB15B;">
+              <p class="text-xs font-bold mb-1" style="color:#8a6800;">PARENTS &amp; TEENS</p>
+              <p class="text-xs" style="color:#64748B;">Active exploration — markets, neighbourhoods, museums at full pace.</p>
+            </div>
+            <div class="bg-white rounded-xl p-4" style="border:1px solid #F1EFE7;border-left:3px solid #2E6F40;">
+              <p class="text-xs font-bold mb-1" style="color:#2E6F40;">12:30–2:30 PM — PROTECTED REST</p>
+              <p class="text-xs" style="color:#64748B;">Toddler nap window. Grandparents siesta. Zero activities scheduled.</p>
+            </div>
+            <div class="bg-white rounded-xl p-4" style="border:1px solid #F1EFE7;border-left:3px solid #0F172A;">
+              <p class="text-xs font-bold mb-1" style="color:#1E293B;">GRANDPARENTS &amp; TODDLERS</p>
+              <p class="text-xs" style="color:#64748B;">Quiet café, hotel garden, gentle stroll — zero pressure pace.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evening MERGE -->
+        <div class="card p-6 text-center" style="border-top:3px solid #E05A47;">
+          <div class="text-center mb-4">
+            <span class="inline-flex items-center gap-2 bg-white rounded-full px-5 py-2 text-xs font-bold border" style="color:#E05A47;border-color:#F1EFE7;box-shadow:0 2px 8px rgba(15,23,42,0.07);">
+              ↔ MERGE — Evening Together
+            </span>
+          </div>
+          <img src="Gemini_Generated_Image_7a1fx37a1fx37a1f.jpg" alt="Santorini Dinner" class="w-full h-40 object-cover rounded-xl mb-5 shadow-sm" />
+          <div class="inline-block text-xs font-bold px-3 py-1.5 rounded-full mb-3" style="background:#FDF2F0;color:#C84B39;">6PM – 9PM</div>
+          <h3 class="font-display font-bold text-base mb-2" style="color:#0F172A;">Group Dinner &amp; Evening</h3>
+          <p class="text-sm leading-relaxed" style="color:#64748B;">Everyone reunites at a verified family restaurant. High chairs, senior seating, backup venue — all confirmed in advance.</p>
+          <div class="mt-4 space-y-2">
+            <div class="text-xs font-semibold rounded-lg px-3 py-2" style="background:#FDF2F0;color:#C84B39;">✓ Early reservation confirmed</div>
+            <div class="text-xs font-semibold rounded-lg px-3 py-2" style="background:#FDF2F0;color:#C84B39;">✓ Backup restaurant included</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4" style="border:1px solid #F1EFE7;box-shadow:0 2px 10px rgba(15,23,42,0.06);">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#FDF8ED;">🏆</div>
+        <p class="font-semibold text-sm" style="color:#0F172A;">Result: <span style="color:#E05A47;">Every generation is energized, rested, and excited for tomorrow.</span> No one is exhausted. No arguments about pace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     SAMPLE ITINERARY
+══════════════════════════════════════════════ -->
+<section id="sample" class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#FDF8ED;color:#8a6800;border:1px solid #efe0b0;">Real Sample</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">
+        3-Day Rome Itinerary <span style="color:#E05A47;">Preview</span>
+      </h2>
+      <p class="text-base max-w-xl mx-auto" style="color:#64748B;">See exactly what you receive — day by day, hour by hour, verified and backed up.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-5 observe-me">
+
+      <!-- Day 1 -->
+      <div class="tilt-card bg-white rounded-2xl p-6 border cursor-default" style="border-color:#F1EFE7;border-top:3px solid #2E6F40;box-shadow:0 2px 10px rgba(15,23,42,0.07);">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#2E6F40;">1</div>
+          <div><h3 class="font-display font-bold text-base" style="color:#0F172A;">Day 1 — Arrival &amp; Centro Storico</h3><p class="text-xs font-semibold mt-0.5" style="color:#2E6F40;">6,100 steps · All accessible</p></div>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">10:00</span><p style="color:#475569;">Hotel check-in + neighbourhood walk (flat route)</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">12:00</span><p style="color:#475569;">Lunch — Osteria della Trippa ✓ open, family menu</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#E8F2EC;color:#2E6F40;border:1px solid #dce8e0;">12:30</span><p class="font-semibold" style="color:#2E6F40;">🌙 Protected Nap Window</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">14:30</span><p style="color:#475569;">Campo de' Fiori market &amp; gelato (bench every 400m)</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">19:00</span><p style="color:#475569;">Group dinner — Ristorante Nonna ✓ high chairs</p></div>
+        </div>
+        <div class="mt-4 pt-4 border-t text-xs" style="border-color:#F1EFE7;color:#94A3B8;">☂️ Rainy backup: Borghese Gallery (indoor, lift access)</div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="tilt-card bg-white rounded-2xl p-6 border relative cursor-default" style="border-color:#F1EFE7;border-top:3px solid #E05A47;box-shadow:0 2px 10px rgba(15,23,42,0.07);">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-5 py-1.5 rounded-full" style="background:#E05A47;">Most Popular Day</div>
+        <div class="flex items-center gap-3 mb-5 mt-3">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#E05A47;">2</div>
+          <div><h3 class="font-display font-bold text-base" style="color:#0F172A;">Day 2 — Ancient Rome</h3><p class="text-xs font-semibold mt-0.5" style="color:#E05A47;">5,800 steps · Lift + ramp access</p></div>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">08:30</span><p style="color:#475569;">Colosseum fast-track — separate senior entry, lift ✓</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">11:00</span><p style="color:#475569;">Roman Forum (parents/teens) / Palatine café (grandparents)</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#E8F2EC;color:#2E6F40;border:1px solid #dce8e0;">12:30</span><p class="font-semibold" style="color:#2E6F40;">🌙 Nap Window — Hotel Return</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#F1F5F9;color:#475569;border:1px solid #E2E8F0;">15:00</span><p style="color:#475569;">Circus Maximus park (open green space, toddler-friendly)</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">19:30</span><p style="color:#475569;">Trastevere dinner — La Gatta Mangiona ✓ reserved</p></div>
+        </div>
+        <div class="mt-4 pt-4 border-t text-xs" style="border-color:#F1EFE7;color:#94A3B8;">☂️ Rainy backup: Vatican Museums (fully indoor)</div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="tilt-card bg-white rounded-2xl p-6 border cursor-default" style="border-color:#F1EFE7;border-top:3px solid #DFB15B;box-shadow:0 2px 10px rgba(15,23,42,0.07);">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background:#DFB15B;">3</div>
+          <div><h3 class="font-display font-bold text-base" style="color:#0F172A;">Day 3 — Vatican &amp; Farewell</h3><p class="text-xs font-semibold mt-0.5" style="color:#8a6800;">4,900 steps · Fully step-free</p></div>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#F1F5F9;color:#475569;border:1px solid #E2E8F0;">09:00</span><p style="color:#475569;">St. Peter's — wheelchair accessible, elevator to dome ✓</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF8ED;color:#8a6800;border:1px solid #F1EFE7;">11:30</span><p style="color:#475569;">Prati neighbourhood — gelato &amp; souvenirs, flat streets</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#E8F2EC;color:#2E6F40;border:1px solid #dce8e0;">12:30</span><p class="font-semibold" style="color:#2E6F40;">🌙 Nap Window — Final Packing</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#F1F5F9;color:#475569;border:1px solid #E2E8F0;">15:00</span><p style="color:#475569;">Castel Sant'Angelo (lift available, panoramic rooftop)</p></div>
+          <div class="flex gap-2.5 items-start"><span class="time-pill flex-shrink-0" style="background:#FDF2F0;color:#C84B39;border:1px solid #F1EFE7;">19:00</span><p style="color:#475569;">Farewell dinner — Il Sorpasso ✓ outdoor terrace, high chairs</p></div>
+        </div>
+        <div class="mt-4 pt-4 border-t text-xs" style="border-color:#F1EFE7;color:#94A3B8;">☂️ Rainy backup: Doria Pamphilj Gallery (indoor, flat floors)</div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10 observe-me">
+      <button onclick="triggerConfettiAndModal()" class="btn-primary text-base py-4 px-10">Build Our Family Itinerary →</button>
+      <p class="text-sm mt-3" style="color:#94A3B8;">Full plan includes Google Maps links, transit guides, and age-group packing lists.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════════ -->
+<section id="pricing" class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#FDF2F0;color:#C84B39;border:1px solid #f5c5be;">Simple, Transparent Pricing</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">Choose Your Plan</h2>
+      <p class="text-base max-w-xl mx-auto" style="color:#64748B;">All plans include 4-pass human verification. No subscription. No hidden fees. Pay once, travel confidently.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 items-start observe-me">
+
+      <!-- Weekend -->
+      <div class="pricing-card p-8 tilt-card">
+        <div class="mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style="background:#F1F5F9;">🗓️</div>
+          <h3 class="font-display font-bold text-xl mb-1" style="color:#0F172A;">Weekend Getaway</h3>
+          <p class="text-sm" style="color:#94A3B8;">Perfect for a long weekend break</p>
+        </div>
+        <div class="mb-6">
+          <div class="flex items-end gap-2"><span class="font-display font-bold text-5xl" style="color:#0F172A;">$49</span><span class="text-sm mb-2" style="color:#94A3B8;">one-time</span></div>
+          <p class="text-sm font-semibold mt-1" style="color:#2E6F40;">Delivered in 3 days</p>
+        </div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>3-Day Plan</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 City Coverage</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basic Verification Pass</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Fork &amp; Merge Daily Schedule</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nap Windows Protected</li>
+          <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Google Maps Integration</li>
+          <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Age-Group Packing Lists</li>
+        </ul>
+        <a href="https://gumroad.com" target="_blank" rel="noopener" id="buy-weekend" class="btn-secondary w-full text-center block py-3.5">Get Started — $49</a>
+      </div>
+
+      <!-- Full Week - POPULAR -->
+      <div class="pricing-card pricing-popular p-8 relative tilt-card">
+        <div class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-6 py-2 rounded-full" style="background:#E05A47;box-shadow:0 4px 14px rgba(224,90,71,0.35);">⭐ MOST POPULAR</div>
+        <div class="mb-6 mt-3">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style="background:#FDF2F0;">✈️</div>
+          <h3 class="font-display font-bold text-xl mb-1" style="color:#0F172A;">Full Week Plan</h3>
+          <p class="text-sm" style="color:#94A3B8;">The sweet spot for family trips</p>
+        </div>
+        <div class="mb-6">
+          <div class="flex items-end gap-2"><span class="font-display font-bold text-5xl" style="color:#E05A47;">$99</span><span class="text-sm mb-2" style="color:#94A3B8;">one-time</span></div>
+          <p class="text-sm font-semibold mt-1" style="color:#2E6F40;">Delivered in 4 days</p>
+        </div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>7-Day Plan</li>
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Up to 2 Cities</li>
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full 4-Pass Verification</li>
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Google Maps Integration</li>
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Backup Restaurants All Days</li>
+          <li class="flex items-center gap-3 text-sm font-semibold" style="color:#0F172A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E05A47" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Rainy-Day Plans (All 7 Days)</li>
+          <li class="flex items-center gap-3 text-sm line-through" style="color:#CBD5E1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Age-Group Packing Lists</li>
+        </ul>
+        <a href="https://gumroad.com" target="_blank" rel="noopener" id="buy-week" class="btn-primary w-full text-center block py-3.5">Get Started — $99</a>
+      </div>
+
+      <!-- Complete Package -->
+      <div class="pricing-card p-8 tilt-card" style="border:1.5px solid #DFB15B;">
+        <div class="mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style="background:#FDF8ED;">🌍</div>
+          <h3 class="font-display font-bold text-xl mb-1" style="color:#0F172A;">Complete Package</h3>
+          <p class="text-sm" style="color:#94A3B8;">The full multi-city grand tour</p>
+        </div>
+        <div class="mb-6">
+          <div class="flex items-end gap-2"><span class="font-display font-bold text-5xl" style="color:#DFB15B;">$149</span><span class="text-sm mb-2" style="color:#94A3B8;">one-time</span></div>
+          <p class="text-sm font-semibold mt-1" style="color:#2E6F40;">Delivered in 5 days</p>
+        </div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10-Day Plan</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Multi-City Coverage</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Full Week +</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Age-Group Packing Lists</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Transit Booking Guide</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority Support</li>
+          <li class="flex items-center gap-3 text-sm font-medium" style="color:#475569;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E6F40" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1 Free Revision Included</li>
+        </ul>
+        <a href="https://gumroad.com" target="_blank" rel="noopener" id="buy-complete" class="btn-navy w-full text-center block py-3.5">Get Started — $149</a>
+      </div>
+    </div>
+
+    <!-- Guarantee -->
+    <div class="mt-10 bg-white rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 max-w-2xl mx-auto observe-me" style="border:1px solid #F1EFE7;box-shadow:0 2px 12px rgba(15,23,42,0.06);">
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background:#E8F2EC;">🛡️</div>
+      <div>
+        <h4 class="font-display font-bold text-base mb-0.5" style="color:#0F172A;">100% Satisfaction Guarantee</h4>
+        <p class="text-sm" style="color:#64748B;">Not satisfied? We'll revise your plan or issue a full refund within 7 days. Zero risk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════ -->
+<section class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#E8F2EC;color:#2E6F40;border:1px solid #bdd9c8;">Real Families</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-3" style="color:#0F172A;">What Our Families Say</h2>
+      <p class="handwritten text-xl" style="color:#E05A47; display:inline-block;">"We survived Rome with a toddler and grandma. Absolute miracle."</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 observe-me">
+
+      <div class="card p-7" style="border-top:3px solid #E05A47;">
+        <div class="flex gap-0.5 mb-4" style="color:#DFB15B; font-size:1rem;">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-5" style="color:#475569;">"My 73-year-old father-in-law has a hip replacement. I was terrified of Lisbon's cobblestones. TrueRoute mapped every rest stop. Dad walked more than he has in years and loved every minute."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-xs flex-shrink-0" style="background:#E05A47;">SR</div>
+          <div><p class="font-bold text-sm" style="color:#0F172A;">Sarah R.</p><p class="text-xs" style="color:#94A3B8;">London, UK · Lisbon Trip 🇵🇹</p></div>
+        </div>
+      </div>
+
+      <div class="card p-7" style="border-top:3px solid #DFB15B;">
+        <div class="flex gap-0.5 mb-4" style="color:#DFB15B; font-size:1rem;">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-5" style="color:#475569;">"We had a 2-year-old and 4-year-old in Rome. Every other plan was insane — 15,000 steps at noon. This protected nap time every single day. Zero meltdowns. I genuinely teared up at how smooth it was."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-xs flex-shrink-0" style="background:#DFB15B;">MK</div>
+          <div><p class="font-bold text-sm" style="color:#0F172A;">Mike &amp; Kate D.</p><p class="text-xs" style="color:#94A3B8;">Melbourne, AU · Rome Trip 🇮🇹</p></div>
+        </div>
+      </div>
+
+      <div class="card p-7" style="border-top:3px solid #2E6F40;">
+        <div class="flex gap-0.5 mb-4" style="color:#DFB15B; font-size:1rem;">★★★★★</div>
+        <p class="text-sm leading-relaxed mb-5" style="color:#475569;">"Three generations, 10 days in Italy. My mum uses a walker. Their step-free route through Florence was genius — she saw everything and we never had to split up or feel guilty. Incredible service."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-xs flex-shrink-0" style="background:#2E6F40;">JL</div>
+          <div><p class="font-bold text-sm" style="color:#0F172A;">Jennifer L.</p><p class="text-xs" style="color:#94A3B8;">Boston, MA · Italy Complete 🇮🇹</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider mx-6"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════ -->
+<section id="faq" class="py-24 px-6" style="background:#FAFAF7;">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16 observe-me">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full" style="background:#FDF8ED;color:#8a6800;border:1px solid #efe0b0;">Common Questions</span>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#0F172A;">Frequently Asked</h2>
+    </div>
+    <div class="space-y-3 observe-me">
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">What does "4-Pass Verification" actually mean?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">Four independent human review stages: (1) Mobility Audit — step counts and bench locations. (2) Real-Time Venue Check — opening hours and reservation requirements. (3) Pacing Guardrails — guaranteed 2-hour daily rest blocks. (4) Contingency Planning — rainy-day alternatives and nearby healthcare points mapped for every day.</div>
+        </div>
+      </div>
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">How do you collect my family's specific information?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">After purchase, you complete a structured intake form: destination, travel dates, ages of all travellers, mobility requirements, dietary restrictions, and pace preference. We use every data point to customise each hour of your itinerary.</div>
+        </div>
+      </div>
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">What destinations do you cover?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">We specialise in Italy (Rome, Florence, Venice, Amalfi), United Kingdom (London, Edinburgh, Bath), Portugal (Lisbon, Porto, Sintra), Spain (Barcelona, Seville, Madrid), and Greece (Athens, Santorini, Crete). Additional destinations available on request.</div>
+        </div>
+      </div>
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">What if we want changes after delivery?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">The Complete Package includes one free revision. Weekend and Full Week plans can add a revision for $19. All plans include a 7-day satisfaction guarantee — we'll revise or refund in full if you're unsatisfied for any reason.</div>
+        </div>
+      </div>
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">Does it work for very young toddlers under 18 months?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">Yes — this is where we excel most. We plan around 2-nap daily schedules for infants, mark all stroller-accessible routes, confirm lift availability at every museum, and note nursing-friendly cafés and family restrooms throughout.</div>
+        </div>
+      </div>
+
+      <div class="faq-item overflow-hidden">
+        <button class="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+          <span class="font-semibold pr-4 text-sm" style="color:#0F172A;">How is this different from a travel agent?</span>
+          <svg class="faq-icon flex-shrink-0" style="color:#E05A47;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer px-6 text-sm leading-relaxed" style="color:#64748B;">
+          <div class="pb-6">Travel agents book flights and hotels and earn commission. We create the precise hour-by-hour daily structure that makes your trip actually work across multiple age groups and mobility levels. We complement your bookings with the detail no travel agent has the time or expertise to build.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FINAL CTA BANNER
+══════════════════════════════════════════════ -->
+<section class="py-24 px-6 relative overflow-hidden" style="background:#0F172A;">
+  <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 25% 50%, #DFB15B 0%, transparent 60%), radial-gradient(circle at 75% 50%, #E05A47 0%, transparent 60%);"></div>
+  <div class="relative max-w-3xl mx-auto text-center observe-me">
+    <div class="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-8" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);">
+      <span class="w-2 h-2 rounded-full animate-pulse" style="background:#E05A47;"></span>
+      <span class="text-sm font-semibold" style="color:rgba(255,255,255,0.8);">Limited spots available this month</span>
+    </div>
+    <h2 class="font-display font-bold text-4xl sm:text-5xl mb-4" style="color:#FFFFFF;">
+      Ready for the Family Trip<br />of a Lifetime?
+    </h2>
+    <p class="handwritten text-2xl mb-8" style="color:#DFB15B; display:inline-block;">"Every generation. Every memory. Zero stress."</p>
+    <div class="flex flex-wrap gap-4 justify-center mt-6">
+      <button onclick="triggerConfettiAndModal()" class="btn-primary text-base py-4 px-10">
+        Build Our Family Itinerary — From $49
+      </button>
+      <a href="#pricing" class="text-base py-4 px-8 rounded-xl font-bold transition-all" style="border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);font-family:'Plus Jakarta Sans',sans-serif;">
+        View All Plans
+      </a>
+    </div>
+    <p class="text-sm mt-6" style="color:rgba(255,255,255,0.4);">No subscription · 7-day guarantee · Delivered in 3–5 days</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="py-16 px-6 border-t" style="background:#FAFAF7;border-color:#F1EFE7;">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#0F172A;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DFB15B" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 21 15.44"/></svg>
+          </div>
+          <span class="font-display font-bold text-base" style="color:#0F172A;">TrueRoute</span>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:#64748B;">Multi-generational travel itineraries built for ages 3 to 75. Precision-planned, human-verified.</p>
+        <p class="text-xs" style="color:#94A3B8;">📧 <a href="mailto:hello@trueroute.com" class="font-semibold hover:underline" style="color:#E05A47;">hello@trueroute.com</a></p>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-4 tracking-widest uppercase" style="color:#94A3B8;">Destinations</h4>
+        <ul class="space-y-2 text-sm" style="color:#64748B;">
+          <li><a href="#" class="hover:underline font-medium">🇮🇹 Italy — Rome, Florence, Venice</a></li>
+          <li><a href="#" class="hover:underline font-medium">🇬🇧 United Kingdom</a></li>
+          <li><a href="#" class="hover:underline font-medium">🇵🇹 Portugal — Lisbon, Porto</a></li>
+          <li><a href="#" class="hover:underline font-medium">🇪🇸 Spain — Barcelona, Seville</a></li>
+          <li><a href="#" class="hover:underline font-medium">🇬🇷 Greece — Athens, Santorini</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-4 tracking-widest uppercase" style="color:#94A3B8;">Plans</h4>
+        <ul class="space-y-2 text-sm" style="color:#64748B;">
+          <li><a href="#pricing" class="hover:underline font-medium">Weekend Getaway ($49)</a></li>
+          <li><a href="#pricing" class="hover:underline font-medium">Full Week Plan ($99)</a></li>
+          <li><a href="#pricing" class="hover:underline font-medium">Complete Package ($149)</a></li>
+          <li><a href="#sample"  class="hover:underline font-medium">Sample Itinerary</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-4 tracking-widest uppercase" style="color:#94A3B8;">Trust &amp; Legal</h4>
+        <ul class="space-y-2 text-sm" style="color:#64748B;">
+          <li><a href="#faq" class="hover:underline font-medium">FAQ</a></li>
+          <li><a href="#"   class="hover:underline font-medium">Privacy Policy</a></li>
+          <li><a href="#"   class="hover:underline font-medium">Terms of Service</a></li>
+          <li><a href="#"   class="hover:underline font-medium">Refund Policy</a></li>
+        </ul>
+        <div class="mt-5 bg-white rounded-xl p-3 inline-flex items-center gap-2 border" style="border-color:#F1EFE7;">
+          <span>🛡️</span>
+          <span class="text-xs font-semibold" style="color:#0F172A;">100% Satisfaction Guarantee</span>
+        </div>
+      </div>
+    </div>
+    <div class="border-t pt-8 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-color:#F1EFE7;">
+      <p class="text-sm" style="color:#94A3B8;">© 2024 TrueRoute. Made with care for families everywhere.</p>
+      <p class="text-xs" style="color:#94A3B8;">Serving families in the US, UK, EU, Canada &amp; Australia</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════
+     INTAKE MODAL
+══════════════════════════════════════════════ -->
+<div id="intake-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-card mx-4">
+    <!-- Header -->
+    <div class="p-6 border-b" style="border-color:#F1EFE7;">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 id="modal-title" class="font-display font-bold text-lg" style="color:#0F172A;">Build Your Family Itinerary</h2>
+          <p class="text-sm mt-0.5" id="modal-subtitle" style="color:#94A3B8;">Step 1 of 4 — Where are you headed?</p>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style="background:#F1F5F9;color:#64748B;" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="flex gap-2">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+        <div class="step-dot" id="dot-4"></div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6">
+
+      <!-- Step 1 -->
+      <div id="modal-step-1" class="modal-step">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Where are you heading?</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Primary Destination</label>
+            <select id="dest-primary" class="form-input">
+              <option value="">Select a destination…</option>
+              <option>🇮🇹 Italy — Rome</option><option>🇮🇹 Italy — Florence</option>
+              <option>🇮🇹 Italy — Venice</option><option>🇮🇹 Italy — Amalfi Coast</option>
+              <option>🇬🇧 United Kingdom — London</option><option>🇬🇧 United Kingdom — Edinburgh</option>
+              <option>🇵🇹 Portugal — Lisbon</option><option>🇵🇹 Portugal — Porto</option>
+              <option>🇪🇸 Spain — Barcelona</option><option>🇪🇸 Spain — Seville</option>
+              <option>🇬🇷 Greece — Athens</option><option>🇬🇷 Greece — Santorini</option>
+              <option>Other (specify below)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Second City? (optional)</label>
+            <input id="dest-secondary" type="text" class="form-input" placeholder="e.g. Florence, if doing Rome + Florence" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Which Plan?</label>
+            <select id="plan-interest" class="form-input">
+              <option value="">Select a plan…</option>
+              <option>Weekend Getaway — $49 (3 days, 1 city)</option>
+              <option>Full Week Plan — $99 (7 days, up to 2 cities)</option>
+              <option>Complete Family Package — $149 (10 days, multi-city)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="modal-step-2" class="modal-step hidden">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">When are you travelling?</h3>
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Departure Date</label><input id="date-start" type="date" class="form-input" /></div>
+            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Return Date</label><input id="date-end" type="date" class="form-input" /></div>
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Pace Preference</label>
+            <select id="pace" class="form-input">
+              <option value="">Select pace…</option>
+              <option>Relaxed — max 4,000 steps/day, long lunches</option>
+              <option>Moderate — 5,000–6,500 steps/day, balanced</option>
+              <option>Active — up to 8,000 steps, energetic parents</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Accommodation Area (if known)</label>
+            <input id="accommodation" type="text" class="form-input" placeholder="e.g. Centro Storico, Trastevere…" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="modal-step-3" class="modal-step hidden">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Tell us about your travelling party</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Children (comma-separated)</label>
+            <input id="ages-kids" type="text" class="form-input" placeholder="e.g. 2, 4, 9" />
+            <p class="text-xs mt-1" style="color:#CBD5E1;">Include all under-18 travellers</p>
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Adults &amp; Seniors</label>
+            <input id="ages-adults" type="text" class="form-input" placeholder="e.g. 35, 37, 68, 71" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Total Travellers</label>
+            <select id="traveller-count" class="form-input">
+              <option>2–3 people</option><option>4–5 people</option>
+              <option>6–8 people</option><option>9+ people (large family)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div id="modal-step-4" class="modal-step hidden">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Any accessibility or dietary requirements?</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs font-semibold mb-2 block" style="color:#64748B;">Mobility Requirements</label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-walker" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Cane or walker in use</span></label>
+              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-wheelchair" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Wheelchair required</span></label>
+              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-stairs" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Must avoid stairs entirely</span></label>
+              <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-stroller" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Stroller / pram for toddler</span></label>
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Dietary Restrictions (optional)</label>
+            <input id="dietary" type="text" class="form-input" placeholder="e.g. vegetarian, nut allergy, halal…" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Anything else we should know?</label>
+            <textarea id="notes" class="form-input resize-none" rows="3" placeholder="e.g. Grandad has a hip replacement, kids dislike museums, we love food markets…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Success -->
+      <div id="modal-step-5" class="modal-step hidden text-center py-6">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-5" style="background:#E8F2EC;">✅</div>
+        <h3 class="font-display font-bold text-xl mb-2" style="color:#0F172A;">You're all set!</h3>
+        <p class="handwritten text-xl mb-4" style="color:#E05A47;">"Your adventure begins now."</p>
+        <p class="text-sm mb-6 leading-relaxed" style="color:#64748B;">We've received your details. Head to checkout — your custom itinerary will be underway within 24 hours of payment.</p>
+        <a href="https://gumroad.com" target="_blank" rel="noopener" class="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
+        <button onclick="closeModal()" class="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
+      </div>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="p-5 border-t flex justify-between items-center" id="modal-nav" style="border-color:#F1EFE7;background:#FAFAF7;">
+      <button onclick="modalBack()" id="btn-back" class="btn-secondary text-sm py-2.5 px-6 hidden">← Back</button>
+      <div class="flex-1"></div>
+      <button onclick="modalNext()" id="btn-next" class="btn-primary text-sm py-2.5 px-8">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+// ── Confetti + Modal ──────────────────────────────────────────────
+function triggerConfettiAndModal() {
+  confetti({
+    particleCount: 120,
+    spread: 70,
+    origin: { y: 0.5 },
+    colors: ['#E05A47', '#DFB15B', '#2E6F40', '#0F172A', '#F1EFE7'],
+    scalar: 1.1,
+    zIndex: 3000,
+  });
+  setTimeout(() => {
+    confetti({ particleCount: 50, spread: 110, origin: { y: 0.4, x: 0.15 }, colors: ['#E05A47','#DFB15B'], zIndex: 3000 });
+    confetti({ particleCount: 50, spread: 110, origin: { y: 0.4, x: 0.85 }, colors: ['#2E6F40','#DFB15B'], zIndex: 3000 });
+  }, 250);
+  setTimeout(openModal, 500);
+}
+
+
+// ── Header scroll ──────────────────────────────────────────────
+const header = document.getElementById('main-header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+
+
+// ── Mobile menu ────────────────────────────────────────────────
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  document.getElementById('mobile-nav').classList.toggle('hidden');
+});
+function closeMobileNav() { document.getElementById('mobile-nav').classList.add('hidden'); }
+
+
+// ── Scroll reveal ──────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.observe-me').forEach(el => observer.observe(el));
+
+
+// ── 3D Tilt ────────────────────────────────────────────────────
+document.querySelectorAll('.tilt-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+    const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+    card.style.transform = `perspective(900px) rotateY(${dx * 9}deg) rotateX(${-dy * 7}deg) translateY(-5px)`;
+    card.style.boxShadow = '0 16px 40px rgba(15,23,42,0.13)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  });
+});
+
+
+// ── Pill hover tilt ────────────────────────────────────────────
+document.querySelectorAll('.hero-pill').forEach(pill => {
+  pill.addEventListener('mousemove', e => {
+    const r  = pill.getBoundingClientRect();
+    const dx = (e.clientX - r.left  - r.width  / 2) / (r.width  / 2);
+    const dy = (e.clientY - r.top   - r.height / 2) / (r.height / 2);
+    pill.style.transform = `perspective(400px) rotateY(${dx * 10}deg) rotateX(${-dy * 8}deg) translateY(-3px)`;
+  });
+  pill.addEventListener('mouseleave', () => { pill.style.transform = ''; });
+});
+
+
+// ── FAQ accordion ──────────────────────────────────────────────
+document.querySelectorAll('.faq-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').classList.remove('open');
+      i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+
+// ── Modal logic ────────────────────────────────────────────────
+let currentStep = 1;
+const totalSteps = 4;
+
+function openModal() {
+  currentStep = 1;
+  renderStep();
+  document.getElementById('intake-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('intake-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('intake-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('intake-modal')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function renderStep() {
+  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
+  const stepEl = document.getElementById('modal-step-' + currentStep);
+  if (stepEl) stepEl.classList.remove('hidden');
+
+  const subtitles = [
+    'Step 1 of 4 — Where are you headed?',
+    'Step 2 of 4 — When are you travelling?',
+    'Step 3 of 4 — Tell us about your party',
+    'Step 4 of 4 — Accessibility &amp; requirements',
+  ];
+  const subtitleEl = document.getElementById('modal-subtitle');
+  if (currentStep <= totalSteps) subtitleEl.innerHTML = subtitles[currentStep - 1];
+
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.classList.remove('active', 'done');
+    if (i < currentStep)      dot.classList.add('done');
+    else if (i === currentStep) dot.classList.add('active');
+  }
+
+  const btnBack  = document.getElementById('btn-back');
+  const btnNext  = document.getElementById('btn-next');
+  const modalNav = document.getElementById('modal-nav');
+  if (currentStep === totalSteps + 1) { modalNav.classList.add('hidden'); }
+  else {
+    modalNav.classList.remove('hidden');
+    btnBack.classList.toggle('hidden', currentStep === 1);
+    btnNext.textContent = currentStep === totalSteps ? 'Submit →' : 'Continue →';
+  }
+}
+
+function modalNext() {
+  if (currentStep < totalSteps) { currentStep++; renderStep(); }
+  else if (currentStep === totalSteps) {
+    currentStep = totalSteps + 1;
+    document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
+    document.getElementById('modal-step-5').classList.remove('hidden');
+    document.getElementById('modal-nav').classList.add('hidden');
+    document.getElementById('modal-subtitle').textContent = 'You\'re all set!';
+    confetti({
+      particleCount: 160, spread: 90,
+      origin: { y: 0.3 },
+      colors: ['#E05A47','#DFB15B','#2E6F40','#FFFFFF'],
+      zIndex: 3000,
+    });
+  }
+}
+function modalBack() { if (currentStep > 1) { currentStep--; renderStep(); } }
+
+
+// ── Smooth scroll ──────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+
+</body>
+</html>
