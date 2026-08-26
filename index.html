@@ -1514,12 +1514,7 @@ function modalNext() {
       notes: document.getElementById('notes').value
     };
 
-    // If no URL is set, simulate success
-    if (GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyHUA-LKs4agF_QTF-EbKbJu-bTm_BqpPWR_rbeIEBxkr2YXIhd-g4jeviU-scTEQ9b/exec') {
-      showSuccessStep(data.planInterest);
-      btnNext.disabled = false;
-      return;
-    }
+
 
     // POST to Google Sheets (Bulletproof hidden form method)
     const form = document.createElement('form');
