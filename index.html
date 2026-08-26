@@ -1178,56 +1178,45 @@
 </footer>
 
 
-<!-- ══════════════════════════════════════════════
+\n<!-- ══════════════════════════════════════════════
      INTAKE MODAL
 ══════════════════════════════════════════════ -->
-<div id="intake-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal-card mx-4">
+<div id="intake-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+  <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" style="opacity:1;"></div>
+  
+  <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
     <!-- Header -->
-    <div class="p-6 border-b" style="border-color:#F1EFE7;">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h2 id="modal-title" class="font-display font-bold text-lg" style="color:#0F172A;">Build Your Family Itinerary</h2>
-          <p class="text-sm mt-0.5" id="modal-subtitle" style="color:#94A3B8;">Step 1 of 4 — Where are you headed?</p>
-        </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style="background:#F1F5F9;color:#64748B;" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="flex gap-2">
-        <div class="step-dot active" id="dot-1"></div>
-        <div class="step-dot" id="dot-2"></div>
-        <div class="step-dot" id="dot-3"></div>
-        <div class="step-dot" id="dot-4"></div>
+    <div class="p-5 border-b relative" style="border-color:#F1EFE7;background:#FAFAF7;">
+      <h2 class="font-display font-bold text-xl" style="color:#0F172A;">Start Your Itinerary</h2>
+      <p id="modal-subtitle" class="text-xs font-semibold mt-1" style="color:#E05A47;">Step 1 of 4 — Trip Details</p>
+      <button onclick="closeModal()" class="absolute right-4 top-4 p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm">✕</button>
+      
+      <!-- Progress Bar -->
+      <div class="flex gap-1 mt-4">
+        <div id="dot-1" class="h-1.5 flex-1 rounded-full progress-dot active"></div>
+        <div id="dot-2" class="h-1.5 flex-1 rounded-full progress-dot"></div>
+        <div id="dot-3" class="h-1.5 flex-1 rounded-full progress-dot"></div>
+        <div id="dot-4" class="h-1.5 flex-1 rounded-full progress-dot"></div>
       </div>
     </div>
 
     <!-- Body -->
-    <div class="p-6">
-
-      <!-- Step 1 -->
+    <div class="p-6 overflow-y-auto" style="background:#FFFFFF;">
+      
+      <!-- Step 1: Trip Details -->
       <div id="modal-step-1" class="modal-step">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Where are you heading?</h3>
-        <div class="space-y-3">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Where & When are you travelling?</h3>
+        <div class="space-y-4">
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Primary Destination</label>
-            <select id="dest-primary" class="form-input">
-              <option value="">Select a destination…</option>
-              <option>🇮🇹 Italy — Rome</option><option>🇮🇹 Italy — Florence</option>
-              <option>🇮🇹 Italy — Venice</option><option>🇮🇹 Italy — Amalfi Coast</option>
-              <option>🇬🇧 United Kingdom — London</option><option>🇬🇧 United Kingdom — Edinburgh</option>
-              <option>🇵🇹 Portugal — Lisbon</option><option>🇵🇹 Portugal — Porto</option>
-              <option>🇪🇸 Spain — Barcelona</option><option>🇪🇸 Spain — Seville</option>
-              <option>🇬🇷 Greece — Athens</option><option>🇬🇷 Greece — Santorini</option>
-              <option>Other (specify below)</option>
-            </select>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Primary Destination *</label>
+            <input id="dest-primary" type="text" class="form-input" placeholder="e.g. Rome, Italy" />
           </div>
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Second City? (optional)</label>
-            <input id="dest-secondary" type="text" class="form-input" placeholder="e.g. Florence, if doing Rome + Florence" />
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Secondary Destination (optional)</label>
+            <input id="dest-secondary" type="text" class="form-input" placeholder="e.g. Florence" />
           </div>
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Which Plan?</label>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Which Plan? *</label>
             <select id="plan-interest" class="form-input">
               <option value="">Select a plan…</option>
               <option>Weekend Getaway — $49 (3 days, 1 city)</option>
@@ -1235,66 +1224,80 @@
               <option>Complete Family Package — $149 (10 days, multi-city)</option>
             </select>
           </div>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div id="modal-step-2" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">When are you travelling?</h3>
-        <div class="space-y-3">
           <div class="grid grid-cols-2 gap-3">
-            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Departure Date</label><input id="date-start" type="date" class="form-input" /></div>
-            <div><label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Return Date</label><input id="date-end" type="date" class="form-input" /></div>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Pace Preference</label>
-            <select id="pace" class="form-input">
-              <option value="">Select pace…</option>
-              <option>Relaxed — max 4,000 steps/day, long lunches</option>
-              <option>Moderate — 5,000–6,500 steps/day, balanced</option>
-              <option>Active — up to 8,000 steps, energetic parents</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Accommodation Area (if known)</label>
-            <input id="accommodation" type="text" class="form-input" placeholder="e.g. Centro Storico, Trastevere…" />
+            <div>
+              <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Start Date *</label>
+              <input id="date-start" type="date" class="form-input" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">End Date *</label>
+              <input id="date-end" type="date" class="form-input" />
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Step 3 -->
+      <!-- Step 2: Travelers -->
+      <div id="modal-step-2" class="modal-step hidden">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Tell us about your party</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Total Number of Travelers *</label>
+            <input id="traveller-count" type="number" min="1" class="form-input" placeholder="e.g. 4" />
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Number of Adults *</label>
+              <input id="num-adults" type="number" min="0" class="form-input" placeholder="0" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Number of Seniors (65+) *</label>
+              <input id="num-seniors" type="number" min="0" class="form-input" placeholder="0" oninput="document.getElementById('seniors-ages-container').style.display = this.value > 0 ? 'block' : 'none'" />
+            </div>
+          </div>
+          
+          <div id="seniors-ages-container" style="display: none;">
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Seniors *</label>
+            <input id="ages-seniors" type="text" class="form-input" placeholder="e.g. 68, 72" />
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Number of Children *</label>
+            <input id="num-kids" type="number" min="0" class="form-input" placeholder="0" oninput="document.getElementById('kids-ages-container').style.display = this.value > 0 ? 'block' : 'none'" />
+          </div>
+          
+          <div id="kids-ages-container" style="display: none;">
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Children *</label>
+            <input id="ages-kids" type="text" class="form-input" placeholder="e.g. 3, 7, 12" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Preferences & Requirements -->
       <div id="modal-step-3" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Tell us about your travelling party</h3>
-        <div class="space-y-3">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Preferences & Requirements</h3>
+        <div class="space-y-4">
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Children (comma-separated)</label>
-            <input id="ages-kids" type="text" class="form-input" placeholder="e.g. 2, 4, 9" />
-            <p class="text-xs mt-1" style="color:#CBD5E1;">Include all under-18 travellers</p>
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Ages of Adults &amp; Seniors</label>
-            <input id="ages-adults" type="text" class="form-input" placeholder="e.g. 35, 37, 68, 71" />
-          </div>
-          <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Total Travellers</label>
-            <select id="traveller-count" class="form-input">
-              <option>2–3 people</option><option>4–5 people</option>
-              <option>6–8 people</option><option>9+ people (large family)</option>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Travel Pace *</label>
+            <select id="pace" class="form-input">
+              <option value="">Select a pace…</option>
+              <option>Relaxed (1 big thing per day, lots of downtime)</option>
+              <option>Moderate (Morning & Afternoon activity)</option>
+              <option>Fast (Pack in as much as possible!)</option>
             </select>
           </div>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-      <div id="modal-step-4" class="modal-step hidden">
-        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Any accessibility or dietary requirements?</h3>
-        <div class="space-y-3">
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Email Address *</label>
-            <input id="client-email" type="email" class="form-input" placeholder="e.g. you@example.com" required />
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Accommodation Style (optional)</label>
+            <select id="accommodation" class="form-input">
+              <option value="">No preference</option>
+              <option>Hotels (Standard)</option>
+              <option>Luxury Resorts</option>
+              <option>AirBnb / Apartment Rentals</option>
+            </select>
           </div>
           <div>
-            <label class="text-xs font-semibold mb-2 block" style="color:#64748B;">Mobility Requirements</label>
+            <label class="text-xs font-semibold mb-2 block" style="color:#64748B;">Mobility Requirements (optional)</label>
             <div class="space-y-2">
               <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-walker" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Cane or walker in use</span></label>
               <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="mob-wheelchair" class="w-4 h-4 rounded" /><span class="text-sm font-medium" style="color:#475569;">Wheelchair required</span></label>
@@ -1307,8 +1310,24 @@
             <input id="dietary" type="text" class="form-input" placeholder="e.g. vegetarian, nut allergy, halal…" />
           </div>
           <div>
-            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Anything else we should know?</label>
-            <textarea id="notes" class="form-input resize-none" rows="3" placeholder="e.g. Grandad has a hip replacement, kids dislike museums, we love food markets…"></textarea>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Anything else we should know? (optional)</label>
+            <textarea id="notes" class="form-input resize-none" rows="2" placeholder="e.g. Grandad has a hip replacement…"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 4: Contact Info -->
+      <div id="modal-step-4" class="modal-step hidden">
+        <h3 class="font-display font-bold text-base mb-4" style="color:#0F172A;">Contact Information</h3>
+        <p class="text-sm mb-4" style="color:#64748B;">Where should we send your itinerary?</p>
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Full Name *</label>
+            <input id="client-name" type="text" class="form-input" placeholder="e.g. Jane Doe" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold mb-1.5 block" style="color:#64748B;">Email Address *</label>
+            <input id="client-email" type="email" class="form-input" placeholder="e.g. you@example.com" />
           </div>
         </div>
       </div>
@@ -1332,12 +1351,7 @@
     </div>
   </div>
 </div>
-
-
-<!-- ══════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════ -->
-<script>
+\n<!-- ══════════════════════════════════════════════\n     JAVASCRIPT\n══════════════════════════════════════════════ -->\n<script>
 // ── Confetti + Modal ──────────────────────────────────────────────
 function triggerConfettiAndModal(planName) {
   if(planName) document.getElementById('plan-interest').value = planName;
@@ -1356,7 +1370,182 @@ function triggerConfettiAndModal(planName) {
   setTimeout(openModal, 500);
 }
 
+// ── Modal logic ────────────────────────────────────────────────
+let currentStep = 1;
+const totalSteps = 4;
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHUA-LKs4agF_QTF-EbKbJu-bTm_BqpPWR_rbeIEBxkr2YXIhd-g4jeviU-scTEQ9b/exec';
 
+function openModal() {
+  currentStep = 1;
+  renderStep();
+  document.getElementById('intake-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('intake-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('intake-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('intake-modal')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function renderStep() {
+  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
+  const stepEl = document.getElementById('modal-step-' + currentStep);
+  if (stepEl) stepEl.classList.remove('hidden');
+
+  const subtitles = [
+    'Step 1 of 4 — Trip Details',
+    'Step 2 of 4 — Tell us about your party',
+    'Step 3 of 4 — Preferences & Requirements',
+    'Step 4 of 4 — Contact Information'
+  ];
+  const subtitleEl = document.getElementById('modal-subtitle');
+  if (currentStep <= totalSteps) subtitleEl.innerHTML = subtitles[currentStep - 1];
+
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.classList.remove('active', 'done');
+    if (i < currentStep)      dot.classList.add('done');
+    else if (i === currentStep) dot.classList.add('active');
+  }
+
+  const btnBack  = document.getElementById('btn-back');
+  const btnNext  = document.getElementById('btn-next');
+  const modalNav = document.getElementById('modal-nav');
+  if (currentStep === totalSteps + 1) { modalNav.classList.add('hidden'); }
+  else {
+    modalNav.classList.remove('hidden');
+    btnBack.classList.toggle('hidden', currentStep === 1);
+    btnNext.textContent = currentStep === totalSteps ? 'Submit →' : 'Continue →';
+  }
+}
+
+function validateStep() {
+  if (currentStep === 1) {
+    if(!document.getElementById('dest-primary').value) return 'Please enter a Primary Destination.';
+    if(!document.getElementById('plan-interest').value) return 'Please select a Plan.';
+    if(!document.getElementById('date-start').value) return 'Please select a Start Date.';
+    if(!document.getElementById('date-end').value) return 'Please select an End Date.';
+  } else if (currentStep === 2) {
+    if(!document.getElementById('traveller-count').value) return 'Please enter Total Number of Travelers.';
+    if(!document.getElementById('num-adults').value) return 'Please enter Number of Adults.';
+    const numSeniors = document.getElementById('num-seniors').value;
+    if(!numSeniors) return 'Please enter Number of Seniors.';
+    if(numSeniors > 0 && !document.getElementById('ages-seniors').value) return 'Please enter Ages of Seniors.';
+    const numKids = document.getElementById('num-kids').value;
+    if(!numKids) return 'Please enter Number of Children.';
+    if(numKids > 0 && !document.getElementById('ages-kids').value) return 'Please enter Ages of Children.';
+  } else if (currentStep === 3) {
+    if(!document.getElementById('pace').value) return 'Please select a Travel Pace.';
+  } else if (currentStep === 4) {
+    if(!document.getElementById('client-name').value) return 'Please enter your Full Name.';
+    if(!document.getElementById('client-email').value.includes('@')) return 'Please enter a valid Email Address.';
+  }
+  return null;
+}
+
+function modalNext() {
+  const errorMsg = validateStep();
+  if (errorMsg) {
+    alert(errorMsg);
+    return;
+  }
+
+  if (currentStep < totalSteps) { 
+    currentStep++; 
+    renderStep(); 
+  } else if (currentStep === totalSteps) {
+    
+    // Change button to loading state
+    const btnNext = document.getElementById('btn-next');
+    btnNext.textContent = 'Submitting...';
+    btnNext.disabled = true;
+
+    // Collect Data
+    const data = {
+      clientName: document.getElementById('client-name').value,
+      email: document.getElementById('client-email').value,
+      primaryDest: document.getElementById('dest-primary').value,
+      secondaryDest: document.getElementById('dest-secondary').value,
+      planInterest: document.getElementById('plan-interest').value,
+      startDate: document.getElementById('date-start').value,
+      endDate: document.getElementById('date-end').value,
+      pace: document.getElementById('pace').value,
+      totalTravellers: document.getElementById('traveller-count').value,
+      numChildren: document.getElementById('num-kids').value,
+      agesChildren: document.getElementById('ages-kids').value,
+      numAdults: document.getElementById('num-adults').value,
+      numSeniors: document.getElementById('num-seniors').value,
+      agesSeniors: document.getElementById('ages-seniors').value,
+      accommodation: document.getElementById('accommodation').value,
+      mobilityWalker: document.getElementById('mob-walker').checked,
+      mobilityWheelchair: document.getElementById('mob-wheelchair').checked,
+      mobilityStairs: document.getElementById('mob-stairs').checked,
+      dietary: document.getElementById('dietary').value,
+      notes: document.getElementById('notes').value
+    };
+
+    // POST to Google Sheets (Bulletproof hidden form method)
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GOOGLE_SCRIPT_URL;
+    form.target = 'hidden_iframe';
+
+    for (const key in data) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = data[key];
+      form.appendChild(input);
+    }
+    
+    if (!document.getElementById('hidden_iframe')) {
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.id = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    
+    setTimeout(() => {
+      showSuccessStep(data.planInterest);
+      btnNext.disabled = false;
+      document.body.removeChild(form);
+    }, 800);
+  }
+}
+
+function showSuccessStep(planInterest) {
+  currentStep = totalSteps + 1;
+  document.querySelectorAll('.modal-step').forEach(s => s.classList.add('hidden'));
+  document.getElementById('modal-step-5').classList.remove('hidden');
+  document.getElementById('modal-nav').classList.add('hidden');
+  document.getElementById('modal-subtitle').textContent = "You're all set!";
+  
+  // Update the Gumroad button link dynamically based on the plan selected
+  let checkoutUrl = "https://trueroute.gumroad.com/l/family-itinerary?wanted=true";
+  if (planInterest.includes("$49")) checkoutUrl += "&Version=Weekend%20Getaway";
+  else if (planInterest.includes("$99")) checkoutUrl += "&Version=Full%20Week";
+  else if (planInterest.includes("$149")) checkoutUrl += "&Version=Extended%20Trip";
+  
+  const proceedBtn = document.querySelector('#modal-step-5 a');
+  if(proceedBtn) proceedBtn.href = checkoutUrl;
+
+  confetti({
+    particleCount: 160, spread: 90,
+    origin: { y: 0.3 },
+    colors: ['#E05A47','#DFB15B','#2E6F40','#FFFFFF'],
+    zIndex: 3000,
+  });
+}
+
+function modalBack() { if (currentStep > 1) { currentStep--; renderStep(); } }
+\n
 // ── Header scroll ──────────────────────────────────────────────
 const header = document.getElementById('main-header');
 window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
