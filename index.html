@@ -1474,7 +1474,7 @@ function renderStep() {
   }
 }
 
-const GOOGLE_SCRIPT_URL = 'REPLACE_WITH_YOUR_WEB_APP_URL';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHUA-LKs4agF_QTF-EbKbJu-bTm_BqpPWR_rbeIEBxkr2YXIhd-g4jeviU-scTEQ9b/exec';
 
 function modalNext() {
   if (currentStep < totalSteps) { 
@@ -1514,7 +1514,7 @@ function modalNext() {
     };
 
     // If no URL is set, simulate success
-    if (GOOGLE_SCRIPT_URL === 'REPLACE_WITH_YOUR_WEB_APP_URL') {
+    if (GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyHUA-LKs4agF_QTF-EbKbJu-bTm_BqpPWR_rbeIEBxkr2YXIhd-g4jeviU-scTEQ9b/exec') {
       showSuccessStep(data.planInterest);
       btnNext.disabled = false;
       return;
