@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueRoute — Order Confirmed!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; border-radius: 0; }
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #FAFAF7;
+      color: #0F172A;
+      padding: 24px 16px;
+    }
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(15,23,42,0.12);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 60%, #0F172A 100%);
+      padding: 40px 48px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(224,90,71,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .logo { font-size: 20px; font-weight: 800; color: white; margin-bottom: 20px; letter-spacing: -0.5px; }
+    .logo span { color: #E05A47; }
+    .check-circle {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #2E6F40, #3d9455);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 34px;
+      margin: 0 auto 20px;
+      position: relative; z-index: 1;
+    }
+    .header h1 {
+      font-size: 26px; font-weight: 800; color: white;
+      margin-bottom: 8px; position: relative; z-index: 1;
+    }
+    .header p { font-size: 14px; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
+
+    /* Steps */
+    .steps {
+      background: #F8F7F2;
+      border-bottom: 1px solid #F1EFE7;
+      padding: 24px 48px;
+    }
+    .steps h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94A3B8; margin-bottom: 16px; }
+    .step-list { display: flex; flex-direction: column; gap: 12px; }
+    .step-row { display: flex; align-items: flex-start; gap: 14px; }
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-dot.done { background: #2E6F40; color: white; }
+    .step-dot.active { background: #E05A47; color: white; }
+    .step-dot.pending { background: #E2E8F0; color: #94A3B8; }
+    .step-info strong { font-size: 14px; font-weight: 700; color: #0F172A; display: block; line-height: 1.3; }
+    .step-info span { font-size: 12px; color: #64748B; }
+
+    /* Body */
+    .body { padding: 36px 48px; }
+
+    .next-box {
+      background: linear-gradient(135deg, #E05A47, #c84b39);
+      border-radius: 12px;
+      padding: 24px 28px;
+      color: white;
+      margin-bottom: 28px;
+    }
+    .next-box h2 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+    .next-box p { font-size: 13px; color: rgba(255,255,255,0.80); line-height: 1.6; margin-bottom: 14px; }
+    .form-link-placeholder {
+      background: rgba(255,255,255,0.15);
+      border: 2px dashed rgba(255,255,255,0.40);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .what-item {
+      background: #F8F7F2;
+      border: 1.5px solid #F1EFE7;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .what-item .icon { font-size: 18px; flex-shrink: 0; }
+    .what-item strong { font-size: 12px; font-weight: 700; color: #0F172A; display: block; margin-bottom: 2px; }
+    .what-item span { font-size: 11px; color: #64748B; line-height: 1.4; }
+
+    .promise {
+      border: 2px solid #E8F2EC;
+      background: #F4FAF6;
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .promise .icon { font-size: 24px; flex-shrink: 0; }
+    .promise h4 { font-size: 13px; font-weight: 700; color: #2E6F40; margin-bottom: 4px; }
+    .promise p { font-size: 12px; color: #4B7A5A; line-height: 1.6; }
+
+    .contact-box {
+      background: #F8F7F2;
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.7;
+      text-align: center;
+    }
+    .contact-box a { color: #E05A47; font-weight: 700; text-decoration: none; }
+    .contact-box strong { color: #0F172A; }
+
+    /* Footer */
+    .footer {
+      background: #0F172A;
+      padding: 20px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-brand { font-size: 14px; font-weight: 800; color: white; }
+    .footer-brand span { color: #E05A47; }
+    .footer-right { font-size: 11px; color: rgba(255,255,255,0.45); text-align: right; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">True<span>Route</span></div>
+    <div class="check-circle">✓</div>
+    <h1>Your Order is Confirmed!</h1>
+    <p>Thank you for choosing TrueRoute — your family adventure starts here.</p>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <h3>What Happens Next</h3>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-dot done">✓</div>
+        <div class="step-info">
+          <strong>Order Confirmed</strong>
+          <span>Payment received — you're all set.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-dot active">2</div>
+        <div class="step-info">
+          <strong>Fill In Your Trip Details</strong>
+          <span>Complete the intake form below so we can start building your itinerary.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-dot pending">3</div>
+        <div class="step-info">
+          <strong>We Build & Verify</strong>
+          <span>Our 4-pass human verification process — ~60 minutes of research for you.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-dot pending">4</div>
+        <div class="step-info">
+          <strong>Delivered to Your Email</strong>
+          <span>PDF itinerary + interactive Google Maps link. Within 48 hours.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- CTA Box -->
+    <div class="next-box">
+      <h2>📋 &nbsp;Step 2: Fill In Your Trip Details</h2>
+      <p>This takes about 5 minutes. The more detail you share, the more perfectly tailored your itinerary will be — especially for your family's specific ages, mobility needs, and interests.</p>
+      <div class="form-link-placeholder">
+        🔗 &nbsp;Intake Form Link — Coming Soon<br>
+        <span style="font-size:11px; font-weight:400; opacity:0.8;">In the meantime, email your trip details to hello@trueroute.world</span>
+      </div>
+    </div>
+
+    <!-- What you'll get -->
+    <h3 style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#94A3B8; margin-bottom:14px;">✅ &nbsp;What's Included in Your Itinerary</h3>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="icon">📅</div>
+        <div><strong>Day-by-Day Plan</strong><span>Exact timing for every day of your trip</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">👶</div>
+        <div><strong>Nap Windows Protected</strong><span>12:30–2:30 PM kept clear for toddler families</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">♿</div>
+        <div><strong>Step-Free Routes</strong><span>Wheelchair & stroller accessible options noted</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">🍽️</div>
+        <div><strong>Verified Restaurants</strong><span>Open hours confirmed, high chairs checked</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">🌧️</div>
+        <div><strong>Rainy Day Backups</strong><span>Alternative for every outdoor activity</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">🗺️</div>
+        <div><strong>Google Maps Link</strong><span>All locations pinned and shareable</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">📄</div>
+        <div><strong>Polished PDF</strong><span>Printable, offline-usable, branded</span></div>
+      </div>
+      <div class="what-item">
+        <div class="icon">🆘</div>
+        <div><strong>Emergency Info</strong><span>Local numbers & nearest hospitals</span></div>
+      </div>
+    </div>
+
+    <!-- Promise -->
+    <div class="promise">
+      <div class="icon">🛡️</div>
+      <div>
+        <h4>Our 48-Hour Delivery Promise</h4>
+        <p>Once we receive your completed intake form, your fully verified itinerary will be emailed to you within <strong>48 hours</strong>. If anything isn't right, we'll revise it until it is. Your family's trip matters to us.</p>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-box">
+      Questions? We reply within 2 hours.<br>
+      <strong>Email:</strong> <a href="mailto:hello@trueroute.world">hello@trueroute.world</a><br>
+      <strong>Subject:</strong> TrueRoute Order — [Your Name] — [Destination]
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">True<span>Route</span></div>
+    <div class="footer-right">
+      hello@trueroute.world<br>
+      rh-beep01.github.io/trueroute
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
