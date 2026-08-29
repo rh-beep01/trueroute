@@ -32,6 +32,7 @@
   @keyframes shimmer { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
   @keyframes waveBg  { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
   @keyframes popIn   { 0%{transform:scale(0.8); opacity:0;} 80%{transform:scale(1.03);} 100%{transform:scale(1); opacity:1;} }
+  @keyframes slideUp  { 0%{transform:translateX(-50%) translateY(20px); opacity:0;} 100%{transform:translateX(-50%) translateY(0); opacity:1;} }
 
   /* ── Hero ────────────────────────────── */
   .hero-bg {
