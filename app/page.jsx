@@ -603,7 +603,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm line-through" style={{color: '#CBD5E1'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps Integration</li>
             <li className="flex items-center gap-3 text-sm line-through" style={{color: '#CBD5E1'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Age-Group Packing Lists</li>
           </ul>
-          <button onClick={() => {}} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
+          <button onClick={() => setIsIntakeModalOpen(true)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
         </div>
         {/* Full Week - POPULAR */}
         <div className="pricing-card pricing-popular p-8 relative">
