@@ -1,0 +1,37 @@
+{
+  "name": "trueroute",
+  "version": "1.0.0",
+  "description": "**AI-Powered Speed. Human-Verified Perfection.**",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev", "build": "next build", "start": "next start", "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZakariaBinMoti/trueroute.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  
+  "bugs": {
+    "url": "https://github.com/ZakariaBinMoti/trueroute/issues"
+  },
+  "homepage": "https://github.com/ZakariaBinMoti/trueroute#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.4",
+    "canvas-confetti": "^1.9.4",
+    "next": "^16.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.3",
+    "htmltojsx": "^0.3.0",
+    "jsdom": "^30.0.1",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.19"
+  }
+}
