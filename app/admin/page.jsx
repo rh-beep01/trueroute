@@ -25,6 +25,7 @@ const Icons = {
   eye: <Icon d={["M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z", "M12 15a3 3 0 100-6 3 3 0 000 6z"]} />,
   download: <Icon d={["M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4", "M7 10l5 5 5-5", "M12 15V3"]} />,
   trash: <Icon d={["M3 6h18", "M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"]} />,
+  copy: <Icon d={["M8 4v12a2 2 0 002 2h8a2 2 0 002-2V7.242a2 2 0 00-.602-1.43L16.083 2.57A2 2 0 0014.685 2H10a2 2 0 00-2 2z", "M16 18v2a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2"]} />,
   plane: <Icon d={["M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"]} />,
   star: <Icon d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />,
   arrowLeft: <Icon d={["M19 12H5", "M12 19l-7-7 7-7"]} />,
@@ -75,10 +76,59 @@ const getPlanPrice = (plan) => {
   return match ? parseInt(match[1]) : 0;
 };
 
+const generateQABrief = (r) => {
+  if (!r) return '';
+  const orderId = r.order_id || `TR-${r.id?.slice(0, 8) || 'N/A'}`;
+  const duration = tripDuration(r.date_start, r.date_end);
+  const mobility = [
+    r.mob_walker ? '• Cane or walker in use' : null,
+    r.mob_wheelchair ? '• Wheelchair required' : null,
+    r.mob_stairs ? '• Must avoid stairs entirely' : null,
+    r.mob_stroller ? '• Stroller / pram for toddler' : null,
+  ].filter(Boolean);
+
+  return `=======================================================
+TRUEROUTE ITINERARY BRIEF — ORDER #${orderId}
+=======================================================
+Order ID: ${orderId}
+Submission Date: ${r.created_at ? new Date(r.created_at).toLocaleString() : 'N/A'}
+Status: ${r.status || 'New'}
+
+[CLIENT CONTACT]
+• Full Name: ${r.client_name || 'N/A'}
+• Email Address: ${r.client_email || 'N/A'}
+
+[TRIP BASICS]
+• Selected Package: ${r.plan_interest || 'N/A'} (Est. $${getPlanPrice(r.plan_interest)})
+• Primary Destination: ${r.dest_primary || 'N/A'}
+• Secondary Destination(s): ${r.dest_secondary || 'None'}
+• Travel Start Date: ${r.date_start ? formatDate(r.date_start) : 'N/A'}
+• Travel End Date: ${r.date_end ? formatDate(r.date_end) : 'N/A'}
+• Estimated Trip Duration: ${duration}
+
+[TRAVEL PARTY DEMOGRAPHICS]
+• Total Travellers: ${r.traveller_count || 0}
+• Number of Adults: ${r.num_adults || 0}
+• Number of Seniors (65+): ${r.num_seniors || 0} (Ages: ${r.ages_seniors || 'N/A'})
+• Number of Children: ${r.num_kids || 0} (Ages: ${r.ages_kids || 'N/A'})
+
+[PREFERENCES & STYLE]
+• Travel Pace: ${r.pace || 'N/A'}
+• Accommodation Preference: ${r.accommodation || 'No preference'}
+
+[ACCESSIBILITY & MOBILITY REQUIREMENTS]
+${mobility.length > 0 ? mobility.join('\n') : '• No specific mobility limitations reported'}
+
+[DIETARY RESTRICTIONS & SPECIAL NOTES]
+• Dietary Restrictions: ${r.dietary || 'None'}
+• Additional Notes / Instructions: ${r.notes || 'None'}
+=======================================================`;
+};
+
 const exportCSV = (requests) => {
-  const headers = ['Name','Email','Destination','Secondary','Plan','Start','End','Travelers','Adults','Seniors','Children','Pace','Accommodation','Dietary','Notes','Status','Submitted'];
+  const headers = ['Order ID','Name','Email','Destination','Secondary','Plan','Start','End','Travelers','Adults','Seniors','Children','Pace','Accommodation','Dietary','Notes','Status','Submitted'];
   const rows = requests.map(r => [
-    r.client_name, r.client_email, r.dest_primary, r.dest_secondary || '', r.plan_interest,
+    r.order_id || `TR-${r.id?.slice(0, 8) || ''}`, r.client_name, r.client_email, r.dest_primary, r.dest_secondary || '', r.plan_interest,
     r.date_start, r.date_end, r.traveller_count, r.num_adults, r.num_seniors, r.num_kids,
     r.pace, r.accommodation || '', r.dietary || '', r.notes || '', r.status, r.created_at
   ]);
@@ -191,6 +241,7 @@ export default function AdminDashboard() {
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(r =>
+        r.order_id?.toLowerCase().includes(q) ||
         r.client_name?.toLowerCase().includes(q) ||
         r.client_email?.toLowerCase().includes(q) ||
         r.dest_primary?.toLowerCase().includes(q) ||
@@ -294,6 +345,12 @@ export default function AdminDashboard() {
                 )}
               </div>
             </div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-mono text-xs font-bold bg-slate-100 text-slate-800 px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
+                {r.order_id || `TR-${r.id?.slice(0, 6) || 'N/A'}`}
+              </span>
+              <span className="text-xs text-slate-400">Order ID</span>
+            </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-800">{r.client_name}</h2>
             <a href={`mailto:${r.client_email}`} className="text-sm text-emerald-600 hover:underline flex items-center gap-1 mt-0.5">
               {Icons.mail} {r.client_email}
@@ -303,6 +360,32 @@ export default function AdminDashboard() {
 
           {/* Body */}
           <div className="p-4 sm:p-5 space-y-6">
+            {/* Unified Q&A Brief Section for LLM / Copy-Paste */}
+            <div className="bg-slate-900 text-slate-100 rounded-xl p-4 border border-slate-800 shadow-md">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-xs uppercase tracking-wider font-bold text-emerald-400 flex items-center gap-1.5">
+                  📋 Complete Itinerary Brief (Q&amp;A)
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const brief = generateQABrief(r);
+                    navigator.clipboard.writeText(brief);
+                    setToastMessage('Complete Q&A Brief copied to clipboard!');
+                  }}
+                  className="text-xs bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-sm active:scale-95 flex-shrink-0 cursor-pointer"
+                >
+                  {Icons.copy} Copy Full Q&amp;A
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-400 mb-2.5">
+                All 21 intake questions &amp; answers formatted for direct copy-pasting into AI itinerary tools.
+              </p>
+              <pre className="text-xs bg-slate-950 p-3 rounded-lg border border-slate-800 text-slate-300 font-mono overflow-x-auto whitespace-pre-wrap max-h-56 leading-relaxed select-all">
+                {generateQABrief(r)}
+              </pre>
+            </div>
+
             {/* Trip Overview Banner */}
             <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -399,6 +482,17 @@ export default function AdminDashboard() {
 
             {/* Quick Actions */}
             <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const brief = generateQABrief(r);
+                  navigator.clipboard.writeText(brief);
+                  setToastMessage('Complete Q&A Brief copied to clipboard!');
+                }}
+                className="flex-1 flex items-center justify-center gap-2 bg-slate-800 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-slate-900 transition-colors min-w-[140px]"
+              >
+                {Icons.copy} Copy Q&amp;A Brief
+              </button>
               <a href={`mailto:${r.client_email}?subject=Your TrueRoute Itinerary — ${r.dest_primary}&body=Hi ${r.client_name?.split(' ')[0]},%0D%0A%0D%0AThank you for choosing TrueRoute!`}
                 className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-emerald-700 transition-colors min-w-[140px]">
                 {Icons.mail} Email Client
@@ -533,8 +627,11 @@ export default function AdminDashboard() {
                         selectedRequest?.id === req.id ? 'border-emerald-300 shadow-md ring-2 ring-emerald-100' : 'border-slate-200/80 hover:border-slate-300'
                       }`}>
                       <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="flex items-center gap-2 min-w-0">
                           <div className={`w-2 h-2 rounded-full flex-shrink-0 ${sc.dot}`} />
+                          <span className="font-mono text-[10px] font-bold bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200 flex-shrink-0">
+                            {req.order_id || `TR-${req.id?.slice(0, 6)}`}
+                          </span>
                           <h3 className="font-semibold text-slate-800 truncate text-sm">{req.client_name}</h3>
                         </div>
                         <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-md border flex-shrink-0 ml-2 ${sc.bg} ${sc.text} ${sc.border}`}>

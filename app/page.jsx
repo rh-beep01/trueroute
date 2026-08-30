@@ -10,6 +10,8 @@ export default function Home() {
   const [isIntakeModalOpen, setIsIntakeModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [btnText, setBtnText] = useState("Complete Order");
+  const [submittedOrderId, setSubmittedOrderId] = useState('');
+  const [copiedOrderId, setCopiedOrderId] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,7 +100,11 @@ export default function Home() {
         body: JSON.stringify(formData)
       });
       
-      if (res.ok) {
+      const resData = await res.json().catch(() => ({}));
+      if (res.ok && (resData.success || resData.order_id)) {
+        if (resData.order_id) {
+          setSubmittedOrderId(resData.order_id);
+        }
         triggerConfetti();
       } else {
         alert("There was an error submitting your request. Please try again.");
@@ -1010,10 +1016,32 @@ export default function Home() {
           </div>
         </div>
         <div id="modal-step-5" className={`modal-step text-center py-6 ${currentStep === 5 ? '' : 'hidden'}`}>
-          <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-5" style={{background: '#E8F2EC'}}>✔️</div>
-          <h3 className="font-display font-bold text-xl mb-2" style={{color: '#0F172A'}}>You're all set!</h3>
-          <p className="handwritten text-xl mb-4" style={{color: '#E05A47'}}>"Your adventure begins now."</p>
-          <p className="text-sm mb-6 leading-relaxed" style={{color: '#64748B'}}>We've received your details. Head to checkout — your custom itinerary will be underway within 24 hours of payment.</p>
+          <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-4" style={{background: '#E8F2EC'}}>✔️</div>
+          <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>You're all set!</h3>
+          <p className="handwritten text-xl mb-3" style={{color: '#E05A47'}}>"Your adventure begins now."</p>
+
+          {submittedOrderId && (
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 mb-4 text-center">
+              <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 block mb-1">Your Tracking Order ID</span>
+              <div className="flex items-center justify-center gap-2">
+                <span className="font-mono font-bold text-lg text-slate-800 tracking-wider bg-white px-3 py-1 rounded-lg border border-slate-200 shadow-sm">{submittedOrderId}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(submittedOrderId);
+                    setCopiedOrderId(true);
+                    setTimeout(() => setCopiedOrderId(false), 2000);
+                  }}
+                  className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors shadow-sm"
+                >
+                  {copiedOrderId ? '✓ Copied' : 'Copy ID'}
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1">Keep this Order ID for reference and tracking</p>
+            </div>
+          )}
+
+          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details. Head to checkout — your custom itinerary will be underway within 24 hours of payment.</p>
           <a href="https://trueroute.gumroad.com/l/family-itinerary" className="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
           <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
         </div>

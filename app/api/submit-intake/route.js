@@ -5,10 +5,13 @@ export async function POST(request) {
   try {
     const data = await request.json();
 
+    const order_id = data.order_id || `TR-${Math.floor(100000 + Math.random() * 900000)}`;
+
     const { error } = await supabase
       .from('itinerary_requests')
       .insert([
         {
+          order_id: order_id,
           dest_primary: data.dest_primary,
           dest_secondary: data.dest_secondary,
           plan_interest: data.plan_interest,
@@ -38,7 +41,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, order_id }, { status: 200 });
 
   } catch (err) {
     console.error('Server error processing intake form:', err);
