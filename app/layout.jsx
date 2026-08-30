@@ -1,5 +1,6 @@
 import { Plus_Jakarta_Sans, Kalam } from "next/font/google";
 import "./globals.css";
+import FloatingChat from "@/components/FloatingChat";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="scroll-smooth">
       <body className={`${plusJakartaSans.variable} ${kalam.variable}`}>
         {children}
+        <FloatingChat />
       </body>
     </html>
   );
