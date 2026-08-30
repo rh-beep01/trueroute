@@ -13,6 +13,32 @@ export default function Home() {
   const [submittedOrderId, setSubmittedOrderId] = useState('');
   const [copiedOrderId, setCopiedOrderId] = useState(false);
 
+  const GUMROAD_LINKS = {
+    weekend: "https://roamify01.gumroad.com/l/family-itinerary01?wanted=true",
+    week: "https://roamify01.gumroad.com/l/fullweek?wanted=true",
+    complete: "https://roamify01.gumroad.com/l/ExtendedTrip?wanted=true",
+  };
+  const [selectedPlanValue, setSelectedPlanValue] = useState('Full Week Plan — $99 (7 days, up to 2 cities)');
+  const [checkoutUrl, setCheckoutUrl] = useState(GUMROAD_LINKS.week);
+
+  const openPlanModal = (planName, url) => {
+    setSelectedPlanValue(planName);
+    setCheckoutUrl(url);
+    setIsIntakeModalOpen(true);
+  };
+
+  const handlePlanSelectChange = (e) => {
+    const val = e.target.value;
+    setSelectedPlanValue(val);
+    if (val.includes('49') || val.toLowerCase().includes('weekend')) {
+      setCheckoutUrl(GUMROAD_LINKS.weekend);
+    } else if (val.includes('149') || val.toLowerCase().includes('complete')) {
+      setCheckoutUrl(GUMROAD_LINKS.complete);
+    } else {
+      setCheckoutUrl(GUMROAD_LINKS.week);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) setIsScrolled(true);
@@ -609,7 +635,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
-          <button onClick={() => setIsIntakeModalOpen(true)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
+          <button onClick={() => openPlanModal('Weekend Getaway — $49 (3 days, 1 city)', GUMROAD_LINKS.weekend)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
         </div>
         {/* Full Week - POPULAR */}
         <div className="pricing-card pricing-popular p-8 relative">
@@ -624,15 +650,15 @@ export default function Home() {
             <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>⚡ Delivered in 3–5 days</p>
           </div>
           <ul className="space-y-3 mb-8">
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>7-Day Plan (Up to 2 Cities)</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Human Verification</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Step-Free &amp; Senior Rest Stops</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Toddler Nap Windows Protected</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Verified Dining &amp; Dietary Check</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>7-Day Plan (Up to 2 Cities)</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Human Verification</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>Step-Free &amp; Senior Rest Stops</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>Toddler Nap Windows Protected</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>Verified Dining &amp; Dietary Check</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth={2.5}><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
-          <button onClick={() => setIsIntakeModalOpen(true)} id="buy-week" className="btn-primary w-full text-center block py-3.5">Get Started — $99</button>
+          <button onClick={() => openPlanModal('Full Week Plan — $99 (7 days, up to 2 cities)', GUMROAD_LINKS.week)} id="buy-week" className="btn-primary w-full text-center block py-3.5">Get Started — $99</button>
         </div>
         {/* Extended Trip */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #DFB15B'}}>
@@ -654,7 +680,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>⭐ 2 Free Revisions Included</li>
           </ul>
-          <button onClick={() => setIsIntakeModalOpen(true)} id="buy-complete" className="btn-navy w-full text-center block py-3.5">Get Started — $149</button>
+          <button onClick={() => openPlanModal('Complete Family Package — $149 (10 days, multi-city)', GUMROAD_LINKS.complete)} id="buy-complete" className="btn-navy w-full text-center block py-3.5">Get Started — $149</button>
         </div>
         {/* Custom */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #E2E8F0', opacity: '0.95'}}>
@@ -933,11 +959,10 @@ export default function Home() {
             </div>
             <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Which Plan? *</label>
-              <select id="plan-interest" className="form-input">
-                <option value>Select a plan…</option>
-                <option>Weekend Getaway — $49 (3 days, 1 city)</option>
-                <option>Full Week Plan — $99 (7 days, up to 2 cities)</option>
-                <option>Complete Family Package — $149 (10 days, multi-city)</option>
+              <select id="plan-interest" className="form-input" value={selectedPlanValue} onChange={handlePlanSelectChange}>
+                <option value="Weekend Getaway — $49 (3 days, 1 city)">Weekend Getaway — $49 (3 days, 1 city)</option>
+                <option value="Full Week Plan — $99 (7 days, up to 2 cities)">Full Week Plan — $99 (7 days, up to 2 cities)</option>
+                <option value="Complete Family Package — $149 (10 days, multi-city)">Complete Family Package — $149 (10 days, multi-city)</option>
               </select>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -1061,7 +1086,7 @@ export default function Home() {
           )}
 
           <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! Head to checkout — our travel specialists will begin handcrafting your verified itinerary immediately after payment.</p>
-          <a href="https://trueroute.gumroad.com/l/family-itinerary" className="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
+          <a href={checkoutUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
           <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
         </div>
       </div>
