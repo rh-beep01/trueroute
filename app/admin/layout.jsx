@@ -7,8 +7,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: 'TrueRoute Admin',
-  description: 'Admin Dashboard for TrueRoute Itinerary Management',
+  title: 'Roamify Admin',
+  description: 'Admin Dashboard for Roamify Itinerary Management',
 };
 
 export default function AdminLayout({ children }) {

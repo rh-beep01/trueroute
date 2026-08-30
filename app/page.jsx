@@ -132,7 +132,7 @@ export default function Home() {
           </svg>
         </div>
         <div>
-          <span className="font-display font-bold text-lg leading-none" style={{color: '#0F172A'}}>TrueRoute</span>
+          <span className="font-display font-bold text-lg leading-none" style={{color: '#0F172A'}}>Roamify</span>
           <span className="block text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style={{color: '#2E6F40'}}>Ages 3 to 75</span>
         </div>
       </a>
@@ -332,13 +332,13 @@ export default function Home() {
             <li className="flex items-start gap-3"><svg className="flex-shrink-0 mt-0.5" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><line x1={18} y1={6} x2={6} y2={18} /><line x1={6} y1={6} x2={18} y2={18} /></svg><div><p className="font-semibold text-sm" style={{color: '#0F172A'}}>No Rainy-Day Backup</p><p className="text-xs mt-0.5" style={{color: '#94A3B8'}}>One bad weather day collapses your entire trip</p></div></li>
           </ul>
         </div>
-        {/* TrueRoute — GOOD */}
+        {/* Roamify — GOOD */}
         <div className="compare-card p-8 relative overflow-hidden" style={{border: '1.5px solid #2E6F40', boxShadow: '0 4px 24px rgba(46,111,64,0.12)'}}>
           <div className="absolute top-0 right-0 text-white text-xs font-bold px-4 py-2 rounded-bl-2xl" style={{background: '#2E6F40'}}>✓ VERIFIED PLAN</div>
           <div className="flex items-center gap-3 mb-6 mt-1">
             <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{background: '#E8F2EC'}}>✅</div>
             <div>
-              <h3 className="font-display font-bold text-lg" style={{color: '#0F172A'}}>TrueRoute Verified Plan</h3>
+              <h3 className="font-display font-bold text-lg" style={{color: '#0F172A'}}>Roamify Verified Plan</h3>
               <p className="text-sm font-medium" style={{color: '#2E6F40'}}>4-Pass Human Verification</p>
             </div>
           </div>
@@ -673,7 +673,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Fully Bespoke Planning</li>
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Multiple Revisions</li>
           </ul>
-          <a href="mailto:hello@trueroute.world?subject=Custom%20Itinerary%20Inquiry" className="btn-secondary w-full text-center block py-3.5">Email Us</a>
+          <a href="mailto:hello@roamify.life?subject=Custom%20Itinerary%20Inquiry" className="btn-secondary w-full text-center block py-3.5">Email Us</a>
         </div>
       </div>
       {/* Guarantee */}
@@ -700,7 +700,7 @@ export default function Home() {
       <div className="grid md:grid-cols-3 gap-6 observe-me">
         <div className="card p-7" style={{borderTop: '3px solid #E05A47'}}>
           <div className="flex gap-0.5 mb-4" style={{color: '#DFB15B', fontSize: '1rem'}}>★★★★★</div>
-          <p className="text-sm leading-relaxed mb-5" style={{color: '#475569'}}>"My 73-year-old father-in-law has a hip replacement. I was terrified of Lisbon's cobblestones. TrueRoute mapped every rest stop. Dad walked more than he has in years and loved every minute."</p>
+          <p className="text-sm leading-relaxed mb-5" style={{color: '#475569'}}>"My 73-year-old father-in-law has a hip replacement. I was terrified of Lisbon's cobblestones. Roamify mapped every rest stop. Dad walked more than he has in years and loved every minute."</p>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-xs flex-shrink-0" style={{background: '#E05A47'}}>SR</div>
             <div><p className="font-bold text-sm" style={{color: '#0F172A'}}>Sarah R.</p><p className="text-xs" style={{color: '#94A3B8'}}>London, UK · Lisbon Trip 🇵🇹</p></div>
@@ -829,10 +829,10 @@ export default function Home() {
             <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{background: '#0F172A'}}>
               <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth={2} strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 21 15.44" /></svg>
             </div>
-            <span className="font-display font-bold text-base" style={{color: '#0F172A'}}>TrueRoute</span>
+            <span className="font-display font-bold text-base" style={{color: '#0F172A'}}>Roamify</span>
           </div>
           <p className="text-sm leading-relaxed mb-4" style={{color: '#64748B'}}>Multi-generational travel itineraries built for ages 3 to 75. Precision-planned, human-verified.</p>
-          <p className="text-xs" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@trueroute.com" className="font-semibold hover:underline" style={{color: '#E05A47'}}>hello@trueroute.com</a></p>
+          <p className="text-xs" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="font-semibold hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
         </div>
         <div>
           <h4 className="text-xs font-bold mb-4 tracking-widest uppercase" style={{color: '#94A3B8'}}>Destinations</h4>
@@ -868,7 +868,7 @@ export default function Home() {
         </div>
       </div>
       <div className="border-t pt-8 flex flex-col sm:flex-row justify-between items-center gap-4" style={{borderColor: '#F1EFE7'}}>
-        <p className="text-sm" style={{color: '#94A3B8'}}>© 2024 TrueRoute. Made with care for families everywhere.</p>
+        <p className="text-sm" style={{color: '#94A3B8'}}>© 2026 Roamify. Made with care for families everywhere.</p>
         <p className="text-xs" style={{color: '#94A3B8'}}>Serving families in the US, UK, EU, Canada &amp; Australia</p>
       </div>
     </div>

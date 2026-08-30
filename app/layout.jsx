@@ -14,7 +14,7 @@ const kalam = Kalam({
 });
 
 export const metadata = {
-  title: "TrueRoute — Multi-Generational Family Travel, Perfected.",
+  title: "Roamify — Multi-Generational Family Travel, Perfected.",
   description: "Custom vacation itineraries engineered for toddlers, parents, and grandparents. Nap windows protected, step-free routes confirmed, family-friendly dining guaranteed. From $49.",
 };
 

@@ -88,7 +88,7 @@ const generateQABrief = (r) => {
   ].filter(Boolean);
 
   return `=======================================================
-TRUEROUTE ITINERARY BRIEF — ORDER #${orderId}
+ROAMIFY ITINERARY BRIEF — ORDER #${orderId}
 =======================================================
 Order ID: ${orderId}
 Submission Date: ${r.created_at ? new Date(r.created_at).toLocaleString() : 'N/A'}
@@ -137,7 +137,7 @@ const exportCSV = (requests) => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `trueroute-requests-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `roamify-requests-${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 };
@@ -308,7 +308,7 @@ export default function AdminDashboard() {
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/25">✈️</div>
-            <h1 className="text-2xl font-bold text-white mb-1">TrueRoute Admin</h1>
+            <h1 className="text-2xl font-bold text-white mb-1">Roamify Admin</h1>
             <p className="text-slate-400 text-sm">Enter your password to continue</p>
           </div>
           <form onSubmit={handleLogin} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
@@ -573,7 +573,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-lg shadow-sm">✈️</div>
             <div>
-              <span className="font-bold text-slate-800 text-sm sm:text-base block leading-tight">TrueRoute</span>
+              <span className="font-bold text-slate-800 text-sm sm:text-base block leading-tight">Roamify</span>
               <span className="text-[10px] text-slate-400 font-medium hidden sm:block">Admin Dashboard</span>
             </div>
           </div>

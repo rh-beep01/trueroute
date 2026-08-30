@@ -59,7 +59,7 @@ export default function IntakeForm() {
   <div className="header">
     <div className="logo-row">
       <div className="logo-icon">🧭</div>
-      <div className="logo-text">True<span>Route</span></div>
+      <div className="logo-text">Roam<span>ify</span></div>
     </div>
     <h1>Your Custom Itinerary<br />Starts Here</h1>
     <p>Fill out this form and email it back to us. Your verified, day-by-day family itinerary<br />will be delivered within <strong style={{color: '#DFB15B'}}>48 hours</strong>.</p>
@@ -220,9 +220,9 @@ export default function IntakeForm() {
       <div className="email-text">
         <h3>Email this form back to us</h3>
         <p>Once filled in, print this page to PDF (or take a screenshot) and email it to:<br />
-          <a href="mailto:hello@trueroute.world">hello@trueroute.world</a><br /><br />
-          Subject line: <strong style={{color: 'white'}}>TrueRoute Order — [Your Name] — [Destination]</strong><br />
-          e.g. <em style={{color: 'rgba(255,255,255,0.6)'}}>TrueRoute Order — Sarah — Rome &amp; Tuscany</em></p>
+          <a href="mailto:hello@roamify.life">hello@roamify.life</a><br /><br />
+          Subject line: <strong style={{color: 'white'}}>Roamify Order — [Your Name] — [Destination]</strong><br />
+          e.g. <em style={{color: 'rgba(255,255,255,0.6)'}}>Roamify Order — Sarah — Rome &amp; Tuscany</em></p>
       </div>
     </div>
     {/* Promise */}
@@ -230,19 +230,19 @@ export default function IntakeForm() {
       <div className="promise-icon">🛡️</div>
       <div className="promise-text">
         <h4>Our Delivery Promise</h4>
-        <p>Your completed itinerary — day-by-day plan, verified restaurants, step-free routes, Google Maps link, and polished PDF — will be delivered to your email within <strong>48 hours</strong> of receiving this completed form. If you have any questions before then, email us at <strong>hello@trueroute.world</strong> and we'll reply within 2 hours.</p>
+        <p>Your completed itinerary — day-by-day plan, verified restaurants, step-free routes, Google Maps link, and polished PDF — will be delivered to your email within <strong>48 hours</strong> of receiving this completed form. If you have any questions before then, email us at <strong>hello@roamify.life</strong> and we'll reply within 2 hours.</p>
       </div>
     </div>
   </div>{/* /body */}
   {/* Footer */}
   <div className="footer">
     <div>
-      <div className="footer-brand">True<span>Route</span></div>
+      <div className="footer-brand">Roam<span>ify</span></div>
       <div className="footer-tagline">AI-Powered Speed. Human-Verified Perfection.</div>
     </div>
     <div className="footer-tagline" style={{textAlign: 'right'}}>
-      hello@trueroute.world<br />
-      rh-beep01.github.io/trueroute
+      hello@roamify.life<br />
+      www.roamify.life
     </div>
   </div>
 </div>

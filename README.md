@@ -1,18 +1,17 @@
-# TrueRoute 🧭
+# Roamify 🧭
 
 **AI-Powered Speed. Human-Verified Perfection.**
 
-TrueRoute delivers custom, human-verified travel itineraries specifically for multigenerational families — trips where toddlers, teenagers, parents, and grandparents all travel together.
+Roamify delivers custom, human-verified travel itineraries specifically for multigenerational families — trips where toddlers, teenagers, parents, and grandparents all travel together.
 
 ## 🌐 Live Site
 
-👉 [https://rh-beep01.github.io/trueroute](https://rh-beep01.github.io/trueroute)
+👉 [https://www.roamify.life](https://www.roamify.life)
 
 ## 🛠️ Tech Stack
 
-- Pure HTML5 + Vanilla CSS + JavaScript
-- Zero dependencies — loads instantly anywhere in the world
-- Hosted via GitHub Pages
+- Next.js 14/16 (App Router) + Tailwind CSS + Supabase + Telegram Bot API
+- Hosted via Vercel on [www.roamify.life](https://www.roamify.life)
 
 ## 📦 Packages Available
 
