@@ -736,12 +736,13 @@ export default function Home() {
         <h2 className="font-display font-bold text-4xl sm:text-5xl mb-4" style={{color: '#0F172A'}}>Frequently Asked</h2>
       </div>
       <div className="space-y-3 observe-me">
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+        {/* FAQ 1 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 0 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(0)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 0}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>How long does delivery take for each plan?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 0 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">Because every single restaurant, step count, transit route, and nap window is individually researched and verified by a human travel specialist, our delivery timeline scales with the duration and complexity of your trip:
               <ul className="mt-2 space-y-1 list-disc list-inside">
                 <li><strong>Weekend Getaway ($49):</strong> Delivered within <strong>2 days</strong></li>
@@ -752,48 +753,58 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+
+        {/* FAQ 2 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 1 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(1)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 1}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What if we want changes or corrections after delivery?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 1 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">All plans include <strong>1 free revision / correction</strong> (the Complete Family Package includes <strong>2 free revisions</strong>). If any venue changes or you want to swap an activity, simply reply to your delivery email and we will adjust your plan. All plans also include our <strong>100% 7-day satisfaction guarantee</strong> — we'll revise your itinerary or refund you in full.</div>
           </div>
         </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+
+        {/* FAQ 3 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 2 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(2)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 2}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What does "4-Pass Verification" actually mean?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 2 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">Four independent human review stages: (1) Mobility Audit — step counts and bench locations. (2) Real-Time Venue Check — opening hours and reservation requirements. (3) Pacing Guardrails — guaranteed 2-hour daily rest blocks. (4) Contingency Planning — rainy-day alternatives and nearby healthcare points mapped for every day.</div>
           </div>
         </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+
+        {/* FAQ 4 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 3 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(3)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 3}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>How do you collect my family's specific information?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 3 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">After purchase, you complete a structured intake form: destination, travel dates, ages of all travellers, mobility requirements, dietary restrictions, and pace preference. We use every data point to customise each hour of your itinerary.</div>
           </div>
         </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+
+        {/* FAQ 5 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 4 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(4)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 4}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>Does it work for very young toddlers under 18 months?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 4 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">Yes — this is where we excel most. We plan around 2-nap daily schedules for infants, mark all stroller-accessible routes, confirm lift availability at every museum, and note nursing-friendly cafés and family restrooms throughout.</div>
           </div>
         </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+
+        {/* FAQ 6 */}
+        <div className={`faq-item overflow-hidden ${openFAQ === 5 ? 'open' : ''}`}>
+          <button onClick={() => toggleFAQ(5)} className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded={openFAQ === 5}>
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>How is this different from a travel agent?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+          <div className={`faq-answer px-6 text-sm leading-relaxed ${openFAQ === 5 ? 'open' : ''}`} style={{color: '#64748B'}}>
             <div className="pb-6">Travel agents book flights and hotels and earn commission. We create the precise hour-by-hour daily structure that makes your trip actually work across multiple age groups and mobility levels. We complement your bookings with the detail no travel agent has the time or expertise to build.</div>
           </div>
         </div>
