@@ -165,25 +165,59 @@ export default function AdminDashboard() {
     }
   }, [toastMessage]);
 
+  // Check saved session on reload
+  useEffect(() => {
+    try {
+      const savedToken = sessionStorage.getItem('trueroute_admin_token');
+      if (savedToken) {
+        setPassword(savedToken);
+        verifyAndLogin(savedToken);
+      }
+    } catch { /* silent */ }
+  }, []);
+
   // ─── Auth ──────────────────────────────────────────────────────────────
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const verifyAndLogin = async (pwd) => {
     setLoading(true);
     setError('');
     try {
       const res = await fetch('/api/admin/requests', {
-        headers: { 'Authorization': `Bearer ${password}` }
+        headers: { 'Authorization': `Bearer ${pwd}` }
       });
       if (res.ok) {
         const data = await res.json();
         setRequests(data.requests || []);
         setIsAuthenticated(true);
+        try {
+          sessionStorage.setItem('trueroute_admin_token', pwd);
+        } catch { /* silent */ }
       } else {
-        const errData = await res.json();
+        const errData = await res.json().catch(() => ({}));
         setError(res.status === 401 ? 'Invalid password' : (errData.error || 'Server error'));
+        try {
+          sessionStorage.removeItem('trueroute_admin_token');
+        } catch { /* silent */ }
       }
-    } catch { setError('Network error'); }
-    finally { setLoading(false); }
+    } catch {
+      setError('Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    if (e) e.preventDefault();
+    await verifyAndLogin(password);
+  };
+
+  const handleLogout = () => {
+    try {
+      sessionStorage.removeItem('trueroute_admin_token');
+    } catch { /* silent */ }
+    setIsAuthenticated(false);
+    setPassword('');
+    setRequests([]);
+    setSelectedRequest(null);
   };
 
   const refreshData = async () => {
@@ -554,7 +588,7 @@ export default function AdminDashboard() {
               title="Export CSV">
               {Icons.download} <span>Export</span>
             </button>
-            <button onClick={() => { setIsAuthenticated(false); setPassword(''); setRequests([]); setSelectedRequest(null); }}
+            <button onClick={handleLogout}
               className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors" title="Logout">
               {Icons.logout}
             </button>
