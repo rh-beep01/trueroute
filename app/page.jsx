@@ -13,6 +13,7 @@ export default function Home() {
   const [submittedOrderId, setSubmittedOrderId] = useState('');
   const [copiedOrderId, setCopiedOrderId] = useState(false);
   const [selectedPlanUrl, setSelectedPlanUrl] = useState('');
+  const [countdown, setCountdown] = useState(null);
 
   const GUMROAD = {
     weekend: 'https://roamify01.gumroad.com/l/family-itinerary01?wanted=true',
@@ -63,12 +64,18 @@ export default function Home() {
     });
     setBtnText("Request Received!");
     setCurrentStep(5);
-    // Redirect to the plan's Gumroad checkout after a short celebration delay
-    if (gumroadUrl) {
-      setTimeout(() => {
-        window.open(gumroadUrl, '_blank');
-      }, 1800);
-    }
+    // Start a 5-second countdown, then open Gumroad
+    setCountdown(5);
+    const interval = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          if (gumroadUrl) window.open(gumroadUrl, '_blank');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     setTimeout(() => {
       setBtnText("Submit");
     }, 2500);
@@ -1080,8 +1087,40 @@ export default function Home() {
           )}
 
           <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! Head to checkout — our travel specialists will begin handcrafting your verified itinerary immediately after payment.</p>
-          <a href="https://trueroute.gumroad.com/l/family-itinerary" className="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
-          <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
+
+          {/* Countdown ring + button */}
+          {countdown !== null && countdown > 0 ? (
+            <div className="flex flex-col items-center gap-3 mb-3">
+              <div className="relative w-16 h-16">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="28" fill="none" stroke="#F1EFE7" strokeWidth="5" />
+                  <circle
+                    cx="32" cy="32" r="28"
+                    fill="none"
+                    stroke="#E05A47"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    strokeDasharray={`${2 * Math.PI * 28}`}
+                    strokeDashoffset={`${2 * Math.PI * 28 * (1 - countdown / 5)}`}
+                    style={{transition: 'stroke-dashoffset 1s linear'}}
+                  />
+                </svg>
+                <span className="absolute inset-0 flex items-center justify-center font-bold text-xl" style={{color: '#E05A47'}}>{countdown}</span>
+              </div>
+              <p className="text-xs font-semibold" style={{color: '#94A3B8'}}>Redirecting to checkout in {countdown}s…</p>
+            </div>
+          ) : (
+            <a
+              href={selectedPlanUrl || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary w-full text-center block py-4 mb-3"
+            >
+              Proceed to Checkout →
+            </a>
+          )}
+
+          <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); setCountdown(null); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
         </div>
       </div>
       {/* Footer nav */}
