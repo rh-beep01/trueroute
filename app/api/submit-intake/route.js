@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { localStore } from '@/lib/store';
+import { sendTelegramNotification } from '@/lib/telegram';
 
 export async function POST(request) {
   try {
@@ -38,6 +39,11 @@ export async function POST(request) {
 
     // Save to local cache for instant viewing in admin
     localStore.add(newRecord);
+
+    // Trigger instant Telegram notification (async/non-blocking)
+    sendTelegramNotification(newRecord).catch(err => {
+      console.warn('Telegram notification failed:', err.message);
+    });
 
     const isPlaceholder = !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder');
 
