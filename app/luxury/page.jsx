@@ -845,7 +845,8 @@ export default function LuxuryHome() {
             <span className="font-display font-bold text-base" style={{color: '#0F172A'}}>Roamify</span>
           </div>
           <p className="text-sm leading-relaxed mb-4" style={{color: '#64748B'}}>Personalized multi-generational travel itineraries for ages 3 to 75. Thoughtfully designed, human-verified.</p>
-          <p className="text-xs" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="font-semibold hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
+          <p className="text-xs mb-1.5" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="font-semibold hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
+          <p className="text-xs" style={{color: '#94A3B8'}}>📸 <a href="https://www.instagram.com/roamify.life/" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{color: '#E05A47'}}>@roamify.life</a></p>
         </div>
         <div>
           <h4 className="text-xs font-bold mb-4 tracking-widest uppercase" style={{color: '#94A3B8'}}>Destinations</h4>
