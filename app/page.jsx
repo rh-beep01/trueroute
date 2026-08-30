@@ -12,6 +12,19 @@ export default function Home() {
   const [btnText, setBtnText] = useState("Complete Order");
   const [submittedOrderId, setSubmittedOrderId] = useState('');
   const [copiedOrderId, setCopiedOrderId] = useState(false);
+  const [selectedPlanUrl, setSelectedPlanUrl] = useState('');
+
+  const GUMROAD = {
+    weekend: 'https://roamify01.gumroad.com/l/family-itinerary01?wanted=true',
+    week:    'https://roamify01.gumroad.com/l/fullweek?wanted=true',
+    complete:'https://roamify01.gumroad.com/l/ExtendedTrip?wanted=true',
+  };
+
+  const openPlanModal = (planUrl) => {
+    setSelectedPlanUrl(planUrl);
+    setIsIntakeModalOpen(true);
+    setCurrentStep(1);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +54,7 @@ export default function Home() {
     setOpenFAQ(openFAQ === index ? null : index);
   };
 
-  const triggerConfetti = () => {
+  const triggerConfetti = (gumroadUrl) => {
     confetti({
       particleCount: 150,
       spread: 70,
@@ -50,6 +63,12 @@ export default function Home() {
     });
     setBtnText("Request Received!");
     setCurrentStep(5);
+    // Redirect to the plan's Gumroad checkout after a short celebration delay
+    if (gumroadUrl) {
+      setTimeout(() => {
+        window.open(gumroadUrl, '_blank');
+      }, 1800);
+    }
     setTimeout(() => {
       setBtnText("Submit");
     }, 2500);
@@ -105,7 +124,7 @@ export default function Home() {
         if (resData.order_id) {
           setSubmittedOrderId(resData.order_id);
         }
-        triggerConfetti();
+        triggerConfetti(selectedPlanUrl);
       } else {
         alert("There was an error submitting your request. Please try again.");
         setBtnText("Complete Order");
@@ -609,7 +628,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
-          <a href="https://roamify01.gumroad.com/l/family-itinerary01?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</a>
+          <button onClick={() => openPlanModal(GUMROAD.weekend)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
         </div>
         {/* Full Week - POPULAR */}
         <div className="pricing-card pricing-popular p-8 relative">
@@ -632,7 +651,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
-          <a href="https://roamify01.gumroad.com/l/fullweek?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-week" className="btn-primary w-full text-center block py-3.5">Get Started — $99</a>
+          <button onClick={() => openPlanModal(GUMROAD.week)} id="buy-week" className="btn-primary w-full text-center block py-3.5">Get Started — $99</button>
         </div>
         {/* Extended Trip */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #DFB15B'}}>
@@ -654,7 +673,7 @@ export default function Home() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>⭐ 2 Free Revisions Included</li>
           </ul>
-          <a href="https://roamify01.gumroad.com/l/ExtendedTrip?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-complete" className="btn-navy w-full text-center block py-3.5">Get Started — $149</a>
+          <button onClick={() => openPlanModal(GUMROAD.complete)} id="buy-complete" className="btn-navy w-full text-center block py-3.5">Get Started — $149</button>
         </div>
         {/* Custom */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #E2E8F0', opacity: '0.95'}}>
