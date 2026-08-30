@@ -630,7 +630,7 @@ export default function LuxuryHome() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Backup</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Itinerary Revision</li>
           </ul>
-          <button onClick={() => openPlanModal('Weekend Getaway — $49 (3 days, 1 city)', GUMROAD_LINKS.weekend)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Select Plan — $49</button>
+          <a href="https://roamify01.gumroad.com/l/family-itinerary01?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Select Plan — $49</a>
         </div>
         {/* Full Week - POPULAR */}
         <div className="pricing-card pricing-popular p-8 relative">
@@ -653,7 +653,7 @@ export default function LuxuryHome() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Backup</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Itinerary Revision</li>
           </ul>
-          <button onClick={() => openPlanModal('Full Week Plan — $99 (7 days, up to 2 cities)', GUMROAD_LINKS.week)} id="buy-week" className="btn-primary w-full text-center block py-3.5">Select Plan — $99</button>
+          <a href="https://roamify01.gumroad.com/l/fullweek?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-week" className="btn-primary w-full text-center block py-3.5">Select Plan — $99</a>
         </div>
         {/* Extended Trip */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #DFB15B'}}>
@@ -675,7 +675,7 @@ export default function LuxuryHome() {
             <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Backup</li>
             <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>⭐ 2 Free Itinerary Revisions</li>
           </ul>
-          <button onClick={() => openPlanModal('Complete Family Package — $149 (10 days, multi-city)', GUMROAD_LINKS.complete)} id="buy-complete" className="btn-navy w-full text-center block py-3.5">Select Plan — $149</button>
+          <a href="https://roamify01.gumroad.com/l/ExtendedTrip?wanted=true" target="_blank" rel="noopener noreferrer" id="buy-complete" className="btn-navy w-full text-center block py-3.5">Select Plan — $149</a>
         </div>
         {/* Custom */}
         <div className="pricing-card p-8" style={{border: '1.5px solid #E2E8F0', opacity: '0.95'}}>
