@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { localStore } from '@/lib/store';
 
 export async function POST(request) {
   const authHeader = request.headers.get('authorization');
@@ -8,6 +9,14 @@ export async function POST(request) {
   if (!token || token !== process.env.ADMIN_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+
+  const { id, status } = await request.json().catch(() => ({}));
+  
+  if (!id || !status) {
+    return NextResponse.json({ error: 'Missing id or status' }, { status: 400 });
+  }
+
+  localStore.updateStatus(id, status);
 
   const isPlaceholder = !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder');
 
