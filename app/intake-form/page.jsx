@@ -62,7 +62,7 @@ export default function IntakeForm() {
       <div className="logo-text">Roam<span>ify</span></div>
     </div>
     <h1>Your Custom Itinerary<br />Starts Here</h1>
-    <p>Fill out this form and email it back to us. Your verified, day-by-day family itinerary<br />will be delivered within <strong style={{color: '#DFB15B'}}>48 hours</strong>.</p>
+    <p>Fill out this form and email it back to us. Your verified, day-by-day family itinerary<br />will be delivered directly to your inbox according to your plan timeline.</p>
   </div>
   {/* Thank you banner */}
   <div className="thankyou">
@@ -230,7 +230,7 @@ export default function IntakeForm() {
       <div className="promise-icon">🛡️</div>
       <div className="promise-text">
         <h4>Our Delivery Promise</h4>
-        <p>Your completed itinerary — day-by-day plan, verified restaurants, step-free routes, Google Maps link, and polished PDF — will be delivered to your email within <strong>48 hours</strong> of receiving this completed form. If you have any questions before then, email us at <strong>hello@roamify.life</strong> and we'll reply within 2 hours.</p>
+        <p>Your completed itinerary — day-by-day plan, verified restaurants, step-free routes, Google Maps link, and polished PDF — will be delivered to your email according to your plan's delivery window (Weekend: 2 days, Full Week: 3–5 days, Complete Family: 5–7 days). If you have any questions before then, email us at <strong>hello@roamify.life</strong> and we'll reply within 2 hours.</p>
       </div>
     </div>
   </div>{/* /body */}

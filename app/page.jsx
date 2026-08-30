@@ -594,20 +594,20 @@ export default function Home() {
           <div className="mb-6">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style={{background: '#F1F5F9'}}>🗓️</div>
             <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Weekend Getaway</h3>
-            <p className="text-sm" style={{color: '#94A3B8'}}>Perfect for a long weekend break</p>
+            <p className="text-sm" style={{color: '#94A3B8'}}>Perfect for a quick family escape</p>
           </div>
           <div className="mb-6">
             <div className="flex items-end gap-2"><span className="font-display font-bold text-5xl" style={{color: '#0F172A'}}>$49</span><span className="text-sm mb-2" style={{color: '#94A3B8'}}>one-time</span></div>
-            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>Delivered in 3 days</p>
+            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>⚡ Delivered in 2 days</p>
           </div>
           <ul className="space-y-3 mb-8">
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>3-Day Plan</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 City Coverage</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Basic Verification Pass</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Fork &amp; Merge Daily Schedule</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Nap Windows Protected</li>
-            <li className="flex items-center gap-3 text-sm line-through" style={{color: '#CBD5E1'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps Integration</li>
-            <li className="flex items-center gap-3 text-sm line-through" style={{color: '#CBD5E1'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Age-Group Packing Lists</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>3-Day Plan (1 City)</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Human Verification</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Step-Free &amp; Senior Rest Stops</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Toddler Nap Windows Protected</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Verified Dining &amp; Dietary Check</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
           <button onClick={() => setIsIntakeModalOpen(true)} id="buy-weekend" className="btn-secondary w-full text-center block py-3.5">Get Started — $49</button>
         </div>
@@ -617,20 +617,20 @@ export default function Home() {
           <div className="mb-6 mt-3">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style={{background: '#FDF2F0'}}>✈️</div>
             <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Full Week Plan</h3>
-            <p className="text-sm" style={{color: '#94A3B8'}}>The sweet spot for family trips</p>
+            <p className="text-sm" style={{color: '#94A3B8'}}>The sweet spot for family vacations</p>
           </div>
           <div className="mb-6">
             <div className="flex items-end gap-2"><span className="font-display font-bold text-5xl" style={{color: '#E05A47'}}>$99</span><span className="text-sm mb-2" style={{color: '#94A3B8'}}>one-time</span></div>
-            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>Delivered in 4 days</p>
+            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>⚡ Delivered in 3–5 days</p>
           </div>
           <ul className="space-y-3 mb-8">
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>7-Day Plan</li>
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Up to 2 Cities</li>
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Verification</li>
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps Integration</li>
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Backup Restaurants All Days</li>
-            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Rainy-Day Plans (All 7 Days)</li>
-            <li className="flex items-center gap-3 text-sm line-through" style={{color: '#CBD5E1'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Age-Group Packing Lists</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>7-Day Plan (Up to 2 Cities)</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Human Verification</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Step-Free &amp; Senior Rest Stops</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Toddler Nap Windows Protected</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Verified Dining &amp; Dietary Check</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#E05A47" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
           </ul>
           <button onClick={() => setIsIntakeModalOpen(true)} id="buy-week" className="btn-primary w-full text-center block py-3.5">Get Started — $99</button>
         </div>
@@ -638,21 +638,21 @@ export default function Home() {
         <div className="pricing-card p-8" style={{border: '1.5px solid #DFB15B'}}>
           <div className="mb-6">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style={{background: '#FDF8ED'}}>🌍</div>
-            <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Extended Trip</h3>
+            <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Complete Family Package</h3>
             <p className="text-sm" style={{color: '#94A3B8'}}>The full multi-city grand tour</p>
           </div>
           <div className="mb-6">
             <div className="flex items-end gap-2"><span className="font-display font-bold text-5xl" style={{color: '#DFB15B'}}>$149</span><span className="text-sm mb-2" style={{color: '#94A3B8'}}>one-time</span></div>
-            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>Delivered in 5 days</p>
+            <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>⚡ Delivered in 5–7 days</p>
           </div>
           <ul className="space-y-3 mb-8">
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>10-Day Plan</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Multi-City Coverage</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Everything in Full Week +</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Age-Group Packing Lists</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Transit Booking Guide</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Priority Support</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>1 Free Revision Included</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#0F172A'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>10-Day Plan (Multi-City)</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Full 4-Pass Human Verification</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Step-Free &amp; Senior Rest Stops</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Toddler Nap Windows Protected</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Verified Dining &amp; Dietary Check</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Google Maps &amp; Rainy-Day Plans</li>
+            <li className="flex items-center gap-3 text-sm font-semibold" style={{color: '#2E6F40'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>⭐ 2 Free Revisions Included</li>
           </ul>
           <button onClick={() => setIsIntakeModalOpen(true)} id="buy-complete" className="btn-navy w-full text-center block py-3.5">Get Started — $149</button>
         </div>
@@ -660,7 +660,7 @@ export default function Home() {
         <div className="pricing-card p-8" style={{border: '1.5px solid #E2E8F0', opacity: '0.95'}}>
           <div className="mb-6">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4" style={{background: '#F1F5F9'}}>✨</div>
-            <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Custom</h3>
+            <h3 className="font-display font-bold text-xl mb-1" style={{color: '#0F172A'}}>Custom Plan</h3>
             <p className="text-sm" style={{color: '#94A3B8'}}>10+ days or complex routing</p>
           </div>
           <div className="mb-6">
@@ -668,10 +668,10 @@ export default function Home() {
             <p className="text-sm font-semibold mt-1" style={{color: '#2E6F40'}}>Timeline based on scope</p>
           </div>
           <ul className="space-y-3 mb-8">
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Unlimited Days</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Unlimited Cities</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Fully Bespoke Planning</li>
-            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Multiple Revisions</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Unlimited Days &amp; Cities</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Fully Bespoke Verification</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Dedicated Travel Specialist</li>
+            <li className="flex items-center gap-3 text-sm font-medium" style={{color: '#475569'}}><svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>Multiple / Unlimited Revisions</li>
           </ul>
           <a href="mailto:hello@roamify.life?subject=Custom%20Itinerary%20Inquiry" className="btn-secondary w-full text-center block py-3.5">Email Us</a>
         </div>
@@ -738,6 +738,31 @@ export default function Home() {
       <div className="space-y-3 observe-me">
         <div className="faq-item overflow-hidden">
           <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+            <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>How long does delivery take for each plan?</span>
+            <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
+          </button>
+          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+            <div className="pb-6">Because every single restaurant, step count, transit route, and nap window is individually researched and verified by a human travel specialist, our delivery timeline scales with the duration and complexity of your trip:
+              <ul className="mt-2 space-y-1 list-disc list-inside">
+                <li><strong>Weekend Getaway ($49):</strong> Delivered within <strong>2 days</strong></li>
+                <li><strong>Full Week Plan ($99):</strong> Delivered within <strong>3–5 days</strong></li>
+                <li><strong>Complete Family Package ($149):</strong> Delivered within <strong>5–7 days</strong></li>
+              </ul>
+              If you have an urgent trip coming up, email us at <a href="mailto:hello@roamify.life" className="text-emerald-700 font-semibold underline">hello@roamify.life</a> and we will do our best to accommodate your schedule!
+            </div>
+          </div>
+        </div>
+        <div className="faq-item overflow-hidden">
+          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
+            <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What if we want changes or corrections after delivery?</span>
+            <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
+          </button>
+          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
+            <div className="pb-6">All plans include <strong>1 free revision / correction</strong> (the Complete Family Package includes <strong>2 free revisions</strong>). If any venue changes or you want to swap an activity, simply reply to your delivery email and we will adjust your plan. All plans also include our <strong>100% 7-day satisfaction guarantee</strong> — we'll revise your itinerary or refund you in full.</div>
+          </div>
+        </div>
+        <div className="faq-item overflow-hidden">
+          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
             <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What does "4-Pass Verification" actually mean?</span>
             <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
           </button>
@@ -752,24 +777,6 @@ export default function Home() {
           </button>
           <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
             <div className="pb-6">After purchase, you complete a structured intake form: destination, travel dates, ages of all travellers, mobility requirements, dietary restrictions, and pace preference. We use every data point to customise each hour of your itinerary.</div>
-          </div>
-        </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
-            <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What destinations do you cover?</span>
-            <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
-          </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
-            <div className="pb-6">We specialise in Italy (Rome, Florence, Venice, Amalfi), United Kingdom (London, Edinburgh, Bath), Portugal (Lisbon, Porto, Sintra), Spain (Barcelona, Seville, Madrid), and Greece (Athens, Santorini, Crete). Additional destinations available on request.</div>
-          </div>
-        </div>
-        <div className="faq-item overflow-hidden">
-          <button className="faq-trigger w-full flex items-center justify-between p-6 text-left" aria-expanded="false">
-            <span className="font-semibold pr-4 text-sm" style={{color: '#0F172A'}}>What if we want changes after delivery?</span>
-            <svg className="faq-icon flex-shrink-0" style={{color: '#E05A47'}} width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1={12} y1={5} x2={12} y2={19} /><line x1={5} y1={12} x2={19} y2={12} /></svg>
-          </button>
-          <div className="faq-answer px-6 text-sm leading-relaxed" style={{color: '#64748B'}}>
-            <div className="pb-6">The Extended Trip includes one free revision. Weekend and Full Week plans can add a revision for $19. All plans include a 7-day satisfaction guarantee — we'll revise or refund in full if you're unsatisfied for any reason.</div>
           </div>
         </div>
         <div className="faq-item overflow-hidden">
@@ -795,7 +802,7 @@ export default function Home() {
   </section>
   {/* ══════════════════════════════════════════════
      FINAL CTA BANNER
-══════════════════════════════════════════════ */}
+  ══════════════════════════════════════════════ */}
   <section className="py-24 px-6 relative overflow-hidden" style={{background: '#0F172A'}}>
     <div className="absolute inset-0 opacity-5 pointer-events-none" style={{backgroundImage: 'radial-gradient(circle at 25% 50%, #DFB15B 0%, transparent 60%), radial-gradient(circle at 75% 50%, #E05A47 0%, transparent 60%)'}} />
     <div className="relative max-w-3xl mx-auto text-center observe-me">
@@ -815,7 +822,7 @@ export default function Home() {
           View All Plans
         </a>
       </div>
-      <p className="text-sm mt-6" style={{color: 'rgba(255,255,255,0.4)'}}>No subscription · 7-day guarantee · Delivered in 3–5 days</p>
+      <p className="text-sm mt-6" style={{color: 'rgba(255,255,255,0.4)'}}>No subscription · 7-day guarantee · 100% human-verified itineraries</p>
     </div>
   </section>
   {/* ══════════════════════════════════════════════
@@ -1041,7 +1048,7 @@ export default function Home() {
             </div>
           )}
 
-          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details. Head to checkout — your custom itinerary will be underway within 24 hours of payment.</p>
+          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! Head to checkout — our travel specialists will begin handcrafting your verified itinerary immediately after payment.</p>
           <a href="https://trueroute.gumroad.com/l/family-itinerary" className="btn-primary w-full text-center block py-4 mb-3">Proceed to Checkout →</a>
           <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
         </div>
