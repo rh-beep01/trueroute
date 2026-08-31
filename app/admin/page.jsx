@@ -249,36 +249,73 @@ export default function AdminDashboard() {
 
   const updateStatus = async (id, newStatus) => {
     const token = getAuthToken();
+    const reqObj = requests.find(r => r.id === id) || selectedRequest;
     try {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ id, status: newStatus, sendEmail: newStatus === 'Payment Verified' })
+        body: JSON.stringify({
+          id,
+          order_id: reqObj?.order_id,
+          status: newStatus,
+          sendEmail: newStatus === 'Payment Verified',
+          client_name: reqObj?.client_name,
+          client_email: reqObj?.client_email,
+          dest_primary: reqObj?.dest_primary,
+          plan_interest: reqObj?.plan_interest
+        })
       });
+      const resData = await res.json().catch(() => ({}));
       if (res.ok) {
-        const resData = await res.json().catch(() => ({}));
         setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
         if (selectedRequest?.id === id) setSelectedRequest(prev => ({ ...prev, status: newStatus }));
-        setToastMessage(newStatus === 'Payment Verified' ? `✓ Payment Verified & Confirmation Email Sent!` : `✓ Status updated to "${newStatus}"`);
+        
+        if (newStatus === 'Payment Verified') {
+          if (resData.emailWarning) {
+            setToastMessage(`✓ Status updated to "Payment Verified" (${resData.emailWarning})`);
+          } else if (resData.emailResult?.success === false) {
+            setToastMessage(`✓ Status updated, but email failed: ${resData.emailResult?.error || 'Email error'}`);
+          } else {
+            setToastMessage(`✓ Payment Verified & Confirmation Email Sent to ${reqObj?.client_email || 'client'}!`);
+          }
+        } else {
+          setToastMessage(`✓ Status updated to "${newStatus}"`);
+        }
       } else {
-        setToastMessage('Failed to update status on server');
+        setToastMessage(`Failed to update status: ${resData.error || 'Server error'}`);
       }
     } catch { setToastMessage('Network error updating status'); }
   };
 
   const sendPaymentEmail = async (id) => {
     const token = getAuthToken();
+    const reqObj = requests.find(r => r.id === id) || selectedRequest;
     try {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ id, status: selectedRequest?.status || 'Payment Verified', sendEmail: true })
+        body: JSON.stringify({
+          id,
+          order_id: reqObj?.order_id,
+          status: reqObj?.status || 'Payment Verified',
+          sendEmail: true,
+          client_name: reqObj?.client_name,
+          client_email: reqObj?.client_email,
+          dest_primary: reqObj?.dest_primary,
+          plan_interest: reqObj?.plan_interest
+        })
       });
+      const resData = await res.json().catch(() => ({}));
       if (res.ok) {
-        setToastMessage('✓ Payment & timeline confirmation email sent to client!');
+        if (resData.emailWarning) {
+          setToastMessage(resData.emailWarning);
+        } else if (resData.emailResult?.success === false) {
+          setToastMessage(`Email failed: ${resData.emailResult?.error || 'Unknown error'}`);
+        } else {
+          setToastMessage(`✓ Payment & timeline confirmation email sent to ${reqObj?.client_email || 'client'}!`);
+        }
       } else {
-        const errJson = await res.json().catch(() => ({}));
-        setToastMessage(`Failed to send email: ${errJson.error || 'Server error'}`);
+        setToastMessage(`Failed to send email: ${resData.error || 'Server error'}`);
       }
     } catch {
       setToastMessage('Network error sending email');

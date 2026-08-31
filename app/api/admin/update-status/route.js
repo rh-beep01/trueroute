@@ -4,65 +4,96 @@ import { localStore } from '@/lib/store';
 import { sendPaymentVerifiedEmail } from '@/lib/email';
 
 export async function POST(request) {
-  const authHeader = request.headers.get('authorization');
-  const token = authHeader?.split(' ')[1];
+  try {
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.split(' ')[1];
+    const expectedPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
-  if (!token || token !== process.env.ADMIN_PASSWORD) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+    if (!token || token !== expectedPassword) {
+      console.warn('Admin status update unauthorized. Token mismatch.');
+      return NextResponse.json({ error: 'Unauthorized: Invalid Admin Password' }, { status: 401 });
+    }
 
-  const { id, status, sendEmail } = await request.json().catch(() => ({}));
-  
-  if (!id || !status) {
-    return NextResponse.json({ error: 'Missing id or status' }, { status: 400 });
-  }
+    const body = await request.json().catch(() => ({}));
+    const { id, status, sendEmail, ...fallbackDetails } = body;
+    
+    if (!id || !status) {
+      return NextResponse.json({ error: 'Missing id or status in request body' }, { status: 400 });
+    }
 
-  localStore.updateStatus(id, status);
+    // 1. Update in local memory store
+    localStore.updateStatus(id, status);
+    let targetRecord = localStore.get(id);
 
-  let targetRecord = localStore.get(id);
+    // Merge any client-passed fallback details to ensure we always have email & name
+    if (!targetRecord) {
+      targetRecord = { id, status, ...fallbackDetails };
+    } else {
+      targetRecord = { ...targetRecord, ...fallbackDetails, status };
+    }
 
-  const isPlaceholder = !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder');
+    // 2. Update in Supabase if configured
+    const isPlaceholder = !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder');
 
-  if (!isPlaceholder) {
-    try {
-      // 1. Try update by primary key ID or order_id
-      const { data: updatedData, error } = await supabase
-        .from('itinerary_requests')
-        .update({ status })
-        .eq('id', id)
-        .select();
+    if (!isPlaceholder) {
+      try {
+        let updatedData = null;
 
-      if (!error && updatedData && updatedData.length > 0) {
-        targetRecord = updatedData[0];
-      } else {
-        // Fallback: try update by order_id
-        const { data: byOrder, error: orderErr } = await supabase
+        // Try updating by order_id or id
+        const { data: res1, error: err1 } = await supabase
           .from('itinerary_requests')
           .update({ status })
           .eq('order_id', id)
           .select();
-        if (!orderErr && byOrder && byOrder.length > 0) {
-          targetRecord = byOrder[0];
+
+        if (!err1 && res1 && res1.length > 0) {
+          updatedData = res1[0];
+        } else {
+          const { data: res2, error: err2 } = await supabase
+            .from('itinerary_requests')
+            .update({ status })
+            .eq('id', id)
+            .select();
+          if (!err2 && res2 && res2.length > 0) {
+            updatedData = res2[0];
+          }
         }
-      }
-    } catch (err) {
-      console.warn('Supabase update status error:', err);
-    }
-  }
 
-  // Trigger payment confirmation email if requested or if status set to 'Payment Verified'
-  let emailResult = null;
-  if (sendEmail || status === 'Payment Verified') {
-    if (targetRecord && targetRecord.client_email) {
-      try {
+        if (updatedData) {
+          targetRecord = { ...targetRecord, ...updatedData };
+        }
+      } catch (dbErr) {
+        console.warn('Supabase DB update warning:', dbErr.message);
+      }
+    }
+
+    // 3. Trigger email if requested or if status is 'Payment Verified'
+    let emailResult = null;
+    if (sendEmail || status === 'Payment Verified') {
+      if (targetRecord && targetRecord.client_email) {
+        console.log(`Sending payment verified email to ${targetRecord.client_email} for order ${targetRecord.order_id || id}...`);
         emailResult = await sendPaymentVerifiedEmail(targetRecord);
-      } catch (emailErr) {
-        console.error('Error sending payment verified email:', emailErr);
+        if (!emailResult?.success) {
+          console.error('sendPaymentVerifiedEmail returned non-success:', emailResult);
+        }
+      } else {
+        console.warn('Cannot send email: No client_email found on record', targetRecord);
+        return NextResponse.json({
+          success: true,
+          statusUpdated: true,
+          emailWarning: 'Status was updated, but no client email address was found to send confirmation.'
+        }, { status: 200 });
       }
-    } else {
-      console.warn('Cannot send payment verified email: targetRecord or client_email missing for id:', id);
     }
-  }
 
-  return NextResponse.json({ success: true, record: targetRecord, emailResult }, { status: 200 });
+    return NextResponse.json({ 
+      success: true, 
+      record: targetRecord, 
+      emailResult 
+    }, { status: 200 });
+
+  } catch (err) {
+    console.error('Unhandled server error in update-status:', err);
+    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+  }
 }

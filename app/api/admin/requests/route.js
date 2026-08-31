@@ -5,8 +5,9 @@ import { localStore } from '@/lib/store';
 export async function GET(request) {
   const authHeader = request.headers.get('authorization');
   const token = authHeader?.split(' ')[1];
+  const expectedPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
-  if (!token || token !== process.env.ADMIN_PASSWORD) {
+  if (!token || token !== expectedPassword) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
