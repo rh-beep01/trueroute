@@ -39,8 +39,8 @@ export async function POST(request) {
     }
   }
 
-  // Trigger payment confirmation email if requested or if status set to 'In Progress' / 'Completed'
-  if (sendEmail || status === 'In Progress') {
+  // Trigger payment confirmation email if requested or if status set to 'Payment Verified'
+  if (sendEmail || status === 'Payment Verified') {
     if (targetRecord && targetRecord.client_email) {
       try {
         await sendPaymentVerifiedEmail(targetRecord);

@@ -35,13 +35,14 @@ const Icons = {
 
 // ──────────────────────────── Status config ──────────────────────────────────
 const STATUS_CONFIG = {
-  'New':         { bg: 'bg-sky-50',    text: 'text-sky-700',     border: 'border-sky-200',    dot: 'bg-sky-500',     icon: '🆕' },
-  'In Progress': { bg: 'bg-amber-50',  text: 'text-amber-700',   border: 'border-amber-200',  dot: 'bg-amber-500',   icon: '⏳' },
-  'Completed':   { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', dot: 'bg-emerald-500', icon: '✅' },
-  'Cancelled':   { bg: 'bg-rose-50',   text: 'text-rose-700',    border: 'border-rose-200',   dot: 'bg-rose-500',    icon: '❌' },
+  'New':              { bg: 'bg-sky-50',     text: 'text-sky-700',      border: 'border-sky-200',     dot: 'bg-sky-500',      icon: '🆕' },
+  'Payment Verified': { bg: 'bg-purple-50',  text: 'text-purple-700',   border: 'border-purple-200',  dot: 'bg-purple-500',   icon: '💳' },
+  'In Progress':      { bg: 'bg-amber-50',   text: 'text-amber-700',    border: 'border-amber-200',   dot: 'bg-amber-500',    icon: '⏳' },
+  'Completed':        { bg: 'bg-emerald-50', text: 'text-emerald-700',  border: 'border-emerald-200', dot: 'bg-emerald-500',  icon: '✅' },
+  'Cancelled':        { bg: 'bg-rose-50',    text: 'text-rose-700',     border: 'border-rose-200',    dot: 'bg-rose-500',     icon: '❌' },
 };
 
-const ALL_STATUSES = ['New', 'In Progress', 'Completed', 'Cancelled'];
+const ALL_STATUSES = ['New', 'Payment Verified', 'In Progress', 'Completed', 'Cancelled'];
 
 // ──────────────────────────── Helpers ────────────────────────────────────────
 const formatDate = (d) => {
@@ -240,12 +241,12 @@ export default function AdminDashboard() {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
-        body: JSON.stringify({ id, status: newStatus, sendEmail: newStatus === 'In Progress' })
+        body: JSON.stringify({ id, status: newStatus, sendEmail: newStatus === 'Payment Verified' })
       });
       if (res.ok) {
         setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
         if (selectedRequest?.id === id) setSelectedRequest(prev => ({ ...prev, status: newStatus }));
-        setToastMessage(newStatus === 'In Progress' ? `Status updated to "In Progress" & Payment Confirmed email sent!` : `Status updated to "${newStatus}"`);
+        setToastMessage(newStatus === 'Payment Verified' ? `Status: "Payment Verified" & Confirmation Email Sent!` : `Status updated to "${newStatus}"`);
       }
     } catch { setToastMessage('Failed to update status'); }
   };
@@ -312,10 +313,11 @@ export default function AdminDashboard() {
   const stats = useMemo(() => {
     const total = requests.length;
     const newCount = requests.filter(r => r.status === 'New').length;
+    const paidCount = requests.filter(r => r.status === 'Payment Verified').length;
     const inProgress = requests.filter(r => r.status === 'In Progress').length;
     const completed = requests.filter(r => r.status === 'Completed').length;
     const revenue = requests.filter(r => r.status !== 'Cancelled').reduce((s, r) => s + getPlanPrice(r.plan_interest), 0);
-    return { total, newCount, inProgress, completed, revenue };
+    return { total, newCount, paidCount, inProgress, completed, revenue };
   }, [requests]);
 
   // ─── Login screen ─────────────────────────────────────────────────────
@@ -554,12 +556,20 @@ export default function AdminDashboard() {
                 className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-emerald-700 transition-colors min-w-[190px]"
                 title="Send verified payment & timeline confirmation email to client"
               >
-                ✉️ Send Payment Confirmed
+                ✉️ Send Payment Email
               </button>
               {r.status === 'New' && (
+                <button onClick={() => updateStatus(r.id, 'Payment Verified')}
+                  className="flex-1 flex items-center justify-center gap-2 bg-purple-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-purple-700 transition-colors min-w-[160px]"
+                  title="Verify payment and trigger customer confirmation email">
+                  💳 Verify Payment
+                </button>
+              )}
+              {r.status === 'Payment Verified' && (
                 <button onClick={() => updateStatus(r.id, 'In Progress')}
-                  className="flex-1 flex items-center justify-center gap-2 bg-amber-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-amber-600 transition-colors min-w-[140px]">
-                  {Icons.clock} Verify &amp; Start
+                  className="flex-1 flex items-center justify-center gap-2 bg-amber-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-amber-600 transition-colors min-w-[140px]"
+                  title="Start crafting the itinerary">
+                  ⏳ Start Working
                 </button>
               )}
               {r.status === 'In Progress' && (
@@ -623,9 +633,10 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           <StatCard label="Total" value={stats.total} icon="📋" color="text-slate-800" sub="All time" />
-          <StatCard label="New" value={stats.newCount} icon="🆕" color="text-sky-600" sub="Awaiting action" />
+          <StatCard label="New" value={stats.newCount} icon="🆕" color="text-sky-600" sub="Awaiting payment" />
+          <StatCard label="Paid" value={stats.paidCount} icon="💳" color="text-purple-600" sub="Payment verified" />
           <StatCard label="In Progress" value={stats.inProgress} icon="⏳" color="text-amber-600" sub="Being prepared" />
           <StatCard label="Completed" value={stats.completed} icon="✅" color="text-emerald-600" sub="Delivered" />
           <StatCard label="Revenue" value={`$${stats.revenue.toLocaleString()}`} icon="💰" color="text-emerald-600" sub="Potential" />
