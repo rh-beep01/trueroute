@@ -14,7 +14,8 @@ export default function Home() {
   const [copiedOrderId, setCopiedOrderId] = useState(false);
   const [selectedPlanUrl, setSelectedPlanUrl] = useState('');
   const [countdown, setCountdown] = useState(null);
-  const [isOpeningCheckout, setIsOpeningCheckout] = useState(false);
+  const [showGumroadOverlay, setShowGumroadOverlay] = useState(false);
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
 
   const GUMROAD = {
     weekend: 'https://roamify01.gumroad.com/l/family-itinerary01?wanted=true',
@@ -26,26 +27,14 @@ export default function Home() {
     setSelectedPlanUrl(planUrl);
     setIsIntakeModalOpen(true);
     setCurrentStep(1);
-    setIsOpeningCheckout(false);
+    setShowGumroadOverlay(false);
   };
 
   const openGumroadCheckout = (url) => {
     const targetUrl = url || selectedPlanUrl;
     if (!targetUrl) return;
-    setIsOpeningCheckout(true);
-
-    setTimeout(() => {
-      const triggerEl = document.getElementById('gumroad-overlay-trigger');
-      if (triggerEl) {
-        triggerEl.href = targetUrl;
-        triggerEl.click();
-      } else {
-        window.location.href = targetUrl;
-      }
-      setTimeout(() => {
-        setIsOpeningCheckout(false);
-      }, 2000);
-    }, 150);
+    setIsIframeLoading(true);
+    setShowGumroadOverlay(true);
   };
 
   useEffect(() => {
@@ -1107,21 +1096,10 @@ export default function Home() {
             </div>
           )}
 
-          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! The checkout modal will open directly on this screen without leaving the page.</p>
-
-          {/* Loading Indicator when opening Gumroad Overlay */}
-          {isOpeningCheckout && (
-            <div className="flex items-center justify-center gap-2.5 text-sm font-semibold text-emerald-800 bg-emerald-50 py-3.5 px-4 rounded-xl border border-emerald-200 mb-4 animate-pulse">
-              <svg className="animate-spin h-5 w-5 text-emerald-600" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-              <span>Opening Secure Gumroad Checkout...</span>
-            </div>
-          )}
+          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! The secure checkout overlay will open directly so you can complete your order without leaving this page.</p>
 
           {/* Countdown ring */}
-          {countdown !== null && countdown > 0 && !isOpeningCheckout && (
+          {countdown !== null && countdown > 0 ? (
             <div className="flex flex-col items-center gap-2.5 mb-4">
               <div className="relative w-16 h-16">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 64 64">
@@ -1139,21 +1117,20 @@ export default function Home() {
                 </svg>
                 <span className="absolute inset-0 flex items-center justify-center font-bold text-xl" style={{color: '#E05A47'}}>{countdown}</span>
               </div>
-              <p className="text-xs font-semibold" style={{color: '#94A3B8'}}>Opening checkout overlay in {countdown}s…</p>
+              <p className="text-xs font-semibold" style={{color: '#94A3B8'}}>Opening checkout in {countdown}s…</p>
             </div>
-          )}
+          ) : null}
 
-          {/* Proceed to Checkout button (can be clicked anytime to open/reopen overlay) */}
+          {/* Proceed to Checkout button */}
           <button
             type="button"
             onClick={() => {
               setCountdown(0);
               openGumroadCheckout();
             }}
-            disabled={isOpeningCheckout}
-            className="btn-primary w-full text-center block py-4 mb-3 font-semibold disabled:opacity-75"
+            className="btn-primary w-full text-center block py-4 mb-3 font-semibold cursor-pointer"
           >
-            {isOpeningCheckout ? 'Loading Checkout...' : 'Proceed to Checkout →'}
+            Proceed to Checkout →
           </button>
 
           {/* Return to Website button */}
@@ -1163,23 +1140,12 @@ export default function Home() {
               setIsIntakeModalOpen(false); 
               setCurrentStep(1); 
               setCountdown(null); 
-              setIsOpeningCheckout(false); 
+              setShowGumroadOverlay(false);
             }} 
-            className="btn-secondary w-full text-center py-3.5 text-sm"
+            className="btn-secondary w-full text-center py-3.5 text-sm cursor-pointer"
           >
             I'll Checkout Later (Return to Website)
           </button>
-
-          {/* Hidden anchor with gumroad-button class for Gumroad JS intercept */}
-          <a
-            id="gumroad-overlay-trigger"
-            className="gumroad-button hidden"
-            href={selectedPlanUrl || 'https://roamify01.gumroad.com'}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Checkout
-          </a>
         </div>
       </div>
       {/* Footer nav */}
@@ -1200,6 +1166,52 @@ export default function Home() {
       )}
     </div>
   </div>
+
+  {/* ══════════════════════════════════════════════
+     IN-WINDOW GUMROAD CHECKOUT OVERLAY MODAL
+  ══════════════════════════════════════════════ */}
+  {showGumroadOverlay && selectedPlanUrl && (
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/75 backdrop-blur-sm p-2 sm:p-4">
+      <div className="relative w-full max-w-2xl h-[92vh] max-h-[860px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+        {/* Overlay Header */}
+        <div className="flex items-center justify-between px-4 py-3 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Secure Checkout
+            </span>
+            <span className="text-xs text-slate-400 hidden sm:inline">256-Bit SSL Encrypted</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowGumroadOverlay(false)}
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+          >
+            <span>Return to Website</span>
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1={18} y1={6} x2={6} y2={18}/><line x1={6} y1={6} x2={18} y2={18}/></svg>
+          </button>
+        </div>
+
+        {/* Iframe & Loading Indicator */}
+        <div className="relative flex-1 w-full bg-slate-50 flex items-center justify-center overflow-hidden">
+          {isIframeLoading && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/95 gap-3">
+              <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+              <p className="text-sm font-bold text-slate-800">Loading Secure Gumroad Checkout...</p>
+              <p className="text-xs text-slate-500">Preparing your handcrafted itinerary package</p>
+            </div>
+          )}
+          <iframe
+            src={selectedPlanUrl}
+            className="w-full h-full border-0 bg-white"
+            title="Gumroad Checkout"
+            onLoad={() => setIsIframeLoading(false)}
+            allow="payment; camera; microphone"
+          />
+        </div>
+      </div>
+    </div>
+  )}
   {/* ══════════════════════════════════════════════
      JAVASCRIPT
 ══════════════════════════════════════════════ */}
