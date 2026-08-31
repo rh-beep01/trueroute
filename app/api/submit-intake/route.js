@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { localStore } from '@/lib/store';
 import { sendTelegramNotification } from '@/lib/telegram';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 
 export async function POST(request) {
   try {
@@ -63,12 +64,11 @@ export async function POST(request) {
     // Save to local cache
     localStore.add(recordToSave);
 
-    // Trigger instant Telegram notification (awaited so serverless lambdas don't terminate early)
-    try {
-      await sendTelegramNotification(recordToSave);
-    } catch (telegramErr) {
-      console.error('Telegram notification execution error:', telegramErr.message);
-    }
+    // Trigger instant Telegram notification & customer confirmation email in parallel
+    await Promise.allSettled([
+      sendTelegramNotification(recordToSave).catch(e => console.error('Telegram dispatch error:', e.message)),
+      sendOrderConfirmationEmail(recordToSave).catch(e => console.error('Email dispatch error:', e.message))
+    ]);
 
     return NextResponse.json({ success: true, order_id }, { status: 200 });
 

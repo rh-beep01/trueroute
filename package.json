@@ -4,7 +4,10 @@
   "description": "**AI-Powered Speed. Human-Verified Perfection.**",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev", "build": "next build", "start": "next start", "lint": "next lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
@@ -13,7 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
   "bugs": {
     "url": "https://github.com/ZakariaBinMoti/trueroute/issues"
   },
@@ -23,7 +25,8 @@
     "canvas-confetti": "^1.9.4",
     "next": "^16.3.3",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "resend": "^6.25.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.4",
