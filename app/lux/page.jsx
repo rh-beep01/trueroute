@@ -714,6 +714,68 @@ export default function LuxuryHome() {
           <p className="text-sm" style={{color: '#64748B'}}>If your itinerary doesn't feel completely right for your family's needs, we will adjust it for free or provide a full refund within 7 days.</p>
         </div>
       </div>
+
+      {/* Payment Methods & Security Trust Bar */}
+      <div className="mt-8 max-w-4xl mx-auto bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm observe-me">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Left: Cards accepted */}
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="text-slate-600"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Accepted Payment Cards
+            </span>
+            <div className="flex items-center flex-wrap justify-center md:justify-start gap-2">
+              {/* Visa */}
+              <div className="h-7 px-2.5 bg-white rounded border border-slate-200 shadow-sm flex items-center justify-center" title="Visa">
+                <span className="text-[#1434CB] font-black italic tracking-tighter text-xs font-sans">VISA</span>
+              </div>
+              {/* Mastercard */}
+              <div className="h-7 px-2.5 bg-white rounded border border-slate-200 shadow-sm flex items-center justify-center" title="Mastercard">
+                <div className="w-3.5 h-3.5 rounded-full bg-[#EB001B] opacity-90 -mr-1.5"></div>
+                <div className="w-3.5 h-3.5 rounded-full bg-[#F79E1B] opacity-90"></div>
+              </div>
+              {/* Amex */}
+              <div className="h-7 px-2.5 bg-[#006FCF] text-white rounded shadow-sm flex items-center justify-center font-bold text-[10px] tracking-tight" title="American Express">
+                AMEX
+              </div>
+              {/* Discover */}
+              <div className="h-7 px-2.5 bg-white rounded border border-slate-200 shadow-sm flex items-center justify-center gap-0.5" title="Discover">
+                <span className="text-slate-800 font-bold text-[10px] tracking-tight">DISC</span>
+                <div className="w-2 h-2 rounded-full bg-[#FF6000]"></div>
+                <span className="text-slate-800 font-bold text-[10px] tracking-tight">VER</span>
+              </div>
+              {/* Apple Pay */}
+              <div className="h-7 px-2.5 bg-black text-white rounded shadow-sm flex items-center justify-center gap-1 font-semibold text-[11px]" title="Apple Pay">
+                <svg width={10} height={12} viewBox="0 0 170 170" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.32-5.48-8.26-9.74-17.75-12.78-28.47-3.04-10.72-4.57-21.11-4.57-31.18 0-14.03 3.52-25.75 10.57-35.17 7.05-9.42 16.14-14.24 27.27-14.46 4.35 0 9.28 1.13 14.78 3.39 5.51 2.26 9.38 3.42 11.62 3.48 1.95-.06 5.86-1.25 11.73-3.57 5.87-2.32 10.54-3.39 14.01-3.21 13.91.76 24.68 5.75 32.32 14.97-12.28 7.4-18.31 17.51-18.09 30.34.22 10.12 4.13 18.59 11.73 25.42 7.6 6.83 16.51 10.75 26.73 11.75-2.06 6.08-4.66 12.39-7.81 18.91zM119.22 33.34c0-7.72 2.76-15.01 8.27-21.87 5.51-6.86 12.28-10.98 20.31-12.37.22 1.3.33 2.49.33 3.58 0 7.72-2.93 15.22-8.8 22.52-5.87 7.3-12.71 11.39-20.53 12.26-.22-1.3-.33-2.67-.33-4.12z"/></svg>
+                Pay
+              </div>
+              {/* Google Pay */}
+              <div className="h-7 px-2.5 bg-white rounded border border-slate-200 shadow-sm flex items-center justify-center gap-0.5 font-bold text-[11px] text-slate-700" title="Google Pay">
+                <span className="text-[#4285F4]">G</span><span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span> <span className="text-slate-600 font-semibold ml-0.5">Pay</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Security badges */}
+          <div className="flex flex-col items-center md:items-end gap-2 border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#2E6F40" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Payment Security &amp; Encryption
+            </span>
+            <div className="flex items-center flex-wrap justify-center md:justify-end gap-2 text-xs font-medium text-slate-600">
+              <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-1 rounded-lg">
+                🔒 256-Bit SSL Encryption
+              </span>
+              <span className="inline-flex items-center gap-1 bg-slate-50 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg">
+                🛡️ PCI-DSS Level 1 Certified
+              </span>
+              <span className="inline-flex items-center gap-1 bg-slate-50 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg">
+                ⚡ Secured by <a href="https://gumroad.com" target="_blank" rel="noopener noreferrer" className="font-bold text-pink-600 hover:underline">Gumroad</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <div className="section-divider mx-6" />
@@ -916,7 +978,44 @@ export default function LuxuryHome() {
           </div>
         </div>
       </div>
-      <div className="border-t pt-8 flex flex-col sm:flex-row justify-between items-center gap-4" style={{borderColor: '#F1EFE7'}}>
+      {/* Footer Payment & Security Row */}
+      <div className="border-t pt-8 pb-6 flex flex-col md:flex-row justify-between items-center gap-4" style={{borderColor: '#F1EFE7'}}>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <span className="text-xs font-semibold text-slate-500">Accepted Payment Cards:</span>
+          <div className="flex items-center flex-wrap gap-1.5">
+            <div className="h-6 px-2 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center" title="Visa">
+              <span className="text-[#1434CB] font-black italic tracking-tighter text-[11px] font-sans">VISA</span>
+            </div>
+            <div className="h-6 px-2 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center" title="Mastercard">
+              <div className="w-3 h-3 rounded-full bg-[#EB001B] opacity-90 -mr-1.5"></div>
+              <div className="w-3 h-3 rounded-full bg-[#F79E1B] opacity-90"></div>
+            </div>
+            <div className="h-6 px-2 bg-[#006FCF] text-white rounded shadow-xs flex items-center justify-center font-bold text-[9px] tracking-tight" title="American Express">
+              AMEX
+            </div>
+            <div className="h-6 px-2 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center gap-0.5" title="Discover">
+              <span className="text-slate-800 font-bold text-[9px] tracking-tight">DISC</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-[#FF6000]"></div>
+              <span className="text-slate-800 font-bold text-[9px] tracking-tight">VER</span>
+            </div>
+            <div className="h-6 px-2 bg-black text-white rounded shadow-xs flex items-center justify-center gap-0.5 font-semibold text-[10px]" title="Apple Pay">
+              <svg width={8} height={10} viewBox="0 0 170 170" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.32-5.48-8.26-9.74-17.75-12.78-28.47-3.04-10.72-4.57-21.11-4.57-31.18 0-14.03 3.52-25.75 10.57-35.17 7.05-9.42 16.14-14.24 27.27-14.46 4.35 0 9.28 1.13 14.78 3.39 5.51 2.26 9.38 3.42 11.62 3.48 1.95-.06 5.86-1.25 11.73-3.57 5.87-2.32 10.54-3.39 14.01-3.21 13.91.76 24.68 5.75 32.32 14.97-12.28 7.4-18.31 17.51-18.09 30.34.22 10.12 4.13 18.59 11.73 25.42 7.6 6.83 16.51 10.75 26.73 11.75-2.06 6.08-4.66 12.39-7.81 18.91zM119.22 33.34c0-7.72 2.76-15.01 8.27-21.87 5.51-6.86 12.28-10.98 20.31-12.37.22 1.3.33 2.49.33 3.58 0 7.72-2.93 15.22-8.8 22.52-5.87 7.3-12.71 11.39-20.53 12.26-.22-1.3-.33-2.67-.33-4.12z"/></svg>
+              Pay
+            </div>
+            <div className="h-6 px-2 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center gap-0.5 font-bold text-[10px] text-slate-700" title="Google Pay">
+              <span className="text-[#4285F4]">G</span><span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3 text-xs text-slate-500 font-medium">
+          <span className="flex items-center gap-1">🔒 256-Bit SSL</span>
+          <span>•</span>
+          <span>🛡️ PCI-DSS Level 1</span>
+          <span>•</span>
+          <span>Powered by <a href="https://gumroad.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-pink-600 hover:underline">Gumroad</a></span>
+        </div>
+      </div>
+      <div className="border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4" style={{borderColor: '#F1EFE7'}}>
         <p className="text-sm" style={{color: '#94A3B8'}}>© 2026 Roamify. Designed with care for families worldwide.</p>
         <p className="text-xs" style={{color: '#94A3B8'}}>Helping families travel across Europe with ease</p>
       </div>
@@ -1090,7 +1189,45 @@ export default function LuxuryHome() {
             </div>
           )}
 
-          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We have saved your preferences! The secure checkout overlay will open directly so you can complete your order without leaving this page.</p>
+          <p className="text-sm mb-4 leading-relaxed" style={{color: '#64748B'}}>We have saved your preferences! The secure checkout overlay will open directly so you can complete your order without leaving this page.</p>
+
+          {/* Card logos & Security note before checkout */}
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-4 text-center">
+            <div className="flex items-center justify-center gap-1.5 mb-1.5">
+              {/* Visa */}
+              <div className="h-5 px-1.5 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center" title="Visa">
+                <span className="text-[#1434CB] font-black italic tracking-tighter text-[10px] font-sans">VISA</span>
+              </div>
+              {/* Mastercard */}
+              <div className="h-5 px-1.5 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center" title="Mastercard">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#EB001B] opacity-90 -mr-1"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] opacity-90"></div>
+              </div>
+              {/* Amex */}
+              <div className="h-5 px-1.5 bg-[#006FCF] text-white rounded shadow-xs flex items-center justify-center font-bold text-[8px] tracking-tight" title="American Express">
+                AMEX
+              </div>
+              {/* Discover */}
+              <div className="h-5 px-1.5 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center gap-0.5" title="Discover">
+                <span className="text-slate-800 font-bold text-[8px] tracking-tight">DISC</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#FF6000]"></div>
+              </div>
+              {/* Apple Pay */}
+              <div className="h-5 px-1.5 bg-black text-white rounded shadow-xs flex items-center justify-center gap-0.5 font-semibold text-[9px]" title="Apple Pay">
+                <svg width={7} height={9} viewBox="0 0 170 170" fill="currentColor"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.32-5.48-8.26-9.74-17.75-12.78-28.47-3.04-10.72-4.57-21.11-4.57-31.18 0-14.03 3.52-25.75 10.57-35.17 7.05-9.42 16.14-14.24 27.27-14.46 4.35 0 9.28 1.13 14.78 3.39 5.51 2.26 9.38 3.42 11.62 3.48 1.95-.06 5.86-1.25 11.73-3.57 5.87-2.32 10.54-3.39 14.01-3.21 13.91.76 24.68 5.75 32.32 14.97-12.28 7.4-18.31 17.51-18.09 30.34.22 10.12 4.13 18.59 11.73 25.42 7.6 6.83 16.51 10.75 26.73 11.75-2.06 6.08-4.66 12.39-7.81 18.91zM119.22 33.34c0-7.72 2.76-15.01 8.27-21.87 5.51-6.86 12.28-10.98 20.31-12.37.22 1.3.33 2.49.33 3.58 0 7.72-2.93 15.22-8.8 22.52-5.87 7.3-12.71 11.39-20.53 12.26-.22-1.3-.33-2.67-.33-4.12z"/></svg>
+                Pay
+              </div>
+              {/* Google Pay */}
+              <div className="h-5 px-1.5 bg-white rounded border border-slate-200 shadow-xs flex items-center justify-center gap-0.5 font-bold text-[9px] text-slate-700" title="Google Pay">
+                <span className="text-[#4285F4]">G</span><span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span>
+              </div>
+            </div>
+            <p className="text-[11px] font-medium text-slate-500 flex items-center justify-center gap-1.5">
+              <span>🔒 256-Bit SSL</span>
+              <span>•</span>
+              <span>PCI-DSS Compliant via Gumroad</span>
+            </p>
+          </div>
 
           {/* Countdown ring */}
           {countdown !== null && countdown > 0 ? (
