@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { PaymentCardsRow } from '@/components/PaymentIcons';
+import { PaymentCardsRow, WalletPayButton } from '@/components/PaymentIcons';
 
 export default function LuxuryHome() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -1182,10 +1182,13 @@ export default function LuxuryHome() {
               setCountdown(0);
               openGumroadCheckout();
             }}
-            className="btn-primary w-full text-center block py-4 mb-3 font-semibold cursor-pointer"
+            className="btn-primary w-full text-center block py-4 mb-2.5 font-semibold cursor-pointer shadow-md"
           >
-            Proceed to Checkout Overlay →
+            Proceed to In-Window Checkout →
           </button>
+
+          {/* Dedicated Apple Pay & Google Pay Button */}
+          <WalletPayButton url={selectedPlanUrl} className="w-full mb-3" />
 
           {/* Close / Return to Website */}
           <button 
@@ -1271,6 +1274,14 @@ export default function LuxuryHome() {
             onLoad={() => setIsIframeLoading(false)}
             allow="payment; camera; microphone"
           />
+        </div>
+
+        {/* Overlay Bottom Bar for Apple Pay & Google Pay */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 px-4 py-3 bg-slate-900 text-white border-t border-slate-800 flex-shrink-0">
+          <p className="text-xs text-slate-400 text-center sm:text-left">
+            Prefer 1-Tap Biometric Checkout?
+          </p>
+          <WalletPayButton url={selectedPlanUrl} className="w-full sm:w-auto text-xs py-2 px-3.5" />
         </div>
       </div>
     </div>
