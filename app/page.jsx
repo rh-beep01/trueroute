@@ -1237,35 +1237,49 @@ export default function Home() {
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/75 backdrop-blur-sm p-2 sm:p-4">
       <div className="relative w-full max-w-2xl h-[92vh] max-h-[860px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
         {/* Overlay Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="text-xs font-bold uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full flex items-center gap-1">
-              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Secure 256-Bit SSL
-            </span>
-            <span className="text-xs text-slate-400 hidden sm:inline flex items-center gap-1">
-              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              PCI-DSS Compliant
-            </span>
-            <span className="text-xs text-slate-400 flex items-center gap-1">
-              • Powered by{" "}
+        <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 text-white border-b border-slate-800 flex-shrink-0 min-h-[50px]">
+          <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-0.5">
+            {/* 256-Bit SSL Badge */}
+            <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/80 px-2.5 py-1 rounded-md text-[11px] font-semibold text-emerald-400 flex-shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>256-Bit SSL Encrypted</span>
+            </div>
+
+            {/* PCI-DSS Level 1 Badge */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/80 px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-300 flex-shrink-0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+              <span>PCI-DSS Level 1</span>
+            </div>
+
+            {/* Powered by Gumroad Official Link Badge */}
+            <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/80 px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-300 flex-shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-500"></span>
+              <span>Powered by</span>
               <a
                 href="https://gumroad.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-400 hover:text-pink-300 font-semibold underline decoration-pink-400/40 hover:decoration-pink-300 transition-colors inline-flex items-center gap-0.5"
+                className="text-pink-400 hover:text-pink-300 font-bold hover:underline inline-flex items-center gap-1"
               >
                 Gumroad
-                <svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-80"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1={10} y1={14} x2={21} y2={3}/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1={10} y1={14} x2={21} y2={3}/></svg>
               </a>
-            </span>
+            </div>
           </div>
+
+          {/* Return / Close Button */}
           <button
             type="button"
             onClick={() => setShowGumroadOverlay(false)}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition-colors cursor-pointer border border-slate-700 flex-shrink-0 ml-2"
           >
-            <span>Return to Website</span>
+            <span>Close</span>
             <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1={18} y1={6} x2={6} y2={18}/><line x1={6} y1={6} x2={18} y2={18}/></svg>
           </button>
         </div>
