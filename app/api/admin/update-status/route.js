@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { localStore } from '@/lib/store';
+import { sendPaymentVerifiedEmail } from '@/lib/email';
 
 export async function POST(request) {
   const authHeader = request.headers.get('authorization');
@@ -10,7 +11,7 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { id, status } = await request.json().catch(() => ({}));
+  const { id, status, sendEmail } = await request.json().catch(() => ({}));
   
   if (!id || !status) {
     return NextResponse.json({ error: 'Missing id or status' }, { status: 400 });
@@ -18,32 +19,36 @@ export async function POST(request) {
 
   localStore.updateStatus(id, status);
 
+  let targetRecord = localStore.get(id);
+
   const isPlaceholder = !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder');
 
-  if (isPlaceholder) {
-    return NextResponse.json({ success: true }, { status: 200 });
+  if (!isPlaceholder) {
+    try {
+      const { data: updatedData, error } = await supabase
+        .from('itinerary_requests')
+        .update({ status })
+        .eq('id', id)
+        .select();
+
+      if (!error && updatedData && updatedData.length > 0) {
+        targetRecord = updatedData[0];
+      }
+    } catch (err) {
+      console.warn('Supabase update status error:', err);
+    }
   }
 
-  try {
-    const { id, status } = await request.json();
-    
-    if (!id || !status) {
-      return NextResponse.json({ error: 'Missing id or status' }, { status: 400 });
+  // Trigger payment confirmation email if requested or if status set to 'In Progress' / 'Completed'
+  if (sendEmail || status === 'In Progress') {
+    if (targetRecord && targetRecord.client_email) {
+      try {
+        await sendPaymentVerifiedEmail(targetRecord);
+      } catch (emailErr) {
+        console.error('Error sending payment verified email:', emailErr);
+      }
     }
-
-    const { error } = await supabase
-      .from('itinerary_requests')
-      .update({ status })
-      .eq('id', id);
-
-    if (error) {
-      console.warn('Supabase error updating status, allowing local state update:', error);
-      return NextResponse.json({ success: true }, { status: 200 });
-    }
-
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.warn('Server error updating status, allowing local state update:', err);
-    return NextResponse.json({ success: true }, { status: 200 });
   }
+
+  return NextResponse.json({ success: true, record: targetRecord }, { status: 200 });
 }

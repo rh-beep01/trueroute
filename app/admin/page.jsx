@@ -240,14 +240,31 @@ export default function AdminDashboard() {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
-        body: JSON.stringify({ id, status: newStatus })
+        body: JSON.stringify({ id, status: newStatus, sendEmail: newStatus === 'In Progress' })
       });
       if (res.ok) {
         setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
         if (selectedRequest?.id === id) setSelectedRequest(prev => ({ ...prev, status: newStatus }));
-        setToastMessage(`Status updated to "${newStatus}"`);
+        setToastMessage(newStatus === 'In Progress' ? `Status updated to "In Progress" & Payment Confirmed email sent!` : `Status updated to "${newStatus}"`);
       }
     } catch { setToastMessage('Failed to update status'); }
+  };
+
+  const sendPaymentEmail = async (id) => {
+    try {
+      const res = await fetch('/api/admin/update-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
+        body: JSON.stringify({ id, status: selectedRequest?.status || 'In Progress', sendEmail: true })
+      });
+      if (res.ok) {
+        setToastMessage('Payment & timeline confirmation email sent to client!');
+      } else {
+        setToastMessage('Failed to send payment email');
+      }
+    } catch {
+      setToastMessage('Network error sending email');
+    }
   };
 
   const deleteRequest = async (id) => {
@@ -527,14 +544,22 @@ export default function AdminDashboard() {
               >
                 {Icons.copy} Copy Q&amp;A Brief
               </button>
-              <a href={`mailto:${r.client_email}?subject=Your TrueRoute Itinerary — ${r.dest_primary}&body=Hi ${r.client_name?.split(' ')[0]},%0D%0A%0D%0AThank you for choosing TrueRoute!`}
-                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-emerald-700 transition-colors min-w-[140px]">
-                {Icons.mail} Email Client
+              <a href={`mailto:${r.client_email}?subject=Your Roamify Itinerary — ${r.dest_primary}&body=Hi ${r.client_name?.split(' ')[0]},%0D%0A%0D%0AThank you for choosing Roamify!`}
+                className="flex-1 flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-sm font-semibold py-2.5 px-4 rounded-xl transition-colors min-w-[140px]">
+                {Icons.mail} Direct Email
               </a>
+              <button
+                type="button"
+                onClick={() => sendPaymentEmail(r.id)}
+                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-emerald-700 transition-colors min-w-[190px]"
+                title="Send verified payment & timeline confirmation email to client"
+              >
+                ✉️ Send Payment Confirmed
+              </button>
               {r.status === 'New' && (
                 <button onClick={() => updateStatus(r.id, 'In Progress')}
                   className="flex-1 flex items-center justify-center gap-2 bg-amber-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl hover:bg-amber-600 transition-colors min-w-[140px]">
-                  {Icons.clock} Start Working
+                  {Icons.clock} Verify &amp; Start
                 </button>
               )}
               {r.status === 'In Progress' && (
