@@ -63,10 +63,12 @@ export async function POST(request) {
     // Save to local cache
     localStore.add(recordToSave);
 
-    // Trigger instant Telegram notification (async/non-blocking)
-    sendTelegramNotification(recordToSave).catch(err => {
-      console.warn('Telegram notification failed:', err.message);
-    });
+    // Trigger instant Telegram notification (awaited so serverless lambdas don't terminate early)
+    try {
+      await sendTelegramNotification(recordToSave);
+    } catch (telegramErr) {
+      console.error('Telegram notification execution error:', telegramErr.message);
+    }
 
     return NextResponse.json({ success: true, order_id }, { status: 200 });
 
