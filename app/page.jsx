@@ -1241,18 +1241,24 @@ export default function Home() {
           <div className="flex items-center gap-2.5 flex-wrap">
             <span className="text-xs font-bold uppercase tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full flex items-center gap-1">
               <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Secure Checkout
+              Secure 256-Bit SSL
             </span>
-            <span className="text-xs text-slate-400 hidden sm:inline">• 256-Bit SSL</span>
-            <a
-              href={selectedPlanUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-emerald-400 hover:text-emerald-300 underline font-medium ml-2 hidden md:inline"
-              title="Open in separate tab for Apple Pay / Google Pay"
-            >
-              Open in full window (Apple Pay / GPay) ↗
-            </a>
+            <span className="text-xs text-slate-400 hidden sm:inline flex items-center gap-1">
+              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              PCI-DSS Compliant
+            </span>
+            <span className="text-xs text-slate-400 flex items-center gap-1">
+              • Powered by{" "}
+              <a
+                href="https://gumroad.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-pink-400 hover:text-pink-300 font-semibold underline decoration-pink-400/40 hover:decoration-pink-300 transition-colors inline-flex items-center gap-0.5"
+              >
+                Gumroad
+                <svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-80"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1={10} y1={14} x2={21} y2={3}/></svg>
+              </a>
+            </span>
           </div>
           <button
             type="button"
@@ -1283,11 +1289,8 @@ export default function Home() {
         </div>
 
         {/* Overlay Bottom Bar for Apple Pay & Google Pay */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 px-4 py-3 bg-slate-900 text-white border-t border-slate-800 flex-shrink-0">
-          <p className="text-xs text-slate-400 text-center sm:text-left">
-            Prefer 1-Tap Biometric Checkout?
-          </p>
-          <WalletPayButton url={selectedPlanUrl} className="w-full sm:w-auto text-xs py-2 px-3.5" />
+        <div className="flex items-center justify-center p-3 bg-slate-900 text-white border-t border-slate-800 flex-shrink-0">
+          <WalletPayButton url={selectedPlanUrl} className="w-full sm:w-auto text-xs py-2.5 px-5" />
         </div>
       </div>
     </div>
