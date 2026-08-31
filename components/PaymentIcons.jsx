@@ -12,18 +12,21 @@ export const PAYMENT_METHODS = [
 ];
 
 export function PaymentCardImage({ item, size = "md" }) {
-  const containerHeight = size === "sm" ? "h-7 min-w-[38px] px-1.5" : "h-8 min-w-[46px] px-2";
-  const imgHeight = size === "sm" ? "h-4 max-w-[36px]" : "h-5 max-w-[42px]";
+  // Same identical box dimensions for every card logo
+  const boxClass =
+    size === "sm"
+      ? "w-11 h-7 rounded-md p-1"
+      : "w-14 h-9 rounded-lg p-1.5";
 
   return (
     <div
-      className={`${containerHeight} bg-white rounded-md border border-slate-200 shadow-xs flex items-center justify-center transition-all hover:border-slate-300`}
+      className={`${boxClass} bg-white border border-slate-200/90 shadow-xs flex items-center justify-center overflow-hidden transition-transform hover:scale-105`}
       title={item.name}
     >
       <img
         src={item.src}
         alt={item.alt}
-        className={`${imgHeight} w-auto object-contain`}
+        className="w-full h-full object-contain object-center"
         loading="lazy"
       />
     </div>
