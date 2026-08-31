@@ -25,6 +25,7 @@ export async function POST(request) {
 
   if (!isPlaceholder) {
     try {
+      // 1. Try update by primary key ID or order_id
       const { data: updatedData, error } = await supabase
         .from('itinerary_requests')
         .update({ status })
@@ -33,6 +34,16 @@ export async function POST(request) {
 
       if (!error && updatedData && updatedData.length > 0) {
         targetRecord = updatedData[0];
+      } else {
+        // Fallback: try update by order_id
+        const { data: byOrder, error: orderErr } = await supabase
+          .from('itinerary_requests')
+          .update({ status })
+          .eq('order_id', id)
+          .select();
+        if (!orderErr && byOrder && byOrder.length > 0) {
+          targetRecord = byOrder[0];
+        }
       }
     } catch (err) {
       console.warn('Supabase update status error:', err);
@@ -40,15 +51,18 @@ export async function POST(request) {
   }
 
   // Trigger payment confirmation email if requested or if status set to 'Payment Verified'
+  let emailResult = null;
   if (sendEmail || status === 'Payment Verified') {
     if (targetRecord && targetRecord.client_email) {
       try {
-        await sendPaymentVerifiedEmail(targetRecord);
+        emailResult = await sendPaymentVerifiedEmail(targetRecord);
       } catch (emailErr) {
         console.error('Error sending payment verified email:', emailErr);
       }
+    } else {
+      console.warn('Cannot send payment verified email: targetRecord or client_email missing for id:', id);
     }
   }
 
-  return NextResponse.json({ success: true, record: targetRecord }, { status: 200 });
+  return NextResponse.json({ success: true, record: targetRecord, emailResult }, { status: 200 });
 }

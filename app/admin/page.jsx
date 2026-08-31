@@ -178,6 +178,15 @@ export default function AdminDashboard() {
   }, []);
 
   // ─── Auth ──────────────────────────────────────────────────────────────
+  const getAuthToken = () => {
+    if (password) return password;
+    try {
+      return sessionStorage.getItem('trueroute_admin_token') || '';
+    } catch {
+      return '';
+    }
+  };
+
   const verifyAndLogin = async (pwd) => {
     setLoading(true);
     setError('');
@@ -189,6 +198,7 @@ export default function AdminDashboard() {
         const data = await res.json();
         setRequests(data.requests || []);
         setIsAuthenticated(true);
+        setPassword(pwd);
         try {
           sessionStorage.setItem('trueroute_admin_token', pwd);
         } catch { /* silent */ }
@@ -223,9 +233,10 @@ export default function AdminDashboard() {
 
   const refreshData = async () => {
     setLoading(true);
+    const token = getAuthToken();
     try {
       const res = await fetch('/api/admin/requests', {
-        headers: { 'Authorization': `Bearer ${password}` }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
         const data = await res.json();
@@ -237,31 +248,37 @@ export default function AdminDashboard() {
   };
 
   const updateStatus = async (id, newStatus) => {
+    const token = getAuthToken();
     try {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ id, status: newStatus, sendEmail: newStatus === 'Payment Verified' })
       });
       if (res.ok) {
+        const resData = await res.json().catch(() => ({}));
         setRequests(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r));
         if (selectedRequest?.id === id) setSelectedRequest(prev => ({ ...prev, status: newStatus }));
-        setToastMessage(newStatus === 'Payment Verified' ? `Status: "Payment Verified" & Confirmation Email Sent!` : `Status updated to "${newStatus}"`);
+        setToastMessage(newStatus === 'Payment Verified' ? `✓ Payment Verified & Confirmation Email Sent!` : `✓ Status updated to "${newStatus}"`);
+      } else {
+        setToastMessage('Failed to update status on server');
       }
-    } catch { setToastMessage('Failed to update status'); }
+    } catch { setToastMessage('Network error updating status'); }
   };
 
   const sendPaymentEmail = async (id) => {
+    const token = getAuthToken();
     try {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
-        body: JSON.stringify({ id, status: selectedRequest?.status || 'In Progress', sendEmail: true })
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ id, status: selectedRequest?.status || 'Payment Verified', sendEmail: true })
       });
       if (res.ok) {
-        setToastMessage('Payment & timeline confirmation email sent to client!');
+        setToastMessage('✓ Payment & timeline confirmation email sent to client!');
       } else {
-        setToastMessage('Failed to send payment email');
+        const errJson = await res.json().catch(() => ({}));
+        setToastMessage(`Failed to send email: ${errJson.error || 'Server error'}`);
       }
     } catch {
       setToastMessage('Network error sending email');
@@ -269,10 +286,11 @@ export default function AdminDashboard() {
   };
 
   const deleteRequest = async (id) => {
+    const token = getAuthToken();
     try {
       const res = await fetch('/api/admin/update-status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${password}` },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ id, status: 'Cancelled' })
       });
       if (res.ok) {
