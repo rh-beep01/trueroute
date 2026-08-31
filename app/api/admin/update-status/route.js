@@ -22,8 +22,9 @@ export async function POST(request) {
     }
 
     // 1. Update in local memory store
-    localStore.updateStatus(id, status);
-    let targetRecord = localStore.get(id);
+    localStore.updateStatus?.(id, status);
+    let targetRecord = (typeof localStore.get === 'function' ? localStore.get(id) : null) 
+      || (typeof localStore.getAll === 'function' ? localStore.getAll().find(r => r.id === id || r.order_id === id) : null);
 
     // Merge any client-passed fallback details to ensure we always have email & name
     if (!targetRecord) {
