@@ -14,6 +14,7 @@ export default function Home() {
   const [copiedOrderId, setCopiedOrderId] = useState(false);
   const [selectedPlanUrl, setSelectedPlanUrl] = useState('');
   const [countdown, setCountdown] = useState(null);
+  const [isOpeningCheckout, setIsOpeningCheckout] = useState(false);
 
   const GUMROAD = {
     weekend: 'https://roamify01.gumroad.com/l/family-itinerary01?wanted=true',
@@ -25,6 +26,26 @@ export default function Home() {
     setSelectedPlanUrl(planUrl);
     setIsIntakeModalOpen(true);
     setCurrentStep(1);
+    setIsOpeningCheckout(false);
+  };
+
+  const openGumroadCheckout = (url) => {
+    const targetUrl = url || selectedPlanUrl;
+    if (!targetUrl) return;
+    setIsOpeningCheckout(true);
+
+    setTimeout(() => {
+      const triggerEl = document.getElementById('gumroad-overlay-trigger');
+      if (triggerEl) {
+        triggerEl.href = targetUrl;
+        triggerEl.click();
+      } else {
+        window.location.href = targetUrl;
+      }
+      setTimeout(() => {
+        setIsOpeningCheckout(false);
+      }, 2000);
+    }, 150);
   };
 
   useEffect(() => {
@@ -64,13 +85,13 @@ export default function Home() {
     });
     setBtnText("Request Received!");
     setCurrentStep(5);
-    // Start a 5-second countdown, then open Gumroad
+    // Start a 5-second countdown, then open Gumroad Overlay
     setCountdown(5);
     const interval = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 1) {
           clearInterval(interval);
-          if (gumroadUrl) window.open(gumroadUrl, '_blank');
+          openGumroadCheckout(gumroadUrl);
           return 0;
         }
         return prev - 1;
@@ -1086,11 +1107,22 @@ export default function Home() {
             </div>
           )}
 
-          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! Head to checkout — our travel specialists will begin handcrafting your verified itinerary immediately after payment.</p>
+          <p className="text-sm mb-5 leading-relaxed" style={{color: '#64748B'}}>We've received your details! The checkout modal will open directly on this screen without leaving the page.</p>
 
-          {/* Countdown ring + button */}
-          {countdown !== null && countdown > 0 ? (
-            <div className="flex flex-col items-center gap-3 mb-3">
+          {/* Loading Indicator when opening Gumroad Overlay */}
+          {isOpeningCheckout && (
+            <div className="flex items-center justify-center gap-2.5 text-sm font-semibold text-emerald-800 bg-emerald-50 py-3.5 px-4 rounded-xl border border-emerald-200 mb-4 animate-pulse">
+              <svg className="animate-spin h-5 w-5 text-emerald-600" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              <span>Opening Secure Gumroad Checkout...</span>
+            </div>
+          )}
+
+          {/* Countdown ring */}
+          {countdown !== null && countdown > 0 && !isOpeningCheckout && (
+            <div className="flex flex-col items-center gap-2.5 mb-4">
               <div className="relative w-16 h-16">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 64 64">
                   <circle cx="32" cy="32" r="28" fill="none" stroke="#F1EFE7" strokeWidth="5" />
@@ -1107,20 +1139,47 @@ export default function Home() {
                 </svg>
                 <span className="absolute inset-0 flex items-center justify-center font-bold text-xl" style={{color: '#E05A47'}}>{countdown}</span>
               </div>
-              <p className="text-xs font-semibold" style={{color: '#94A3B8'}}>Redirecting to checkout in {countdown}s…</p>
+              <p className="text-xs font-semibold" style={{color: '#94A3B8'}}>Opening checkout overlay in {countdown}s…</p>
             </div>
-          ) : (
-            <a
-              href={selectedPlanUrl || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary w-full text-center block py-4 mb-3"
-            >
-              Proceed to Checkout →
-            </a>
           )}
 
-          <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); setCountdown(null); }} className="btn-secondary w-full text-center py-3.5 text-sm">I'll Checkout Later</button>
+          {/* Proceed to Checkout button (can be clicked anytime to open/reopen overlay) */}
+          <button
+            type="button"
+            onClick={() => {
+              setCountdown(0);
+              openGumroadCheckout();
+            }}
+            disabled={isOpeningCheckout}
+            className="btn-primary w-full text-center block py-4 mb-3 font-semibold disabled:opacity-75"
+          >
+            {isOpeningCheckout ? 'Loading Checkout...' : 'Proceed to Checkout →'}
+          </button>
+
+          {/* Return to Website button */}
+          <button 
+            type="button"
+            onClick={() => { 
+              setIsIntakeModalOpen(false); 
+              setCurrentStep(1); 
+              setCountdown(null); 
+              setIsOpeningCheckout(false); 
+            }} 
+            className="btn-secondary w-full text-center py-3.5 text-sm"
+          >
+            I'll Checkout Later (Return to Website)
+          </button>
+
+          {/* Hidden anchor with gumroad-button class for Gumroad JS intercept */}
+          <a
+            id="gumroad-overlay-trigger"
+            className="gumroad-button hidden"
+            href={selectedPlanUrl || 'https://roamify01.gumroad.com'}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Checkout
+          </a>
         </div>
       </div>
       {/* Footer nav */}

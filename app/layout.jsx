@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans, Kalam } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import FloatingChat from "@/components/FloatingChat";
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body className={`${plusJakartaSans.variable} ${kalam.variable}`}>
         {children}
         <FloatingChat />
+        <Script src="https://gumroad.com/js/gumroad.js" strategy="afterInteractive" />
       </body>
     </html>
   );
