@@ -107,6 +107,8 @@ const jsonLdOrg = {
     "https://www.facebook.com/share/1FQTVLfs94/",
     "https://www.instagram.com/roamify.life/",
     "https://wa.me/message/N3LN7Y5F5DFHA1",
+    "https://www.trustpilot.com/review/roamify.life",
+    "https://pin.it/4d7Tc0r9d",
   ],
   aggregateRating: {
     "@type": "AggregateRating",

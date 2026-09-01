@@ -36,20 +36,19 @@
 Establishing a distinct brand footprint separates **Roamify Family Travel** from unrelated entities (e.g. the eSIM company) across Google's Knowledge Graph and LLM databases.
 
 ### 2.1 Review & Trust Platforms
-- [x] **Trustpilot Profile Created**
-  - **Action Item:** Ensure the Trustpilot profile name is set to: **"Roamify - Family Travel Itineraries"**
-  - **Action Item:** Add description: *"Custom vacation itineraries engineered for multi-generational families with toddlers and grandparents. Nap windows protected, step-free routes, and verified dining."*
-  - **Action Item:** Link profile website to `https://www.roamify.life`
+- [x] **Trustpilot Profile Created & Linked:** [`https://www.trustpilot.com/review/roamify.life`](https://www.trustpilot.com/review/roamify.life)
+  - Profile name: **"Roamify - Family Travel Itineraries"**
+  - Added to Schema.org `sameAs` entity graph on website.
 
 ### 2.2 Social Profile Consistency
 Ensure every profile uses the exact official links and brand bio:
-- [ ] **Instagram (`@roamify.life`):** Bio link pointing to `https://www.roamify.life`
-- [ ] **Facebook Page:** Link set to `https://www.roamify.life` (Page category: *Travel Agency / Tour Guide*)
-- [ ] **WhatsApp Business:** Profile website set to `https://www.roamify.life`
-- [ ] **Pinterest Business Account:** *(High Priority)*
-  - Create a free business account at [Pinterest.com](https://www.pinterest.com)
-  - Claim website `roamify.life`
-  - Board ideas: *Multi-Gen European Itineraries*, *Toddler-Friendly Rome*, *Grandparent Step-Free Travel*
+- [x] **Pinterest Business Account Created & Active:**
+  - Profile: [`https://pin.it/4d7Tc0r9d`](https://pin.it/4d7Tc0r9d)
+  - First Pin Published: [`https://pin.it/6DWnyHEfY`](https://pin.it/6DWnyHEfY)
+  - Added to website Schema.org `sameAs` entity graph.
+- [x] **Instagram (`@roamify.life`):** Bio link pointing to `https://www.roamify.life`
+- [x] **Facebook Page:** [`https://www.facebook.com/share/1FQTVLfs94/`](https://www.facebook.com/share/1FQTVLfs94/)
+- [x] **WhatsApp Business:** [`https://wa.me/message/N3LN7Y5F5DFHA1`](https://wa.me/message/N3LN7Y5F5DFHA1)
 
 ---
 
