@@ -90,21 +90,26 @@ export default function FloatingChat() {
                 <span className="text-xs font-semibold text-slate-700 group-hover:text-amber-700 group-hover:translate-x-0.5 transition-transform">Email →</span>
               </a>
 
-              {/* Facebook Messenger (Placeholder) */}
-              <div className="flex items-center justify-between p-3 bg-white/70 border border-slate-200/70 rounded-xl opacity-60 cursor-not-allowed">
+              {/* Facebook Page */}
+              <a
+                href="https://www.facebook.com/share/1FQTVLfs94/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-3 bg-white hover:bg-blue-50/60 border border-slate-200/80 hover:border-blue-300 rounded-xl transition-all shadow-sm hover:shadow"
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#0084FF] text-white flex items-center justify-center shadow-sm">
+                  <div className="w-9 h-9 rounded-xl bg-[#0084FF] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.082.3 2.235.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.056-3.259-5.963 3.259 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
                     </svg>
                   </div>
                   <div className="text-left">
-                    <p className="font-semibold text-xs text-slate-700">Facebook Messenger</p>
-                    <p className="text-[11px] text-slate-400">Coming Soon</p>
+                    <p className="font-semibold text-xs text-slate-800 group-hover:text-blue-700 transition-colors">Facebook Page</p>
+                    <p className="text-[11px] text-blue-500 font-medium">Follow & message us</p>
                   </div>
                 </div>
-                <span className="text-[10px] bg-slate-100 text-slate-500 font-medium px-2 py-0.5 rounded-full">Soon</span>
-              </div>
+                <span className="text-xs font-semibold text-slate-700 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-transform">Visit →</span>
+              </a>
 
               {/* Instagram */}
               <a
