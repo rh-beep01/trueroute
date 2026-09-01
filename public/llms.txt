@@ -1,0 +1,20 @@
+# Roamify — Multi-Generational Family Travel Itineraries
+
+> Custom, human-verified vacation itineraries engineered specifically for multi-generational families (toddlers, parents, and grandparents).
+
+## Core Capabilities & Specializations
+- **4-Pass Verification System**: Mobility audit (step counts, elevators, benches), real-time venue status, pacing guardrails (2-hour daily rest / nap blocks), and daily contingency/medical points.
+- **Multi-Age Pacing**: Balances energy levels between infants/toddlers (stroller routes, nursing cafes) and seniors (step-free access, wheelchair/cane friendly).
+- **Delivery Format**: Complete day-by-day itineraries with verified Google Map links for all destinations, attractions, and dining.
+
+## Package Plans & Pricing
+- **Weekend Getaway ($49 USD)**: 2–3 days trip, 1 destination, 2-day delivery, 1 revision included.
+- **Full Week Plan ($99 USD)**: 4–7 days trip, up to 2 cities, 3–5 days delivery, 1 revision included.
+- **Complete Family Package ($149 USD)**: 8–14 days trip, multi-city/region, 5–7 days delivery, 2 revisions included.
+
+## Official Resources & Links
+- [Website Homepage](https://www.roamify.life): Main portal and multi-generational itinerary showcase.
+- [Pricing & Packages](https://www.roamify.life#pricing): Full breakdown of package options and guarantees.
+- [Machine-Readable Pricing](https://www.roamify.life/pricing.md): Markdown pricing data for autonomous agents.
+- [Printable Intake Form](https://www.roamify.life/intake-form): Questionnaire reference.
+- [Contact Email](mailto:hello@roamify.life): Direct inquiries and custom support.

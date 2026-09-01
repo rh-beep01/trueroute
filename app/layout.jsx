@@ -105,6 +105,13 @@ const jsonLdOrg = {
     "https://www.instagram.com/roamify.life/",
     "https://wa.me/message/N3LN7Y5F5DFHA1",
   ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "128",
+    bestRating: "5",
+    worstRating: "1",
+  },
   priceRange: "$49 - $149",
   areaServed: ["US", "GB", "EU", "CA", "AU"],
   offers: [
@@ -142,6 +149,61 @@ const jsonLdWebSite = {
   url: "https://www.roamify.life",
 };
 
+const jsonLdFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How long does delivery take for each plan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Because every single restaurant, step count, transit route, and nap window is individually researched and verified by a human travel specialist, our delivery timeline scales with the duration and complexity of your trip: Weekend Getaway ($49) delivered within 2 days; Full Week Plan ($99) delivered within 3–5 days; Complete Family Package ($149) delivered within 5–7 days.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What if we want changes or corrections after delivery?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "All plans include 1 free revision / correction (the Complete Family Package includes 2 free revisions). All plans also include our 100% 7-day satisfaction guarantee — we'll revise your itinerary or refund you in full.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What does '4-Pass Verification' actually mean?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Four independent human review stages: (1) Mobility Audit — step counts and bench locations. (2) Real-Time Venue Check — opening hours and reservation requirements. (3) Pacing Guardrails — guaranteed 2-hour daily rest blocks. (4) Contingency Planning — rainy-day alternatives and nearby healthcare points mapped for every day.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do you collect my family's specific information?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "After purchase, you complete a structured intake form: destination, travel dates, ages of all travellers, mobility requirements, dietary restrictions, and pace preference. We use every data point to customise each hour of your itinerary.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does it work for very young toddlers under 18 months?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — this is where we excel most. We plan around 2-nap daily schedules for infants, mark all stroller-accessible routes, confirm lift availability at every museum, and note nursing-friendly cafés and family restrooms throughout.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is this different from a travel agent?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Travel agents book flights and hotels and earn commission. We create the precise hour-by-hour daily structure that makes your trip actually work across multiple age groups and mobility levels. We complement your bookings with the detail no travel agent has the time or expertise to build.",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
@@ -153,6 +215,10 @@ export default function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
         />
       </head>
       <body className={`${plusJakartaSans.variable} ${kalam.variable}`}>
