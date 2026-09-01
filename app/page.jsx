@@ -99,9 +99,24 @@ export default function Home() {
     const getNum = (id) => parseInt(document.getElementById(id)?.value) || 0;
     const getCheck = (id) => document.getElementById(id)?.checked || false;
 
+    const roamingPlaces = [
+      getCheck('roam-history') ? 'Historic & Heritage' : null,
+      getCheck('roam-food') ? 'Food, Markets & Culinary' : null,
+      getCheck('roam-nature') ? 'Nature & Scenic Parks' : null,
+      getCheck('roam-beach') ? 'Beaches & Waterfronts' : null,
+      getCheck('roam-culture') ? 'Art & Cultural Museums' : null,
+      getCheck('roam-family') ? 'Kids & Family Fun' : null,
+      getCheck('roam-towns') ? 'Charming Towns & Strolls' : null,
+      getCheck('roam-shopping') ? 'Local Boutiques & Shopping' : null,
+    ].filter(Boolean).join(', ');
+
+    const customPlaces = getVal('custom-places');
+    const combinedPlaceTypes = [roamingPlaces, customPlaces].filter(Boolean).join('; ');
+
     const formData = {
       dest_primary: getVal('dest-primary'),
       dest_secondary: getVal('dest-secondary'),
+      must_see: getVal('must-see'),
       plan_interest: getVal('plan-interest'),
       date_start: getVal('date-start'),
       date_end: getVal('date-end'),
@@ -112,6 +127,8 @@ export default function Home() {
       num_kids: getNum('num-kids'),
       ages_kids: getVal('ages-kids'),
       pace: getVal('pace'),
+      place_types: combinedPlaceTypes,
+      avoid_places: getVal('avoid-places'),
       accommodation: getVal('accommodation'),
       mob_walker: getCheck('mob-walker'),
       mob_wheelchair: getCheck('mob-wheelchair'),
@@ -1033,6 +1050,10 @@ export default function Home() {
               <input id="dest-secondary" type="text" className="form-input" placeholder="e.g. Florence" />
             </div>
             <div>
+              <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Specific Sights or Places You Want to Visit (optional)</label>
+              <input id="must-see" type="text" className="form-input" placeholder="e.g. Colosseum, Vatican Museums, Tuscan vineyard day trip, boat tour" />
+            </div>
+            <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Which Plan? *</label>
               <select id="plan-interest" className="form-input">
                 <option value>Select a plan…</option>
@@ -1081,7 +1102,7 @@ export default function Home() {
         </div>
         {/* Step 3: Preferences */}
         <div id="modal-step-3" className={`modal-step ${currentStep === 3 ? '' : 'hidden'}`}>
-          <h3 className="font-display font-bold text-base mb-4" style={{color: '#0F172A'}}>Preferences &amp; Requirements</h3>
+          <h3 className="font-display font-bold text-base mb-4" style={{color: '#0F172A'}}>Preferences &amp; Roaming Style</h3>
           <div className="space-y-3">
             <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Travel Pace *</label>
@@ -1091,6 +1112,36 @@ export default function Home() {
                 <option>Moderate (Morning &amp; Afternoon activity)</option>
                 <option>Fast (Pack in as much as possible!)</option>
               </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold mb-2 block" style={{color: '#64748B'}}>What type of places do you want to roam? (optional)</label>
+              <div className="grid grid-cols-2 gap-2">
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-history" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🏛️ Historic &amp; Landmarks</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-food" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🍕 Food, Cafes &amp; Markets</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-nature" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🌳 Parks &amp; Scenic Nature</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-beach" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🏖️ Beaches &amp; Waterfronts</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-culture" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🎨 Art &amp; Museums</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
+                  <input type="checkbox" id="roam-family" className="w-4 h-4 rounded text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">🎡 Kids &amp; Family Fun</span>
+                </label>
+              </div>
+              <input id="custom-places" type="text" className="form-input mt-2" placeholder="Other places/interests (e.g. vintage shopping, hidden alleyways, gardens)" />
             </div>
             <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Accommodation Style (optional)</label>
@@ -1115,8 +1166,12 @@ export default function Home() {
               <input id="dietary" type="text" className="form-input" placeholder="e.g. vegetarian, nut allergy, halal" />
             </div>
             <div>
+              <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Any specific places or activities to avoid? (optional)</label>
+              <input id="avoid-places" type="text" className="form-input" placeholder="e.g. Steep climbs, crowded tourist traps, long hikes" />
+            </div>
+            <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{color: '#64748B'}}>Anything else we should know? (optional)</label>
-              <textarea id="notes" className="form-input resize-none" rows={2} placeholder="e.g. Grandad has a hip replacement" defaultValue={""} />
+              <textarea id="notes" className="form-input resize-none" rows={2} placeholder="e.g. Celebrating a 70th birthday, grandad has a hip replacement" defaultValue={""} />
             </div>
           </div>
         </div>

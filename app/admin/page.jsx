@@ -99,10 +99,11 @@ Status: ${r.status || 'New'}
 • Full Name: ${r.client_name || 'N/A'}
 • Email Address: ${r.client_email || 'N/A'}
 
-[TRIP BASICS]
+[TRIP BASICS & PLACES TO VISIT]
 • Selected Package: ${r.plan_interest || 'N/A'} (Est. $${getPlanPrice(r.plan_interest)})
 • Primary Destination: ${r.dest_primary || 'N/A'}
 • Secondary Destination(s): ${r.dest_secondary || 'None'}
+• Must-See Sights / Wishlist: ${r.must_see || 'None specified'}
 • Travel Start Date: ${r.date_start ? formatDate(r.date_start) : 'N/A'}
 • Travel End Date: ${r.date_end ? formatDate(r.date_end) : 'N/A'}
 • Estimated Trip Duration: ${duration}
@@ -113,8 +114,10 @@ Status: ${r.status || 'New'}
 • Number of Seniors (65+): ${r.num_seniors || 0} (Ages: ${r.ages_seniors || 'N/A'})
 • Number of Children: ${r.num_kids || 0} (Ages: ${r.ages_kids || 'N/A'})
 
-[PREFERENCES & STYLE]
+[PREFERENCES & ROAMING STYLE]
 • Travel Pace: ${r.pace || 'N/A'}
+• Preferred Places to Roam: ${r.place_types || 'None specified'}
+• Places or Activities to Avoid: ${r.avoid_places || 'None'}
 • Accommodation Preference: ${r.accommodation || 'No preference'}
 
 [ACCESSIBILITY & MOBILITY REQUIREMENTS]
@@ -127,11 +130,11 @@ ${mobility.length > 0 ? mobility.join('\n') : '• No specific mobility limitati
 };
 
 const exportCSV = (requests) => {
-  const headers = ['Order ID','Name','Email','Destination','Secondary','Plan','Start','End','Travelers','Adults','Seniors','Children','Pace','Accommodation','Dietary','Notes','Status','Submitted'];
+  const headers = ['Order ID','Name','Email','Destination','Secondary','Must See Sights','Plan','Start','End','Travelers','Adults','Seniors','Children','Pace','Places to Roam','Avoid Places','Accommodation','Dietary','Notes','Status','Submitted'];
   const rows = requests.map(r => [
-    r.order_id || `TR-${r.id?.slice(0, 8) || ''}`, r.client_name, r.client_email, r.dest_primary, r.dest_secondary || '', r.plan_interest,
+    r.order_id || `TR-${r.id?.slice(0, 8) || ''}`, r.client_name, r.client_email, r.dest_primary, r.dest_secondary || '', r.must_see || '', r.plan_interest,
     r.date_start, r.date_end, r.traveller_count, r.num_adults, r.num_seniors, r.num_kids,
-    r.pace, r.accommodation || '', r.dietary || '', r.notes || '', r.status, r.created_at
+    r.pace, r.place_types || '', r.avoid_places || '', r.accommodation || '', r.dietary || '', r.notes || '', r.status, r.created_at
   ]);
   const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
@@ -513,6 +516,12 @@ export default function AdminDashboard() {
                   <p className="text-sm font-semibold text-emerald-600">${getPlanPrice(r.plan_interest)}</p>
                 </div>
               </div>
+              {r.must_see && (
+                <div className="mt-3 pt-3 border-t border-emerald-200/60">
+                  <span className="text-xs text-emerald-700 font-bold block mb-0.5">🏛️ Must-See Sights / Wishlist:</span>
+                  <p className="text-sm font-medium text-slate-800">{r.must_see}</p>
+                </div>
+              )}
             </div>
 
             {/* Party Details */}
@@ -537,14 +546,26 @@ export default function AdminDashboard() {
               <p className="text-xs text-slate-400 mt-2 text-center">{r.traveller_count || 0} travellers total</p>
             </div>
 
-            {/* Preferences */}
+            {/* Preferences & Roaming Style */}
             <div>
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">{Icons.star} Preferences</h3>
+              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">{Icons.star} Preferences &amp; Roaming Style</h3>
               <div className="space-y-2">
                 <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100">
                   <span className="text-sm text-slate-600">Travel Pace</span>
                   <span className="text-sm font-semibold text-slate-800">{r.pace || '—'}</span>
                 </div>
+                {r.place_types && (
+                  <div className="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100">
+                    <span className="text-xs text-slate-500 font-medium block mb-1">🧭 Places to Roam</span>
+                    <p className="text-sm font-semibold text-slate-800">{r.place_types}</p>
+                  </div>
+                )}
+                {r.avoid_places && (
+                  <div className="bg-red-50/50 rounded-lg px-3 py-2.5 border border-red-100">
+                    <span className="text-xs text-red-600 font-medium block mb-0.5">🚫 Places or Activities to Avoid</span>
+                    <p className="text-sm font-semibold text-slate-800">{r.avoid_places}</p>
+                  </div>
+                )}
                 {r.accommodation && (
                   <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100">
                     <span className="text-sm text-slate-600">Accommodation</span>

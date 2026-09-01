@@ -113,6 +113,11 @@ export default function IntakeForm() {
         <div className="hint">List all cities/regions in order of visit</div>
         <input className="line" type="text" placeholder="e.g. Rome → Florence → Tuscany" />
       </div>
+      <div className="field">
+        <label>Specific sights or places you want to visit (optional)</label>
+        <div className="hint">List any must-see landmarks, museums, or excursions</div>
+        <input className="line" type="text" placeholder="e.g. Colosseum, Vatican, Amalfi boat trip, Tuscan cooking class" />
+      </div>
       <div className="field-row">
         <div className="field">
           <label>Your Package</label>
