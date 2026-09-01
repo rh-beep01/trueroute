@@ -920,8 +920,14 @@ export default function Home() {
             <span className="font-display font-bold text-base" style={{color: '#0F172A'}}>Roamify</span>
           </div>
           <p className="text-sm leading-relaxed mb-5" style={{color: '#64748B'}}>Multi-generational travel itineraries built for ages 3 to 75. Precision-planned, human-verified.</p>
-          <p className="text-xs mb-3 font-semibold" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
-          {/* Social logo icons row */}
+          {/* Email address with small inline icon */}
+          <p className="text-xs mb-3 flex items-center gap-1.5" style={{color: '#94A3B8'}}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <a href="mailto:hello@roamify.life" className="hover:underline font-semibold" style={{color: '#E05A47'}}>hello@roamify.life</a>
+          </p>
+          {/* Social logo icons — Instagram, Facebook, WhatsApp only */}
           <div className="flex items-center gap-3 mt-1">
             <a href="https://www.instagram.com/roamify.life/" target="_blank" rel="noopener noreferrer" title="Instagram" className="group">
               <img src="/logos/instagram.svg" alt="Instagram" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
@@ -931,9 +937,6 @@ export default function Home() {
             </a>
             <a href="https://wa.me/message/N3LN7Y5F5DFHA1" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="group">
               <img src="/logos/whatsapp.svg" alt="WhatsApp" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
-            </a>
-            <a href="mailto:hello@roamify.life" title="Email us" className="group">
-              <img src="/logos/email.svg" alt="Email" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
             </a>
           </div>
         </div>
