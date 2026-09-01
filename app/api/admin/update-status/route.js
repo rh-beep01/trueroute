@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     const authHeader = request.headers.get('authorization');
     const token = authHeader?.split(' ')[1];
-    const expectedPassword = process.env.ADMIN_PASSWORD || 'admin123';
+    const expectedPassword = process.env.ADMIN_PASSWORD || '#roamify@2026';
 
     if (!token || token !== expectedPassword) {
       console.warn('Admin status update unauthorized. Token mismatch.');

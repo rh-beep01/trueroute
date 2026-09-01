@@ -43,7 +43,7 @@ function normalizeRequest(r) {
 export async function GET(request) {
   const authHeader = request.headers.get('authorization');
   const token = authHeader?.split(' ')[1];
-  const expectedPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const expectedPassword = process.env.ADMIN_PASSWORD || '#roamify@2026';
 
   if (!token || token !== expectedPassword) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
