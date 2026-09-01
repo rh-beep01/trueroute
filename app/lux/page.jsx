@@ -159,7 +159,7 @@ export default function LuxuryHome() {
   <header id="main-header" className={"py-4 px-6 " + (isScrolled ? "scrolled" : "")}>
     <div className="max-w-7xl mx-auto flex items-center justify-between">
       {/* Logo */}
-      <a href="#" className="flex items-center gap-3 group">
+      <a href="/lux" className="flex items-center gap-3 group" aria-label="Roamify Luxury Edition">
         <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{background: '#0F172A'}}>
           <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#DFB15B" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.9 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 21 15.44" />
@@ -920,11 +920,11 @@ export default function LuxuryHome() {
         <div>
           <h4 className="text-xs font-bold mb-4 tracking-widest uppercase" style={{color: '#94A3B8'}}>Destinations</h4>
           <ul className="space-y-2 text-sm" style={{color: '#64748B'}}>
-            <li><a href="#" className="hover:underline font-medium">🇮🇹 Italy, 🇬🇧 UK, 🇵🇹 Portugal</a></li>
-            <li><a href="#" className="hover:underline font-medium">🇪🇸 Spain, 🇫🇷 France, 🇬🇷 Greece</a></li>
-            <li><a href="#" className="hover:underline font-medium">🇳🇱 Netherlands, 🇨🇭 Switzerland</a></li>
-            <li><a href="#" className="hover:underline font-medium">🇦🇹 Austria, 🇨🇿 Czech Republic</a></li>
-            <li><a href="#" className="hover:underline font-medium">🇩🇪 Germany, 🇭🇷 Croatia</a></li>
+            <li><a href="#sample" className="hover:underline font-medium">🇮🇹 Italy, 🇬🇧 UK, 🇵🇹 Portugal</a></li>
+            <li><a href="#sample" className="hover:underline font-medium">🇪🇸 Spain, 🇫🇷 France, 🇬🇷 Greece</a></li>
+            <li><a href="#sample" className="hover:underline font-medium">🇳🇱 Netherlands, 🇨🇭 Switzerland</a></li>
+            <li><a href="#sample" className="hover:underline font-medium">🇦🇹 Austria, 🇨🇿 Czech Republic</a></li>
+            <li><a href="#sample" className="hover:underline font-medium">🇩🇪 Germany, 🇭🇷 Croatia</a></li>
           </ul>
         </div>
         <div>
@@ -940,9 +940,9 @@ export default function LuxuryHome() {
           <h4 className="text-xs font-bold mb-4 tracking-widest uppercase" style={{color: '#94A3B8'}}>Support &amp; Trust</h4>
           <ul className="space-y-2 text-sm" style={{color: '#64748B'}}>
             <li><a href="#faq" className="hover:underline font-medium">Frequently Asked Questions</a></li>
-            <li><a href="#" className="hover:underline font-medium">Privacy Policy</a></li>
-            <li><a href="#" className="hover:underline font-medium">Terms of Service</a></li>
-            <li><a href="#" className="hover:underline font-medium">Refund Policy</a></li>
+            <li><a href="#faq" className="hover:underline font-medium">Privacy Policy</a></li>
+            <li><a href="#faq" className="hover:underline font-medium">Terms of Service</a></li>
+            <li><a href="#faq" className="hover:underline font-medium">Refund Policy</a></li>
           </ul>
           <div className="mt-5 bg-white rounded-xl p-3 inline-flex items-center gap-2 border" style={{borderColor: '#F1EFE7'}}>
             <span>🛡️</span>
