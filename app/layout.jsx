@@ -46,7 +46,7 @@ export const metadata = {
     canonical: "/",
   },
   verification: {
-    google: "3RUIbp3lQXEYpcxspaS7eCDH-OOnRkBNuTqd7DPyMCA",
+    google: ["DRW-qbWqqaVlygY0RKRBcz50avmovZ9ysfFBVt8xcZo", "3RUIbp3lQXEYpcxspaS7eCDH-OOnRkBNuTqd7DPyMCA"],
   },
   openGraph: {
     title: "Roamify — Multi-Generational Family Travel, Perfected",
