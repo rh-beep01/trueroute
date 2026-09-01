@@ -221,9 +221,40 @@
   .observe-me.visible { opacity: 1; transform: none; }
 
   /* ── Modal ───────────────────────────── */
-  #intake-modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(15,23,42,0.45); backdrop-filter:blur(8px); align-items:center; justify-content:center; }
-  #intake-modal.open { display:flex; }
-  .modal-card { max-width:560px; width:94%; animation: popIn 0.4s ease; background: #FFFFFF; border-radius: 24px; box-shadow: 0 24px 80px rgba(15,23,42,0.22); overflow: hidden; }
+  #intake-modal { 
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    z-index: 2000; 
+    background: rgba(15,23,42,0.55); 
+    backdrop-filter: blur(8px); 
+    align-items: center; 
+    justify-content: center; 
+    padding: 16px;
+    overflow-y: auto;
+  }
+  #intake-modal.open { display: flex; }
+  .modal-card { 
+    max-width: 580px; 
+    width: 100%; 
+    max-height: calc(100vh - 32px); 
+    display: flex;
+    flex-direction: column;
+    animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
+    background: #FFFFFF; 
+    border-radius: 24px; 
+    box-shadow: 0 24px 80px rgba(15,23,42,0.25); 
+    overflow: hidden; 
+    margin: auto;
+  }
+  .modal-header { flex-shrink: 0; }
+  .modal-body { 
+    overflow-y: auto; 
+    flex: 1 1 auto; 
+    overscroll-behavior: contain; 
+    -webkit-overflow-scrolling: touch; 
+  }
+  .modal-footer { flex-shrink: 0; }
 
   .step-dot { width:9px; height:9px; border-radius:50%; background:#E2E8F0; transition:all 0.3s; }
   .step-dot.active { background:#E05A47; box-shadow:0 0 0 3px rgba(224,90,71,0.2); }

@@ -1013,16 +1013,28 @@ export default function Home() {
   {/* ══════════════════════════════════════════════
      INTAKE MODAL
 ══════════════════════════════════════════════ */}
-  <div id="intake-modal" className={isIntakeModalOpen ? "open" : ""} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div className="modal-card mx-4">
+  <div 
+    id="intake-modal" 
+    className={isIntakeModalOpen ? "open" : ""} 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="modal-title"
+    onClick={(e) => {
+      if (e.target.id === 'intake-modal') {
+        setIsIntakeModalOpen(false);
+        setCurrentStep(1);
+      }
+    }}
+  >
+    <div className="modal-card mx-4" onClick={(e) => e.stopPropagation()}>
       {/* Header */}
-      <div className="p-6 border-b" style={{borderColor: '#F1EFE7'}}>
+      <div className="modal-header p-6 border-b flex-shrink-0" style={{borderColor: '#F1EFE7'}}>
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 id="modal-title" className="font-display font-bold text-lg" style={{color: '#0F172A'}}>Build Your Family Itinerary</h2>
             <p className="text-sm mt-0.5" id="modal-subtitle" style={{color: '#94A3B8'}}>Step {Math.min(currentStep, 4)} of 4</p>
           </div>
-          <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style={{background: '#F1F5F9', color: '#64748B'}} aria-label="Close">
+          <button onClick={() => { setIsIntakeModalOpen(false); setCurrentStep(1); }} className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors hover:bg-slate-200 cursor-pointer" style={{background: '#F1F5F9', color: '#64748B'}} aria-label="Close">
             <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><line x1={18} y1={6} x2={6} y2={18} /><line x1={6} y1={6} x2={18} y2={18} /></svg>
           </button>
         </div>
@@ -1036,7 +1048,7 @@ export default function Home() {
         )}
       </div>
       {/* Body */}
-      <div className="p-6">
+      <div className="modal-body p-6">
         {/* Step 1: Trip Details */}
         <div id="modal-step-1" className={`modal-step ${currentStep === 1 ? '' : 'hidden'}`}>
           <h3 className="font-display font-bold text-base mb-4" style={{color: '#0F172A'}}>Where &amp; When are you travelling?</h3>
@@ -1285,8 +1297,8 @@ export default function Home() {
       </div>
       {/* Footer nav */}
       {currentStep < 5 && (
-      <div className="p-5 border-t flex justify-between items-center" id="modal-nav" style={{borderColor: '#F1EFE7', background: '#FAFAF7'}}>
-        <button onClick={() => setCurrentStep(prev => prev - 1)} id="btn-back" className={`btn-secondary text-sm py-2.5 px-6 ${currentStep === 1 ? 'hidden' : ''}`}>← Back</button>
+      <div className="modal-footer p-5 border-t flex justify-between items-center flex-shrink-0" id="modal-nav" style={{borderColor: '#F1EFE7', background: '#FAFAF7'}}>
+        <button onClick={() => setCurrentStep(prev => prev - 1)} id="btn-back" className={`btn-secondary text-sm py-2.5 px-6 cursor-pointer ${currentStep === 1 ? 'hidden' : ''}`}>← Back</button>
         <div className="flex-1" />
         <button onClick={() => {
           if (currentStep === 4) {
@@ -1294,7 +1306,7 @@ export default function Home() {
           } else {
             setCurrentStep(prev => prev + 1);
           }
-        }} id="btn-next" className="btn-primary text-sm py-2.5 px-8">
+        }} id="btn-next" className="btn-primary text-sm py-2.5 px-8 cursor-pointer">
           {currentStep === 4 ? (btnText === 'Complete Order' ? 'Submit' : btnText) : 'Continue →'}
         </button>
       </div>
