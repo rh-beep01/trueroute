@@ -244,10 +244,10 @@ export default function Home() {
           "Custom itineraries engineered for toddlers, parents &amp; grandparents."
         </p>
         <p className="text-base leading-relaxed mb-10 max-w-lg" style={{color: '#475569'}}>
-          No hallucinations. No broken walking routes. Every schedule protects
-          <strong style={{color: '#2E6F40', fontWeight: 700}}>toddler nap windows</strong>, features
-          <strong style={{color: '#2E6F40', fontWeight: 700}}>step-free routes for seniors</strong>,
-          and guarantees confirmed family-friendly dining.
+          Zero guesswork. Zero family meltdowns. Tailored daily schedules featuring{" "}
+          <strong style={{color: '#2E6F40', fontWeight: 700}}>protected nap windows</strong>,{" "}
+          <strong style={{color: '#2E6F40', fontWeight: 700}}>step-free routes for aging parents</strong>, and{" "}
+          <strong style={{color: '#2E6F40', fontWeight: 700}}>verified family-welcoming dining</strong> across Europe.
         </p>
         <div className="flex flex-wrap gap-3 mb-10">
           <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8 shadow-md cursor-pointer">
