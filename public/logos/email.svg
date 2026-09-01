@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#25D366"/>
+  <rect x="16" y="30" width="68" height="46" rx="6" fill="#1aad52"/>
+  <rect x="16" y="30" width="68" height="46" rx="6" fill="none" stroke="white" stroke-width="0"/>
+  <polygon points="16,30 50,56 84,30" fill="#25D366"/>
+  <polyline points="16,30 50,56 84,30" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="16" y="30" width="68" height="46" rx="6" fill="none"/>
+  <!-- envelope body -->
+  <rect x="14" y="28" width="72" height="48" rx="7" fill="#1db954" opacity="0"/>
+  <!-- Clean flat envelope matching user's green email icon -->
+  <g>
+    <rect x="14" y="28" width="72" height="48" rx="7" fill="#28C840"/>
+    <polygon points="14,28 50,58 86,28" fill="#1aad52"/>
+    <polyline points="14,76 38,52" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+    <polyline points="86,76 62,52" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+    <polyline points="14,28 50,56 86,28" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+</svg>

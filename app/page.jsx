@@ -919,10 +919,23 @@ export default function Home() {
             </div>
             <span className="font-display font-bold text-base" style={{color: '#0F172A'}}>Roamify</span>
           </div>
-          <p className="text-sm leading-relaxed mb-4" style={{color: '#64748B'}}>Multi-generational travel itineraries built for ages 3 to 75. Precision-planned, human-verified.</p>
-          <p className="text-xs mb-1.5" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="font-semibold hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
-          <p className="text-xs mb-1.5" style={{color: '#94A3B8'}}>📸 <a href="https://www.instagram.com/roamify.life/" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{color: '#E05A47'}}>@roamify.life</a></p>
-          <p className="text-xs" style={{color: '#94A3B8'}}>📘 <a href="https://www.facebook.com/share/1FQTVLfs94/" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{color: '#E05A47'}}>Facebook Page</a></p>
+          <p className="text-sm leading-relaxed mb-5" style={{color: '#64748B'}}>Multi-generational travel itineraries built for ages 3 to 75. Precision-planned, human-verified.</p>
+          <p className="text-xs mb-3 font-semibold" style={{color: '#94A3B8'}}>📧 <a href="mailto:hello@roamify.life" className="hover:underline" style={{color: '#E05A47'}}>hello@roamify.life</a></p>
+          {/* Social logo icons row */}
+          <div className="flex items-center gap-3 mt-1">
+            <a href="https://www.instagram.com/roamify.life/" target="_blank" rel="noopener noreferrer" title="Instagram" className="group">
+              <img src="/logos/instagram.svg" alt="Instagram" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
+            </a>
+            <a href="https://www.facebook.com/share/1FQTVLfs94/" target="_blank" rel="noopener noreferrer" title="Facebook" className="group">
+              <img src="/logos/facebook.svg" alt="Facebook" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
+            </a>
+            <a href="https://wa.me/message/N3LN7Y5F5DFHA1" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="group">
+              <img src="/logos/whatsapp.svg" alt="WhatsApp" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
+            </a>
+            <a href="mailto:hello@roamify.life" title="Email us" className="group">
+              <img src="/logos/email.svg" alt="Email" className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
+            </a>
+          </div>
         </div>
         <div>
           <h4 className="text-xs font-bold mb-4 tracking-widest uppercase" style={{color: '#94A3B8'}}>Destinations</h4>
