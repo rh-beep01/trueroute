@@ -247,10 +247,10 @@ export default function LuxuryHome() {
           family-welcoming dining spots where everyone actually enjoys the journey.
         </p>
         <div className="flex flex-wrap gap-3 mb-10">
-          <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8">
-            Get Your Custom Itinerary — From $49
+          <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8 shadow-md cursor-pointer">
+            Get Our Stress-Free Family Itinerary →
           </button>
-          <a href="#sample" id="hero-cta-secondary" className="btn-secondary text-base py-4 px-8">
+          <a href="#sample" id="hero-cta-secondary" className="btn-secondary text-base py-4 px-8 cursor-pointer">
             Explore a Sample Day
           </a>
         </div>
@@ -620,7 +620,7 @@ export default function LuxuryHome() {
         </div>
       </div>
       <div className="text-center mt-10 observe-me">
-        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10">Get Your Custom Itinerary →</button>
+        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10 shadow-md cursor-pointer">Get Our Stress-Free Family Itinerary →</button>
         <p className="text-sm mt-3" style={{color: '#94A3B8'}}>Includes interactive Google Maps links, transit guidance, and family packing tips.</p>
       </div>
     </div>
@@ -907,10 +907,10 @@ export default function LuxuryHome() {
       </h2>
       <p className="handwritten text-2xl mb-8" style={{color: '#DFB15B', display: 'inline-block'}}>"Every generation. Every memory. Completely stress-free."</p>
       <div className="flex flex-wrap gap-4 justify-center mt-6">
-        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10">
-          Get Your Custom Itinerary — From $49
+        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10 shadow-md cursor-pointer">
+          Get Our Stress-Free Family Itinerary →
         </button>
-        <a href="#pricing" className="text-base py-4 px-8 rounded-xl font-bold transition-all" style={{border: '1.5px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)', fontFamily: '"Plus Jakarta Sans",sans-serif'}}>
+        <a href="#pricing" className="text-base py-4 px-8 rounded-xl font-bold transition-all hover:bg-white/10 cursor-pointer" style={{border: '1.5px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)', fontFamily: '"Plus Jakarta Sans",sans-serif'}}>
           View All Plans
         </a>
       </div>

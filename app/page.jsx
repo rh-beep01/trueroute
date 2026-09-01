@@ -200,8 +200,8 @@ export default function Home() {
         <a href="#faq" className="nav-link text-sm">FAQ</a>
       </nav>
       <div className="flex items-center gap-3">
-        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-sm hidden sm:inline-block">Build Our Family Itinerary</button>
-        <button id="menu-toggle" className="lg:hidden p-2 rounded-lg border border-canvas-border bg-white" style={{color: '#0F172A'}} aria-label="Open menu">
+        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-sm hidden sm:inline-block">Get Our Stress-Free Itinerary</button>
+        <button id="menu-toggle" onClick={() => setIsMobileNavOpen(prev => !prev)} className="lg:hidden p-2 rounded-lg border border-canvas-border bg-white" style={{color: '#0F172A'}} aria-label="Open menu">
           <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <line x1={3} y1={6} x2={21} y2={6} /><line x1={3} y1={12} x2={21} y2={12} /><line x1={3} y1={18} x2={21} y2={18} />
           </svg>
@@ -209,14 +209,14 @@ export default function Home() {
       </div>
     </div>
     {/* Mobile Nav */}
-    <nav id="mobile-nav" className={"hidden lg:hidden mt-3 mx-4 bg-white rounded-2xl border border-canvas-border shadow-md p-5 space-y-3 " + (isMobileNavOpen ? "!block" : "hidden")}>
-      <a href="#why-us" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Why Us</a>
-      <a href="#four-pass" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Verification</a>
-      <a href="#fork-merge" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Fork &amp; Merge</a>
-      <a href="#pricing" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Pricing</a>
+    <nav id="mobile-nav" className={"lg:hidden mt-3 mx-4 bg-white rounded-2xl border border-canvas-border shadow-md p-5 space-y-3 " + (isMobileNavOpen ? "block" : "hidden")}>
+      <a href="#why-us" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Why Roamify</a>
+      <a href="#four-pass" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Our 4-Point Check</a>
+      <a href="#fork-merge" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>The Daily Flow</a>
       <a href="#sample" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Sample Itinerary</a>
+      <a href="#pricing" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>Pricing</a>
       <a href="#faq" onClick={() => setIsMobileNavOpen(false)} className="block text-sm font-semibold py-1" style={{color: '#1E293B'}}>FAQ</a>
-      <button onClick={() => { window.location.href='#pricing'; setIsMobileNavOpen(false); }} className="btn-primary w-full text-center py-3 mt-2">Build Our Family Itinerary</button>
+      <button onClick={() => { window.location.href='#pricing'; setIsMobileNavOpen(false); }} className="btn-primary w-full text-center py-3 mt-2">Get Our Stress-Free Itinerary</button>
     </nav>
   </header>
   {/* ══════════════════════════════════════════════
@@ -232,7 +232,7 @@ export default function Home() {
         {/* Trust badge */}
         <div className="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-8 border" style={{borderColor: '#F1EFE7', boxShadow: '0 2px 10px rgba(15,23,42,0.07)'}}>
           <span style={{color: '#DFB15B'}} className="text-sm">★★★★★</span>
-          <span className="text-xs font-semibold" style={{color: '#1E293B'}}>Top Rated · Italy, UK &amp; Portugal</span>
+          <span className="text-xs font-semibold" style={{color: '#1E293B'}}>Engineered for Multi-Gen Families · Ages 3 to 75</span>
           <span className="w-2 h-2 rounded-full animate-pulse" style={{background: '#2E6F40'}} />
         </div>
         <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-[3.6rem] xl:text-7xl leading-[1.06] mb-5" style={{color: '#0F172A'}}>
@@ -250,10 +250,10 @@ export default function Home() {
           and guarantees confirmed family-friendly dining.
         </p>
         <div className="flex flex-wrap gap-3 mb-10">
-          <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8">
-            Build Our Family Itinerary — From $49
+          <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8 shadow-md cursor-pointer">
+            Get Our Stress-Free Family Itinerary →
           </button>
-          <a href="#sample" id="hero-cta-secondary" className="btn-secondary text-base py-4 px-8">
+          <a href="#sample" id="hero-cta-secondary" className="btn-secondary text-base py-4 px-8 cursor-pointer">
             Explore Sample Itinerary
           </a>
         </div>
@@ -626,7 +626,7 @@ export default function Home() {
         </div>
       </div>
       <div className="text-center mt-10 observe-me">
-        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10">Build Our Family Itinerary →</button>
+        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10 shadow-md cursor-pointer">Get Our Stress-Free Family Itinerary →</button>
         <p className="text-sm mt-3" style={{color: '#94A3B8'}}>Full plan includes Google Maps links, transit guides, and age-group packing lists.</p>
       </div>
     </div>
@@ -913,10 +913,10 @@ export default function Home() {
       </h2>
       <p className="handwritten text-2xl mb-8" style={{color: '#DFB15B', display: 'inline-block'}}>"Every generation. Every memory. Zero stress."</p>
       <div className="flex flex-wrap gap-4 justify-center mt-6">
-        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10">
-          Build Our Family Itinerary — From $49
+        <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10 shadow-md cursor-pointer">
+          Get Our Stress-Free Family Itinerary →
         </button>
-        <a href="#pricing" className="text-base py-4 px-8 rounded-xl font-bold transition-all" style={{border: '1.5px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)', fontFamily: '"Plus Jakarta Sans",sans-serif'}}>
+        <a href="#pricing" className="text-base py-4 px-8 rounded-xl font-bold transition-all hover:bg-white/10 cursor-pointer" style={{border: '1.5px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)', fontFamily: '"Plus Jakarta Sans",sans-serif'}}>
           View All Plans
         </a>
       </div>
