@@ -47,6 +47,9 @@ export const metadata = {
   },
   verification: {
     google: ["DRW-qbWqqaVlygY0RKRBcz50avmovZ9ysfFBVt8xcZo", "3RUIbp3lQXEYpcxspaS7eCDH-OOnRkBNuTqd7DPyMCA"],
+    other: {
+      "p:domain_verify": "19f772ed1c07e8f3feb371902c5c75dc",
+    },
   },
   openGraph: {
     title: "Roamify — Multi-Generational Family Travel, Perfected",
