@@ -251,7 +251,7 @@ export default function Home() {
         </p>
         <div className="flex flex-wrap gap-3 mb-10">
           <button onClick={() => window.location.href='#pricing'} id="hero-cta-primary" className="btn-primary text-base py-4 px-8 shadow-md cursor-pointer">
-            Get Our Stress-Free Family Itinerary →
+            Get Our Stress-Free Family Itinerary — From $49
           </button>
           <a href="#sample" id="hero-cta-secondary" className="btn-secondary text-base py-4 px-8 cursor-pointer">
             Explore Sample Itinerary
@@ -914,7 +914,7 @@ export default function Home() {
       <p className="handwritten text-2xl mb-8" style={{color: '#DFB15B', display: 'inline-block'}}>"Every generation. Every memory. Zero stress."</p>
       <div className="flex flex-wrap gap-4 justify-center mt-6">
         <button onClick={() => window.location.href='#pricing'} className="btn-primary text-base py-4 px-10 shadow-md cursor-pointer">
-          Get Our Stress-Free Family Itinerary →
+          Get Our Stress-Free Family Itinerary — From $49
         </button>
         <a href="#pricing" className="text-base py-4 px-8 rounded-xl font-bold transition-all hover:bg-white/10 cursor-pointer" style={{border: '1.5px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)', fontFamily: '"Plus Jakarta Sans",sans-serif'}}>
           View All Plans
